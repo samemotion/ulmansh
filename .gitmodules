@@ -1,0 +1,6 @@
+[submodule "odoo11_pe"]
+	path = odoo11_pe
+	url = git@github.com:samemotion/odoo11_pe.git
+[submodule "odoo11_pe_invoicing"]
+	path = odoo11_pe_invoicing
+	url = git@github.com:samemotion/odoo11_pe_invoicing.git
