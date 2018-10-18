@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report.external_layout_debnote">
+		<t t-call="report.external_layout_header_debnote" />
+		<t t-raw="0" />
+		<t t-call="report.external_layout_footer_debnote" />
+	</template>
+	<template id="report.external_layout_footer_debnote">
+		<div class="footer">
+			<div class="text-center" style="border-top: 1px solid black;">
+				<ul class="list-inline">
+					<li>Pagina:</li>
+					<li>
+						<span class="page"/>
+					</li>
+					<li>/</li>
+					<li>
+						<span class="topage"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+	<template id="report.external_layout_header_debnote">
+		<div class="header">
+			<div class="row">
+				<table>
+					<tr>
+						<td style="width:150mm">
+							<table>
+								<tr>
+									<td>
+										<img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 45px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.x_business_name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.street"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="width:60mm">
+							<div class="invoice_square" style="border: 1px solid black;margin:auto;width:100%;">
+								<table>
+									<tr>
+										<td>
+											<span>R.U.C: 																																																												
+												<span t-field="res_company.partner_id.vat"/></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>NOTA DE DEBITO ELECTRONICA</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>Nº:<span t-field="o.refund_invoice_id.x_document_serial"/><span>-</span><span t-field="o.refund_invoice_id.x_document_correlative"/></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+
+	<template id="report.external_layout_note">
+		<t t-call="report.external_layout_header_note" />
+		<t t-raw="0" />
+		<t t-call="report.external_layout_footer_note" />
+	</template>
+	<template id="report.external_layout_footer_note">
+		<div class="footer">
+			<div class="text-center" style="border-top: 1px solid black;">
+				<ul class="list-inline">
+					<li>Pagina:</li>
+					<li>
+						<span class="page"/>
+					</li>
+					<li>/</li>
+					<li>
+						<span class="topage"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+	<template id="report.external_layout_header_note">
+		<div class="header">
+			<div class="row">
+				<table>
+					<tr>
+						<td style="width:150mm">
+							<table>
+								<tr>
+									<td>
+										<img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 45px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.x_business_name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.street"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="width:60mm">
+							<div class="invoice_square" style="border: 1px solid black;margin:auto;width:100%;">
+								<table>
+									<tr>
+										<td>
+											<span>R.U.C: 																																																												
+												<span t-field="res_company.partner_id.vat"/></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>NOTA DE CREDITO ELECTRONICA</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>Nº:<span t-field="o.refund_invoice_id.x_document_serial"/><span>-</span><span t-field="o.refund_invoice_id.x_document_correlative"/></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+
+	<template id="report.external_layout_invoice">
+		<t t-call="report.external_layout_header_invoice" />
+		<t t-raw="0" />
+		<t t-call="report.external_layout_footer_invoice" />
+	</template>
+	<template id="report.external_layout_footer_invoice">
+		<div class="footer">
+			<div class="text-center" style="border-top: 1px solid black;">
+				<ul class="list-inline">
+					<li>Pagina:</li>
+					<li>
+						<span class="page"/>
+					</li>
+					<li>/</li>
+					<li>
+						<span class="topage"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+	<template id="report.external_layout_header_invoice">
+		<div class="header">
+			<div class="row">
+				<table>
+					<tr>
+						<td style="width:150mm">
+							<table>
+								<tr>
+									<td>
+										<img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 45px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.x_business_name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.street"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="width:60mm">
+							<div class="invoice_square" style="border: 1px solid black;margin:auto;width:100%;">
+								<table>
+									<tr>
+										<td>
+											<span>R.U.C: 																																																												
+												<span t-field="res_company.partner_id.vat"/></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>FACTURA ELECTRONICA</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>Nº:<span t-field="o.x_document_serial"/><span>-</span><span t-field="o.x_document_correlative"/></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+	<template id="report.external_layout_ticket">
+		<t t-call="report.external_layout_header_ticket" />
+		<t t-raw="0" />
+		<t t-call="report.external_layout_footer_ticket" />
+	</template>
+	<template id="report.external_layout_footer_ticket">
+		<div class="footer">
+			<div class="text-center" style="border-top: 1px solid black;">
+				<ul class="list-inline">
+					<li>Pagina:</li>
+					<li>
+						<span class="page"/>
+					</li>
+					<li>/</li>
+					<li>
+						<span class="topage"/>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</template>
+	<template id="report.external_layout_header_ticket">
+		<div class="header">
+			<div class="row">
+				<table>
+					<tr>
+						<td style="width:150mm">
+							<table>
+								<tr>
+									<td>
+										<img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height: 45px;"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.x_business_name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.name"/>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<span t-field="res_company.partner_id.street"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="width:60mm">
+							<div class="invoice_square" style="border: 1px solid black;margin:auto;width:100%;">
+								<table>
+									<tr>
+										<td>
+											<span>R.U.C: 																																																												
+												<span t-field="res_company.partner_id.vat"/></span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>BOLETA ELECTRONICA</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<span>Nº: <span t-field="o.x_document_serial"/><span>-</span><span t-field="o.x_document_correlative"/></span>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</template>
+</odoo>
