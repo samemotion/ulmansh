@@ -333,7 +333,7 @@
                                         Señor(es): <span t-field="o.partner_id"/>
                                     </td>
                                     <td>
-                                        Tipo: <span t-field="o.x_origin.journal_id.x_invoice_type"/>
+                                        Tipo: <span t-field="o.refund_invoice_id.journal_id.x_invoice_type"/>
                                     </td>
                                 </table>
                             </tr>
@@ -345,19 +345,19 @@
                                         D.I. <span t-field="o.partner_id.vat"/>
                                     </td>
                                     <td>
-                                        <t t-if="o.x_origin.journal_id.x_invoice_type=='TK'">
-                                            <t t-if="o.x_origin.journal_id.x_printer_sn">
-                                                Serie: <span t-field="o.x_origin.journal_id.x_printer_sn"/>
+                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
+                                            <t t-if="o.refund_invoice_id.journal_id.x_printer_sn">
+                                                Serie: <span t-field="o.refund_invoice_id.journal_id.x_printer_sn"/>
                                             </t>
-                                            <t t-if="not o.x_origin.journal_id.x_printer_sn">
+                                            <t t-if="not o.refund_invoice_id.journal_id.x_printer_sn">
                                                 Serie: 
                                             </t>
                                         </t>
-                                        <t t-if="o.x_origin.journal_id.x_invoice_type!='TK'">
-                                            <t t-if="o.x_origin.number">
-                                                Serie: <span t-esc="o.x_origin.number[:3]"/>
+                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type!='TK'">
+                                            <t t-if="o.refund_invoice_id.number">
+                                                Serie: <span t-esc="o.refund_invoice_id.number[:3]"/>
                                             </t>
-                                            <t t-if="not o.x_origin.number">
+                                            <t t-if="not o.refund_invoice_id.number">
                                                 Serie: 
                                             </t>
                                         </t>
@@ -377,19 +377,19 @@
                                         </t>
                                     </td>
                                     <td>
-                                        <t t-if="o.x_origin.journal_id.x_invoice_type=='TK'">
-                                            <t t-if="o.x_origin.number">
-                                                Numero: <span t-field="o.x_origin.number"/>
+                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
+                                            <t t-if="o.refund_invoice_id.number">
+                                                Numero: <span t-field="o.refund_invoice_id.number"/>
                                             </t>
-                                            <t t-if="not o.x_origin.number">
+                                            <t t-if="not o.refund_invoice_id.number">
                                                 Numero: 
                                             </t>
                                         </t>
-                                        <t t-if="o.x_origin.journal_id.x_invoice_type!='TK'">
-                                            <t t-if="o.x_origin.number">
-                                                Numero: <span t-esc="o.x_origin.number[4:]"/>
+                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type!='TK'">
+                                            <t t-if="o.refund_invoice_id.number">
+                                                Numero: <span t-esc="o.refund_invoice_id.number[4:]"/>
                                             </t>
-                                            <t t-if="not o.x_origin.number">
+                                            <t t-if="not o.refund_invoice_id.number">
                                                 Numero: 
                                             </t>
                                         </t>
@@ -407,7 +407,7 @@
                                         , <span t-field="o.partner_id.country_id"/>
                                     </td>
                                     <td>
-                                        Fecha de Emision: <span t-field="o.x_origin.date_invoice"/>
+                                        Fecha de Emision: <span t-field="o.refund_invoice_id.date_invoice"/>
                                     </td>
                                 </table>
                             </tr>
