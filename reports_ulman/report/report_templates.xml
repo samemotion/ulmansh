@@ -345,7 +345,7 @@
                                         D.I. <span t-field="o.partner_id.vat"/>
                                     </td>
                                     <td>
-                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
+                                        <!-- <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
                                             <t t-if="o.refund_invoice_id.journal_id.x_printer_sn">
                                                 Serie: <span t-field="o.refund_invoice_id.journal_id.x_printer_sn"/>
                                             </t>
@@ -360,7 +360,13 @@
                                             <t t-if="not o.refund_invoice_id.number">
                                                 Serie: 
                                             </t>
-                                        </t>
+                                        </t> -->
+                                            <t t-if="o.refund_invoice_id.x_document_serial">
+                                                Serie: <span t-field="o.refund_invoice_id.x_document_serial"/>
+                                            </t>
+                                            <t t-if="not o.refund_invoice_id.x_document_serial">
+                                                Serie: 
+                                            </t>                                        
                                     </td>
                                 </table>
                             </tr>
@@ -377,7 +383,7 @@
                                         </t>
                                     </td>
                                     <td>
-                                        <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
+                                        <!-- <t t-if="o.refund_invoice_id.journal_id.x_invoice_type=='TK'">
                                             <t t-if="o.refund_invoice_id.number">
                                                 Numero: <span t-field="o.refund_invoice_id.number"/>
                                             </t>
@@ -392,7 +398,13 @@
                                             <t t-if="not o.refund_invoice_id.number">
                                                 Numero: 
                                             </t>
-                                        </t>
+                                        </t> -->
+                                            <t t-if="o.refund_invoice_id.x_document_correlative">
+                                                Numero: <span t-field="o.refund_invoice_id.x_document_correlative"/>
+                                            </t>
+                                            <t t-if="not o.refund_invoice_id.x_document_correlative">
+                                                Numero: 
+                                            </t>                                          
                                     </td>
                                 </table>
                             </tr>
@@ -947,49 +959,49 @@
             <div class="row">
                 <div class="col-xs-4">
                     <strong>Cliente: </strong>
-                    <span t-field="doc.partner_id.name"/>
+                    <span t-field="o.partner_id.name"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Contacto: </strong>
-                    <span t-field="doc.x_contact.name"/>
+                    <span t-field="o.x_contact.name"/>
                 </div>
-                <div t-if="doc.date_order" class="col-xs-4">
-                    <strong t-if="doc.state not in ['draft','sent']">Date Ordered:</strong>
-                    <strong t-if="doc.state in ['draft','sent']">Fecha de Cotización:</strong>
-                    <span t-field="doc.date_order" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                <div t-if="o.date_order" class="col-xs-4">
+                    <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong>
+                    <strong t-if="o.state in ['draft','sent']">Fecha de Cotización:</strong>
+                    <span t-field="o.date_order" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <t t-if="doc.partner_id.company_type=='company'">
+                    <t t-if="o.partner_id.company_type=='company'">
                         <strong>RUC: </strong>
                     </t>
-                    <t t-if="doc.partner_id.company_type=='person'">
+                    <t t-if="o.partner_id.company_type=='person'">
                         <strong>DNI: </strong>
                     </t>
-                    <span t-field="doc.partner_id.vat"/>
+                    <span t-field="o.partner_id.vat"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Celular: </strong>
-                    <span t-field="doc.x_contact.mobile"/>
+                    <span t-field="o.x_contact.mobile"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Email:</strong>
-                    <span t-field="doc.x_contact.email"/>
+                    <span t-field="o.x_contact.email"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <strong>Dirección:</strong>
-                    <span t-field="doc.partner_shipping_id.street"/>
+                    <span t-field="o.partner_shipping_id.street"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.street2"/>
+                    <span t-field="o.partner_shipping_id.street2"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.city"/>
+                    <span t-field="o.partner_shipping_id.city"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.state_id"/>
+                    <span t-field="o.partner_shipping_id.state_id"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.country_id"/>
+                    <span t-field="o.partner_shipping_id.country_id"/>
                 </div>
             </div>
             <div class="row zero_min_height">
@@ -997,42 +1009,42 @@
                     <div style="border-bottom: 1px solid grey;"/>
                 </div>
             </div>
-            <div t-if="doc.user_id.name" class="row">
+            <div t-if="o.user_id.name" class="row">
                 <div class="col-xs-12">
                     <strong>Representante comercial:</strong>
-                    <span t-field="doc.user_id.name"/>
+                    <span t-field="o.user_id.name"/>
                 </div>
             </div>
-            <div t-if="doc.user_id.name" class="row">
+            <div t-if="o.user_id.name" class="row">
                 <div class="col-xs-3">
                     <strong>Teléfono:</strong>
-                    <span t-field="doc.user_id.phone"/>
+                    <span t-field="o.user_id.phone"/>
                 </div>
                 <div class="col-xs-3">
                     <strong>Celular:</strong>
-                    <span t-field="doc.user_id.mobile"/>
+                    <span t-field="o.user_id.mobile"/>
                 </div>
                 <div class="col-xs-6">
                     <strong>Email:</strong>
-                    <span t-field="doc.user_id.email"/>
+                    <span t-field="o.user_id.email"/>
                 </div>
             </div>
 
             <h2>
-                <span t-if="doc.state not in ['draft','sent']">Pedido de Venta N° </span>
-                <span t-if="doc.state in ['draft','sent']">Cotización N° </span>
-                <span t-field="doc.name"/>
+                <span t-if="o.state not in ['draft','sent']">Pedido de Venta N° </span>
+                <span t-if="o.state in ['draft','sent']">Cotización N° </span>
+                <span t-field="o.name"/>
             </h2>
 
             <div class="row mt32 mb32" id="informations">
-                <div t-if="doc.client_order_ref" class="col-xs-3">
+                <div t-if="o.client_order_ref" class="col-xs-3">
                     <strong>Your Reference:</strong>
-                    <p t-field="doc.client_order_ref"/>
+                    <p t-field="o.client_order_ref"/>
                 </div>
             </div>
 
             <!-- Is there a discount on at least one line? -->
-            <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+            <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
 
             <table class="table table-condensed">
                 <thead>
@@ -1048,20 +1060,20 @@
                <t t-set="subtotal" t-value="0"/>
                <tbody class="sale_tbody">
                    <t t-set="product_names" t-value="''"/>
-                   <t t-foreach="doc.order_line" t-as="pn">
+                   <t t-foreach="o.order_line" t-as="pn">
                        <t t-if="'@'+pn.name+'#' not in product_names">
                            <t t-set="product_names" t-value="product_names+'@'+pn.name+'#'"/>
                        </t>
                    </t>
-                   <t t-foreach="doc.order_line" t-as="p">
+                   <t t-foreach="o.order_line" t-as="p">
                        <t t-set="rowspan" t-value="0"/>
                        <t t-set="puntero" t-value="True"/>
-                       <t t-foreach="doc.order_line" t-as="l">
+                       <t t-foreach="o.order_line" t-as="l">
                            <t t-if="p.name == l.name">
                                <t  t-set="rowspan" t-value="rowspan + 1"/>
                            </t>
                         </t>
-                        <t t-foreach="doc.order_line" t-as="l">
+                        <t t-foreach="o.order_line" t-as="l">
                             <t t-if="'@'+l.name+'#' in product_names and p.name == l.name">
                                 <t t-set="precio_unidad" t-value="round(l.price_unit*(100-l.discount)/100,4)"/>
                                 <t t-set="precio_subtotal" t-value="(precio_unidad*l.product_uom_qty)"/>
@@ -1087,7 +1099,7 @@
                                         <span t-field="l.discount"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="precio_subtotal" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/>
+                                        <span t-esc="precio_subtotal" t-esc-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -1104,19 +1116,19 @@
                         <tr class="border-black">
                             <td><strong>Subtotal</strong></td>
                             <td class="text-right">
-                                <strong><span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/></strong>
+                                <strong><span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/></strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Taxes</td>
                             <td class="text-right">
-                                <span t-field="doc.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/>
+                                <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
                             </td>
                         </tr>
                         <tr class="border-black">
                             <td><strong>Total</strong></td>
                             <td class="text-right">
-                                <strong>S/. <span t-esc="'{0:,.2f}'.format(doc.amount_total)"/></strong>
+                                <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
                             </td>
                         </tr>
                     </table>
@@ -1127,7 +1139,7 @@
                 <div class="col-xs-6 pull-left">
                     <table class="table table-condensed">
                        <tbody class="sale_tbody">
-                            <t t-foreach="doc.invoice_ids" t-as="l">
+                            <t t-foreach="o.invoice_ids" t-as="l">
                                 <tr t-if="l.state == 'paid'">
                                     <td><strong>Adelanto Documento: </strong></td>
                                     <td>
@@ -1143,22 +1155,22 @@
                 </div>
             </div>
 
-            <p t-field="doc.note"/>
-            <!--<p t-if="doc.payment_term_id.note">
-                <span t-field="doc.payment_term_id.note"/>
+            <p t-field="o.note"/>
+            <!--<p t-if="o.payment_term_id.note">
+                <span t-field="o.payment_term_id.note"/>
             </p>-->
-            <p t-if="doc.user_id.signature">
-                <span t-field="doc.user_id.signature"/>
+            <p t-if="o.user_id.signature">
+                <span t-field="o.user_id.signature"/>
             </p>
-            <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
-                <span t-field="doc.partner_id.property_payment_term_id.note"/>
+            <!--<p t-if="not o.payment_term_id and o.partner_id.property_payment_term_id">
+                <span t-field="o.partner_id.property_payment_term_id.note"/>
             </p>-->
-            <p t-if="doc.validity_date">
-                Cotización válida hasta: <span t-field="doc.validity_date"/>
+            <p t-if="o.validity_date">
+                Cotización válida hasta: <span t-field="o.validity_date"/>
             </p>
-            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.note">
+            <p id="fiscal_position_remark" t-if="o.fiscal_position_id and o.fiscal_position_id.note">
                 <strong>Fiscal Position Remark:</strong>
-                <span t-field="doc.fiscal_position_id.note"/>
+                <span t-field="o.fiscal_position_id.note"/>
             </p>
             <div class="oe_structure"/>
         </div>
@@ -1182,49 +1194,49 @@
             <div class="row">
                 <div class="col-xs-4">
                     <strong>Cliente: </strong>
-                    <span t-field="doc.partner_id.name"/>
+                    <span t-field="o.partner_id.name"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Contacto: </strong>
-                    <span t-field="doc.x_contact.name"/>
+                    <span t-field="o.x_contact.name"/>
                 </div>
-                <div t-if="doc.date_order" class="col-xs-4">
-                    <strong t-if="doc.state not in ['draft','sent']">Date Ordered:</strong>
-                    <strong t-if="doc.state in ['draft','sent']">Fecha de Cotización:</strong>
-                    <span t-field="doc.date_order" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                <div t-if="o.date_order" class="col-xs-4">
+                    <strong t-if="o.state not in ['draft','sent']">Date Ordered:</strong>
+                    <strong t-if="o.state in ['draft','sent']">Fecha de Cotización:</strong>
+                    <span t-field="o.date_order" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-4">
-                    <t t-if="doc.partner_id.company_type=='company'">
+                    <t t-if="o.partner_id.company_type=='company'">
                         <strong>RUC: </strong>
                     </t>
-                    <t t-if="doc.partner_id.company_type=='person'">
+                    <t t-if="o.partner_id.company_type=='person'">
                         <strong>DNI: </strong>
                     </t>
-                    <span t-field="doc.partner_id.vat"/>
+                    <span t-field="o.partner_id.vat"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Celular: </strong>
-                    <span t-field="doc.x_contact.mobile"/>
+                    <span t-field="o.x_contact.mobile"/>
                 </div>
                 <div class="col-xs-4">
                     <strong>Email:</strong>
-                    <span t-field="doc.x_contact.email"/>
+                    <span t-field="o.x_contact.email"/>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <strong>Dirección:</strong>
-                    <span t-field="doc.partner_shipping_id.street"/>
+                    <span t-field="o.partner_shipping_id.street"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.street2"/>
+                    <span t-field="o.partner_shipping_id.street2"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.city"/>
+                    <span t-field="o.partner_shipping_id.city"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.state_id"/>
+                    <span t-field="o.partner_shipping_id.state_id"/>
                     <text>, </text>
-                    <span t-field="doc.partner_shipping_id.country_id"/>
+                    <span t-field="o.partner_shipping_id.country_id"/>
                 </div>
             </div>
             <div class="row zero_min_height">
@@ -1232,42 +1244,42 @@
                     <div style="border-bottom: 1px solid grey;"/>
                 </div>
             </div>
-            <div t-if="doc.user_id.name" class="row">
+            <div t-if="o.user_id.name" class="row">
                 <div class="col-xs-12">
                     <strong>Representante comercial:</strong>
-                    <span t-field="doc.user_id.name"/>
+                    <span t-field="o.user_id.name"/>
                 </div>
             </div>
-            <div t-if="doc.user_id.name" class="row">
+            <div t-if="o.user_id.name" class="row">
                 <div class="col-xs-3">
                     <strong>Teléfono:</strong>
-                    <span t-field="doc.user_id.phone"/>
+                    <span t-field="o.user_id.phone"/>
                 </div>
                 <div class="col-xs-3">
                     <strong>Celular:</strong>
-                    <span t-field="doc.user_id.mobile"/>
+                    <span t-field="o.user_id.mobile"/>
                 </div>
                 <div class="col-xs-6">
                     <strong>Email:</strong>
-                    <span t-field="doc.user_id.email"/>
+                    <span t-field="o.user_id.email"/>
                 </div>
             </div>
 
             <h2>
-                <span t-if="doc.state not in ['draft','sent']">Pedido de Venta N° </span>
-                <span t-if="doc.state in ['draft','sent']">Cotización N° </span>
-                <span t-field="doc.name"/>
+                <span t-if="o.state not in ['draft','sent']">Pedido de Venta N° </span>
+                <span t-if="o.state in ['draft','sent']">Cotización N° </span>
+                <span t-field="o.name"/>
             </h2>
 
             <div class="row mt32 mb32" id="informations">
-                <div t-if="doc.client_order_ref" class="col-xs-3">
+                <div t-if="o.client_order_ref" class="col-xs-3">
                     <strong>Your Reference:</strong>
-                    <p t-field="doc.client_order_ref"/>
+                    <p t-field="o.client_order_ref"/>
                 </div>
             </div>
 
             <!-- Is there a discount on at least one line? -->
-            <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+            <t t-set="display_discount" t-value="any([l.discount for l in o.order_line])"/>
 
             <table class="table table-condensed">
                 <thead>
@@ -1282,20 +1294,20 @@
                 </thead>
                 <tbody class="sale_tbody">
                    <t t-set="product_names" t-value="''"/>
-                   <t t-foreach="doc.order_line" t-as="pn">
+                   <t t-foreach="o.order_line" t-as="pn">
                        <t t-if="'@'+pn.name+'#' not in product_names">
                            <t t-set="product_names" t-value="product_names+'@'+pn.name+'#'"/>
                        </t>
                    </t>
-                   <t t-foreach="doc.order_line" t-as="p">
+                   <t t-foreach="o.order_line" t-as="p">
                         <t t-set="rowspan" t-value="0"/>
                         <t t-set="puntero" t-value="True"/>
-                       <t t-foreach="doc.order_line" t-as="l">
+                       <t t-foreach="o.order_line" t-as="l">
                            <t t-if="p.name == l.name">
                                <t  t-set="rowspan" t-value="rowspan + 1"/>
                            </t>
                         </t>
-                        <t t-foreach="doc.order_line" t-as="l">
+                        <t t-foreach="o.order_line" t-as="l">
                             <t t-if="'@'+l.name+'#' in product_names and p.name == l.name">
                                 <t t-set="precio_unidad" t-value="round(l.price_unit*(100-l.discount)/100,4)"/>
                                 <t t-set="precio_subtotal" t-value="(precio_unidad*l.product_uom_qty)"/>
@@ -1321,7 +1333,7 @@
                                         <span t-field="l.discount"/>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/>
+                                        <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
                                     </td>
                                 </tr>
                             </t>
@@ -1338,19 +1350,19 @@
                         <tr class="border-black">
                             <td><strong>Subtotal</strong></td>
                             <td class="text-right">
-                                <strong><span t-field="doc.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/></strong>
+                                <strong><span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/></strong>
                             </td>
                         </tr>
                         <tr>
                             <td>Taxes</td>
                             <td class="text-right">
-                                <span t-field="doc.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;doc.pricelist_id.currency_id&quot;}"/>
+                                <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.pricelist_id.currency_id&quot;}"/>
                             </td>
                         </tr>
                         <tr class="border-black">
                             <td><strong>Total</strong></td>
                             <td class="text-right">
-                                <strong>S/. <span t-esc="'{0:,.2f}'.format(doc.amount_total)"/></strong>
+                                <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
                             </td>
                         </tr>
                     </table>
@@ -1361,7 +1373,7 @@
                 <div class="col-xs-6 pull-left">
                     <table class="table table-condensed">
                        <tbody class="sale_tbody">
-                            <t t-foreach="doc.invoice_ids" t-as="l">
+                            <t t-foreach="o.invoice_ids" t-as="l">
                                 <tr t-if="l.state == 'paid'">
                                     <td><strong>Adelanto Documento: </strong></td>
                                     <td>
@@ -1377,22 +1389,22 @@
                 </div>
             </div>
 
-            <p t-field="doc.note"/>
-            <!--<p t-if="doc.payment_term_id.note">
-                <span t-field="doc.payment_term_id.note"/>
+            <p t-field="o.note"/>
+            <!--<p t-if="o.payment_term_id.note">
+                <span t-field="o.payment_term_id.note"/>
             </p>-->
-            <p t-if="doc.user_id.signature">
-                <span t-field="doc.user_id.signature"/>
+            <p t-if="o.user_id.signature">
+                <span t-field="o.user_id.signature"/>
             </p>
-            <!--<p t-if="not doc.payment_term_id and doc.partner_id.property_payment_term_id">
-                <span t-field="doc.partner_id.property_payment_term_id.note"/>
+            <!--<p t-if="not o.payment_term_id and o.partner_id.property_payment_term_id">
+                <span t-field="o.partner_id.property_payment_term_id.note"/>
             </p>-->
-            <p t-if="doc.validity_date">
-                Cotización válida hasta: <span t-field="doc.validity_date"/>
+            <p t-if="o.validity_date">
+                Cotización válida hasta: <span t-field="o.validity_date"/>
             </p>
-            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.note">
+            <p id="fiscal_position_remark" t-if="o.fiscal_position_id and o.fiscal_position_id.note">
                 <strong>Fiscal Position Remark:</strong>
-                <span t-field="doc.fiscal_position_id.note"/>
+                <span t-field="o.fiscal_position_id.note"/>
             </p>
             <div class="oe_structure"/>
         </div>
