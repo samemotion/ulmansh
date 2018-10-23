@@ -716,6 +716,7 @@
 
 <report id="printguiaremision_report" string="Print Guia Remision" model="stock.picking" report_type="qweb-pdf" name="reports_ulman.printguiaremision" attachment="(object.state in ('open','paid')) and ('GRP'+(object.number or '').replace('/','')+'.pdf')" />
 <template id="printguiaremision_document">
+    <t t-call="web.external_layout">
     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
     <div class="article">
             <div class="page" style="font-size:14px;font-family:sans-serif;">
@@ -940,6 +941,7 @@
 
             </div>
      </div>
+     </t>
 </template>
 
 <template id="printguiaremision">
@@ -952,6 +954,7 @@
 
 <report id="presupuestocigv_report" string="Print Presupuesto con IGV" model="sale.order" report_type="qweb-pdf" name="reports_ulman.presupuestocigv" attachment="(object.state in ('open','paid')) and ('GRP'+(object.number or '').replace('/','')+'.pdf')" />
 <template id="presupuestocigv_document">
+    <t t-call="web.external_layout">
     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
     <div class="article">
        <div class="page">
@@ -1175,6 +1178,7 @@
             <div class="oe_structure"/>
         </div>
      </div>
+    </t>
 </template>
 
 <template id="presupuestocigv">
@@ -1187,6 +1191,7 @@
 
 <report id="presupuestosigv_report" string="Print Presupuesto sin IGV" model="sale.order" report_type="qweb-pdf" name="reports_ulman.presupuestosigv" attachment="(object.state in ('open','paid')) and ('GRP'+(object.number or '').replace('/','')+'.pdf')" />
 <template id="presupuestosigv_document">
+    <t t-call="web.external_layout">
     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
     <div class="article">
         <div class="page">
@@ -1409,6 +1414,7 @@
             <div class="oe_structure"/>
         </div>
     </div>
+     </t>
 </template>
 
 <template id="presupuestosigv">
