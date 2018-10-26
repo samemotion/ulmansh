@@ -20,7 +20,7 @@
     'version': '1.0',
     'depends': ['account'],
     'data': [
-        #'report/rep_layout_templates.xml',
+        'report/layout_templates.xml',
         'report/report_templates.xml'  
     ],
     'demo': [
