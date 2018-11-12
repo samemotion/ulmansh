@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="pos_electronic_invoice_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_document_generic">
+            <xpath expr="//div[@name='free_op']" position="replace">
+                <div class="col-xs-4 pull-left" name="free_op">
+                    <table class="table table-condensed">
+                        <!-- <t t-if="o.x_total_discount > 0">  -->
+                            <tr class="border-black">
+                                <td><strong>DESCUENTOS</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.x_total_discount" 
+                                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                </td>
+                            </tr>
+                        <!-- </t> -->
+                        <tr class="border-black">
+                            <td><strong>OP. GRATUITA</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.x_total_amount_free" 
+                                    t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <t t-if="o.x_total_amount_free > 0"> 
+                        <tr>
+                            <td style="border-top:0px; padding-top: 10mm;"><strong>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</strong></td>
+                        </tr>
+                        </t>
+
+                    </table>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
+            <xpath expr="//div[@name='free_op']" position="replace">
+                <div class="col-xs-4 pull-left" name="free_op">
+                    <table class="table table-condensed">
+                        <!-- <t t-if="o.x_total_discount > 0">  -->
+                            <tr class="border-black">
+                                <td><strong>DESCUENTOS</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.x_total_discount" 
+                                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                </td>
+                            </tr>
+                        <!-- </t> -->
+                        <tr class="border-black">
+                            <td><strong>OP. GRATUITA</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.x_total_amount_free" 
+                                    t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <t t-if="o.x_total_amount_free > 0"> 
+                        <tr>
+                            <td style="border-top:0px; padding-top: 10mm;"><strong>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</strong></td>
+                        </tr>
+                        </t>
+
+                    </table>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="pos_electronic_note_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_note_document_generic">
+            <xpath expr="//div[@name='free_op']" position="replace">
+                <div class="col-xs-4 pull-left" name="free_op">
+                    <table class="table table-condensed">
+                        <!-- <t t-if="o.x_total_discount > 0">  -->
+                            <tr class="border-black">
+                                <td><strong>DESCUENTOS</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.x_total_discount" 
+                                        t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                                </td>
+                            </tr>
+                        <!-- </t> -->
+                        <tr class="border-black">
+                            <td><strong>OP. GRATUITA</strong></td>
+                            <td class="text-right">
+                                <span t-field="o.x_total_amount_free" 
+                                    t-options="{'widget':'monetary','display_currency':o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <t t-if="o.x_total_amount_free > 0"> 
+                        <tr>
+                            <td style="border-top:0px; padding-top: 10mm;"><strong>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</strong></td>
+                        </tr>
+                        </t>
+
+                    </table>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

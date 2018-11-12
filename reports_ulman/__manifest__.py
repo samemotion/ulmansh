@@ -21,8 +21,9 @@
     'depends': ['account'],
     'data': [
         'report/layout_templates.xml',
-        'report/report_templates.xml'  
-    ],
+        'report/report_templates.xml',
+        'report/custom_templates.xml',
+        ],
     'demo': [
     ],
     'application': False,
