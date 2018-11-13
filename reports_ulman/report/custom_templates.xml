@@ -64,6 +64,48 @@
         </template>
 
         <template id="pos_electronic_note_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_note_document_generic">
+            <xpath expr="//div[@name='customer_box']" position="replace">
+                <div class="row" style="font-size:13px;font-family:sans-serif;" name="customer_box">
+                    <div style="border: 1px solid black;margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
+                        <table>
+                            <tr>
+                                <td style="width:35mm;"><strong>Cliente:</strong> </td>
+                                <td><span t-field="o.partner_id"/></td>
+                            </tr>     
+                            <tr>
+                                <td style="width:35mm;"><strong><span t-field="o.partner_id.x_document_type.x_name"/>:</strong></td>
+                                <td><span t-field="o.partner_id.vat"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width:35mm;"><strong>
+                                    Dirección:</strong>
+                                </td>
+                                <td>
+                                    <span><span t-field="o.partner_id.street"/>,
+                                    <t t-if="o.partner_id.street2">
+                                        <span t-field="o.partner_id.street2"/>,
+                                    </t>
+                                    <t t-if="o.partner_id.city">
+                                        <span t-field="o.partner_id.city"/>,
+                                    </t>
+                                    <t t-if="o.partner_id.state_id.name">
+                                        <span t-field="o.partner_id.state_id.name"/>
+                                    </t>
+                                    </span>
+                                </td>
+                            </tr>                                       
+                            <tr>
+                                <td style="width:35mm;"><strong><span>Fecha de emisión: </span></strong></td>
+                                <td><span t-field="o.x_datetime_invoice" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
+                            </tr>
+                            <tr>
+                                <td style="width:35mm;"><strong>Moneda:</strong> </td>
+                                <td><span t-field="o.currency_id.x_description"/></td>
+                            </tr>     
+                        </table>                        
+                    </div>
+                </div>
+            </xpath>
             <xpath expr="//div[@name='free_op']" position="replace">
                 <div class="col-xs-4 pull-left" name="free_op">
                     <table class="table table-condensed">
@@ -92,7 +134,112 @@
                     </table>
                 </div>
             </xpath>
+            <xpath expr="//div[@name='final_block']" position="replace">
+                <div class="row" name="final_block">   
+                    <table>
+                        <tr>
+                            <td>                             
+                                <table>
+                                    <tr style="width:250mm;valign:top;">
+                                        <td style="width:40mm;valign:top;">
+                                            <img t-if="o.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' % to_text(o.x_qr_invoice)" style="max-height: 3cm;"/>
+                                        </td>
+                                        <td style="width:5mm;">
+                                        </td>
+                                        <td style="valign:top;">
+                                            <span>Representación impresa de </span><br/>
+                                            <span>la Nota de Crédito electrónica</span><br/>
+                                            <span>Descargue su comprobante en :</span><br/>
+                                            <span><span t-esc="o.env['ir.config_parameter'].get_param('web.base.url')"/>/einvoicing_get_document</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width:10mm">
+                            </td>
+                        </tr>
+                    </table>
+                    <div style="height:8mm"/>
+                    <div style="margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
+                    <table>
+                    <tr>
+                        <td style="font-size:12px;font-weight: bold;font-family:sans-serif;">RECEPCION DE LA NOTA DE CREDITO</td>
+                    </tr>
+                    <tr>
+                        <td style="height:2mm"></td>
+                    </tr>                    
+                    <tr>
+                        <td style="width:100mm;font-size:12px;font-family:sans-serif;">Apellidos y nombres de quién recepciona la nota de crédito: </td>
+                    </tr>
+                    <tr>
+                        <td style="height:2mm"></td>
+                    </tr>                    
+                    <tr>
+                        <td style="height:2mm"></td>
+                    </tr>
+                    <tr style="font-size:12px;font-family:sans-serif;">
+                        <td>DNI:</td>
+                    </tr>
+                    <tr>
+                        <td style="height:2mm"></td>
+                    </tr>                    
+                    <tr style="font-size:12px;font-family:sans-serif;">
+                        <td>Fecha de recepción:</td>
+                    </tr>
+                    </table>
+                    </div>
+                </div>
+            </xpath>
+           <xpath expr="//div[@name='refund_box']" position="replace">
+                <div class="row" name="sale_box">
+                    <div style="border: margin:auto;width:100%;">
+                        <table>
+                            <tr>
+                                <t t-if="o.x_sale_order"><th style="width:45mm;"><strong>Pedido de venta</strong></th></t>
+                                <!-- <t t-if="o.origin"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t> -->
+                                <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
+                                <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
+                                <!-- <t t-if="o.x_sale_order"><th style="width:40mm;"><strong>Medio de pago</strong></th></t>                                                                         -->
+                            </tr>
+                            <tr>
+                                <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
+                                <!-- <t t-if="o.origin"><td><span t-field="o.payment_term_id"/></td></t> -->
+                                <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
+                                <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
+                                <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->
+                            </tr>
+                            <tr>
+                                <td style="height:10mm"></td>
+                            </tr>                              
+                        </table>     
+                    </div>                                                  
+                </div> 
+                <div class="row" name="refund_box">
+                    <div style="border: margin:auto;width:100%;">
+                        <table>
+                            <tr>
+                                <th style="width:55mm;"><strong>Documento modificado</strong></th>
+                                <th style="width:55mm;"><strong>Tipo de documento modificado</strong></th>
+                                <th style="width:50mm;"><strong>Fecha de emisión</strong></th>
+                                <th style="width:80mm;"><strong>Motivo</strong></th>
+                            </tr>
+                            <tr>
+                                <td><span t-field="o.refund_invoice_id.x_document_serial"/>
+                                    <span>-</span>
+                                    <span t-field="o.refund_invoice_id.x_document_correlative"/>
+                                </td>
+                                <td><span t-field="o.refund_invoice_id.journal_id.x_document_type.x_name"/></td>
+                                <td><span t-field="o.refund_invoice_id.x_datetime_invoice" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td>
+                                <td><span t-field="o.x_reason_credit_note"/></td>
+                            </tr>
+                            <tr>
+                                <td style="height:10mm"></td>
+                            </tr>                            
+                        </table>     
+                    </div>
+                </div>
+            </xpath>
         </template>
-
     </data>
 </odoo>
+
