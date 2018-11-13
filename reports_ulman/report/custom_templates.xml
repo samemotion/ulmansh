@@ -134,8 +134,54 @@
                     </table>
                 </div>
             </xpath>
-            <xpath expr="//div[@name='final_block']" position="replace">
-                <div class="row" name="final_block">   
+            <xpath expr="//div[@name='qr_box']" position="replace">
+                <div class="row" name="comment_box" style="page-break-inside: avoid;">
+                    <div style="height:10mm"/>
+                    <div style="margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
+                        <table>
+                            <tr>
+                                <td style="width:100mm;font-size:12px;font-weight: bold;font-family:sans-serif;">Observaciones:</td>
+                            </tr>
+                             <tr>
+                                <td style="width:100mm;font-size:12px;font-family:sans-serif;">
+                                    <span t-field="o.comment"/><br/>
+                                     <span>- Vigente dentro del mismo año de emisión.</span>
+                                </td>
+                            </tr>                    
+                        </table>
+                    </div>
+                    <div style="height:10mm"/>
+                    <div style="margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
+                        <table>
+                            <tr>
+                                <td style="font-size:12px;font-weight: bold;font-family:sans-serif;">RECEPCION DE LA NOTA DE CREDITO</td>
+                            </tr>
+                            <tr>
+                                <td style="height:2mm"></td>
+                            </tr>                    
+                            <tr>
+                                <td style="width:100mm;font-size:12px;font-family:sans-serif;">Apellidos y nombres de quién recepciona la nota de crédito: </td>
+                            </tr>
+                            <tr>
+                                <td style="height:2mm"></td>
+                            </tr>                    
+                            <tr>
+                                <td style="height:2mm"></td>
+                            </tr>
+                            <tr style="font-size:12px;font-family:sans-serif;">
+                                <td>DNI:</td>
+                            </tr>
+                            <tr>
+                                <td style="height:2mm"></td>
+                            </tr>                    
+                            <tr style="font-size:12px;font-family:sans-serif;">
+                                <td>Fecha de recepción:</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div style="height:10mm"/>
+                </div>
+                <div class="row" name="qr_box" style="page-break-inside: avoid;">   
                     <table>
                         <tr>
                             <td>                             
@@ -159,61 +205,9 @@
                             </td>
                         </tr>
                     </table>
-                    <div style="height:8mm"/>
-                    <div style="margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
-                    <table>
-                    <tr>
-                        <td style="font-size:12px;font-weight: bold;font-family:sans-serif;">RECEPCION DE LA NOTA DE CREDITO</td>
-                    </tr>
-                    <tr>
-                        <td style="height:2mm"></td>
-                    </tr>                    
-                    <tr>
-                        <td style="width:100mm;font-size:12px;font-family:sans-serif;">Apellidos y nombres de quién recepciona la nota de crédito: </td>
-                    </tr>
-                    <tr>
-                        <td style="height:2mm"></td>
-                    </tr>                    
-                    <tr>
-                        <td style="height:2mm"></td>
-                    </tr>
-                    <tr style="font-size:12px;font-family:sans-serif;">
-                        <td>DNI:</td>
-                    </tr>
-                    <tr>
-                        <td style="height:2mm"></td>
-                    </tr>                    
-                    <tr style="font-size:12px;font-family:sans-serif;">
-                        <td>Fecha de recepción:</td>
-                    </tr>
-                    </table>
-                    </div>
                 </div>
             </xpath>
            <xpath expr="//div[@name='refund_box']" position="replace">
-                <div class="row" name="sale_box">
-                    <div style="border: margin:auto;width:100%;">
-                        <table>
-                            <tr>
-                                <t t-if="o.x_sale_order"><th style="width:45mm;"><strong>Pedido de venta</strong></th></t>
-                                <!-- <t t-if="o.origin"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t> -->
-                                <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
-                                <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
-                                <!-- <t t-if="o.x_sale_order"><th style="width:40mm;"><strong>Medio de pago</strong></th></t>                                                                         -->
-                            </tr>
-                            <tr>
-                                <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
-                                <!-- <t t-if="o.origin"><td><span t-field="o.payment_term_id"/></td></t> -->
-                                <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
-                                <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
-                                <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->
-                            </tr>
-                            <tr>
-                                <td style="height:10mm"></td>
-                            </tr>                              
-                        </table>     
-                    </div>                                                  
-                </div> 
                 <div class="row" name="refund_box">
                     <div style="border: margin:auto;width:100%;">
                         <table>
@@ -238,6 +232,29 @@
                         </table>     
                     </div>
                 </div>
+                <div class="row" name="sale_box">
+                    <div style="border: margin:auto;width:100%;">
+                        <table>
+                            <tr>
+                                <t t-if="o.x_sale_order"><th style="width:45mm;"><strong>Pedido de venta</strong></th></t>
+                                <!-- <t t-if="o.origin"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t> -->
+                                <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
+                                <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
+                                <!-- <t t-if="o.x_sale_order"><th style="width:40mm;"><strong>Medio de pago</strong></th></t>                                                                         -->
+                            </tr>
+                            <tr>
+                                <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
+                                <!-- <t t-if="o.origin"><td><span t-field="o.payment_term_id"/></td></t> -->
+                                <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
+                                <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
+                                <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->
+                            </tr>
+                            <tr>
+                                <td style="height:10mm"></td>
+                            </tr>                              
+                        </table>     
+                    </div>                                                  
+                </div> 
             </xpath>
         </template>
     </data>
