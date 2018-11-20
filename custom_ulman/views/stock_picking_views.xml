@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+   <record model="ir.ui.view" id="inherit_stock_picking_form_ul">
+      <field name="name">sm.inherit.stock.picking.form.ul</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="l10n_pe_stock_base.inherit_stock_picking_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='origin']" position="after">
+          <field name="x_client_order_ref"/>
+        </xpath>
+      	<xpath expr="//field[@name='origin']" position="before">
+          <field name="x_issue_date"/>
+          <field name="x_move_date"/>
+        </xpath>  
+      	<xpath expr="//field[@name='x_transporter_driver']" position="after">
+          <button name="401" type="action" string="Actualizar Vehiculo"></button>
+        </xpath>
+      </field>
+    </record> 
+  </data>
+</odoo>
