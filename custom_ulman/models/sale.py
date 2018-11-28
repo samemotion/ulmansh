@@ -100,6 +100,7 @@ class SaleOrder(models.Model):
             for line in invoice.invoice_line_ids:
                 if line.product_id.type in ('product'):
                     line.name = line.product_id.display_name
+                    line.description = line.product_id.name
                     
 
             # remove order note in invoice comment
