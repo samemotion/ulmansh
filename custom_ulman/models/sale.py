@@ -166,8 +166,12 @@ class SaleOrderLine(models.Model):
             vals['price_unit'] = self.env['account.tax']._fix_tax_included_price_company(self._get_display_price(product), product.taxes_id, self.tax_id, self.company_id)
         self.update(vals)
 
+        ## Start Override ##
+
         # update sale order description (name) with product name when it is not a service
         if self.product_id.type in ('product'):
             self.name = self.product_id.name
+
+        ## End Override ##
 
         return result
