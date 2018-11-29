@@ -716,7 +716,7 @@
 
 <report id="printguiaremision_report" string="Print Guia Remision" model="stock.picking" report_type="qweb-pdf" name="reports_ulman.printguiaremision" attachment="(object.state in ('open','paid')) and ('GRP'+(object.number or '').replace('/','')+'.pdf')" />
 <template id="printguiaremision_document">
-    <t t-call="web.external_layout_ulman">
+    <!-- <t t-call="web.external_layout_ulman"> -->
     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
     <div class="article">
             <div class="page" style="font-size:14px;font-family:sans-serif;">
@@ -941,7 +941,7 @@
 
             </div>
      </div>
-     </t>
+     <!-- </t> -->
 </template>
 
 <template id="printguiaremision">
