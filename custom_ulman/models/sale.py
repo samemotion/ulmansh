@@ -105,8 +105,6 @@ class SaleOrder(models.Model):
             # remove order note in invoice comment
             invoice.comment = ''
 
-            invoice.write({"x_client_order_ref": order.client_order_ref})
-
             # invoices with total amount negative must not be generated
             if invoice.amount_total_signed < 0:
                 raise ValidationError(_('Invoice has a total amount negative'))
