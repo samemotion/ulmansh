@@ -31,6 +31,26 @@
                     </table>
                 </div>
             </xpath>
+            <xpath expr="//div[@name='sale_box']" position="replace">
+                <div class="row" name="sale_box">
+                    <div style="border: margin:auto;width:100%;">
+                        <table>
+                            <tr>
+                                <t t-if="o.origin"><th style="width:45mm;"><strong>Pedido de venta</strong></th></t>
+                                <t t-if="o.x_client_order_ref"><th style="width:55mm;"><strong>Referencia del cliente</strong></th></t>
+                                <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
+                                <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
+                            </tr>
+                            <tr>
+                                <t t-if="o.origin"><td><span t-field="o.origin"/></td></t>
+                                <t t-if="o.x_client_order_ref"><td><span t-field="o.x_client_order_ref"/></td></t>
+                                <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
+                                <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
+                            </tr>
+                        </table>     
+                    </div>                                                  
+                </div>
+            </xpath>
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
@@ -240,14 +260,14 @@
                         <table>
                             <tr>
                                 <t t-if="o.x_sale_order"><th style="width:45mm;"><strong>Pedido de venta</strong></th></t>
-                                <!-- <t t-if="o.origin"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t> -->
+                                <t t-if="o.x_client_order_ref"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t>
                                 <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
                                 <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
                                 <!-- <t t-if="o.x_sale_order"><th style="width:40mm;"><strong>Medio de pago</strong></th></t>                                                                         -->
                             </tr>
                             <tr>
                                 <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
-                                <!-- <t t-if="o.origin"><td><span t-field="o.payment_term_id"/></td></t> -->
+                                <t t-if="o.x_client_order_ref"><td><span t-field="o.x_client_order_ref"/></td></t>
                                 <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
                                 <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
                                 <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->

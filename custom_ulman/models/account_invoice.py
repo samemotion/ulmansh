@@ -12,6 +12,10 @@ import base64
 import logging
 _logger = logging.getLogger(__name__)
 
+class AccountInvoice(models.Model):
+    _inherit = "account.invoice"
+
+    x_client_order_ref = fields.Char('Referencia del Cliente')
 
 class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
