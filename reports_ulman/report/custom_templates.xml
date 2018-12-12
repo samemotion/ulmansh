@@ -43,7 +43,7 @@
                             </tr>
                             <tr>
                                 <t t-if="o.origin"><td><span t-field="o.origin"/></td></t>
-                                <t t-if="o.x_client_order_ref"><td><span t-field="o.x_client_order_ref"/></td></t>
+                                <t t-if="o.name"><td><span t-field="o.name"/></td></t>
                                 <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
                                 <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
                             </tr>
@@ -267,7 +267,7 @@
                             </tr>
                             <tr>
                                 <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
-                                <t t-if="o.x_client_order_ref"><td><span t-field="o.x_client_order_ref"/></td></t>
+                                <t t-if="o.name"><td><span t-field="o.name"/></td></t>
                                 <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
                                 <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
                                 <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->
