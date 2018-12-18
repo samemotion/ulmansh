@@ -170,7 +170,7 @@ class SaleOrderLine(models.Model):
 
         # update sale order description (name) with product name when it is not a service
         if self.product_id.type in ('product'):
-            self.name = self.product_id.name
+            self.name = self.product_id.name + '\n' + product.description_sale
 
         ## End Override ##
 
