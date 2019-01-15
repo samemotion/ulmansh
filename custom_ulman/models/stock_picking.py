@@ -19,4 +19,10 @@ class Picking(models.Model):
     x_sale_order = fields.Many2one('Pedido de ventas')
     x_client_order_ref = fields.Char(string='Referencia del Cliente',
                                related='sale_id.client_order_ref')
-     
+
+    @api.multi
+    def action_print_picking_pe(self):
+        """ Print the Guia de Remision, 
+        """
+        self.ensure_one()
+        return self.env.ref('reports_ulman.printguiaremision_report').report_action(self)     
