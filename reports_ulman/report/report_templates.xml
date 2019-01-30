@@ -2,6 +2,22 @@
 <odoo>
 <data>
 
+    <record id="ticketera_ulman" model="report.paperformat">
+        <field name="name">Ticketera Ulman</field>
+        <field name="default" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">700</field>
+        <field name="page_width">76</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5.00</field>
+        <field name="margin_bottom">3.00</field>
+        <field name="margin_left">8.00</field>
+        <field name="margin_right">8.00</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">0</field>
+        <field name="dpi">203</field>
+    </record>
+
 <report id="printboleta_report" string="Print Boleta" model="account.invoice" report_type="qweb-pdf" name="reports_ulman.printboleta" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
 <template id="printboleta_document">
     <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
