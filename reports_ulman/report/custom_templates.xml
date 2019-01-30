@@ -55,8 +55,7 @@
                         <tr class="border-black">
                             <td><strong>OP. GRATUITA</strong></td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/>
-                                <span t-esc="'{0:,.2f}'.format(o.x_total_amount_free)"/>
+                                <span t-field="o.currency_id.symbol"/><span t-esc="'{0:,.2f}'.format(o.x_total_amount_free)"/>
                             </td>
                         </tr>
                         <t t-if="o.x_total_amount_free > 0"> 
@@ -67,8 +66,7 @@
                             <tr class="border-black">
                                 <td><strong>DESCUENTOS</strong></td>
                                 <td class="text-right">
-                                    <span t-field="o.currency_id.symbol"/>
-                                    <span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
+                                    <span t-field="o.currency_id.symbol"/><span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
                                 </td>
                             </tr>
                     </table>
@@ -94,6 +92,12 @@
                     </div>                                                  
                 </div>
             </xpath>
+            <xpath expr="//p[@name='text_invoice']" position="replace">
+                <p name="text_invoice">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                </p>
+            </xpath>            
+            
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
@@ -171,6 +175,11 @@
                     </table>
                 </div>
             </xpath>
+            <xpath expr="//p[@name='text_ticket']" position="replace">
+                <p name="text_ticket">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                </p>
+            </xpath>            
         </template>
 
         <template id="pos_electronic_note_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_note_document_generic">
