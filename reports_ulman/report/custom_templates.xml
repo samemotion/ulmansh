@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record model="report.paperformat" id="l10n_pe_einvoicing_generic_reports.ticketera">
+        <!-- <record model="report.paperformat" id="l10n_pe_einvoicing_generic_reports.ticketera">
                     <field name="page_height">1500</field>
                     <field name="page_width">76</field>
                     <field name="margin_top">5.00</field>
@@ -20,10 +20,10 @@
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
                     <field name="dpi">72</field>
-        </record>
+        </record> -->
     <!-- Ticketera POS Reports -->
 
-        <!-- <template id="pos_electronic_invoice_tformat_pos_document_custom" inherit_id="l10n_pe_einvoicing_point_of_sale.pos_electronic_invoice_tformat_pos_document">
+        <template id="pos_electronic_invoice_tformat_pos_document_custom" inherit_id="l10n_pe_einvoicing_point_of_sale.pos_electronic_invoice_tformat_pos_document">
             <xpath expr="//div[@name='invoice_ticketera_header']" position="replace">
                 <div name="invoice_ticketera_header">
                     <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
@@ -234,11 +234,11 @@
                     </div>
                 </div>
             </xpath>
-        </template> -->
+        </template>
 
     <!-- Ticketera Generic Reports -->
 
-        <!-- <template id="pos_electronic_invoice_ticketera_document_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_ticketera_document">
+        <template id="pos_electronic_invoice_ticketera_document_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_ticketera_document">
             <xpath expr="//div[@name='invoice_ticketera_header']" position="replace">
                 <div name="invoice_ticketera_header">
                     <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
@@ -416,7 +416,7 @@
                     </div>
                 </div>
             </xpath>
-        </template> -->
+        </template>
 
         <template id="pos_electronic_invoice_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_document_generic">
             <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
