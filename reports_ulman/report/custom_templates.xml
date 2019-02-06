@@ -64,15 +64,27 @@
             <xpath expr="//table[@name='detail_table']" position="replace">
                 <table style="width:100%" name="detail_table">
                     <thead>
-                        <tr>
-                            <th style="width:6mm;text-align:left">Un.</th>
-                            <th style="width:44mm;text-align:left">Descripción</th>
-                            <th style="width:10mm;text-align:right">P.U.</th>
-                            <th style="width:10mm;text-align:right">Precio</th>
-                        </tr>                    </thead>
+                        <t t-if="o.invoice_id.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
-                    <tbody>
+                    <!-- <tbody>
                         <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
                             <t t-foreach="line.invoice_line_tax_ids" t-as="t">
@@ -91,6 +103,34 @@
                                 <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
                             </td>
                         </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.invoice_id.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </xpath>            
@@ -99,14 +139,14 @@
                     <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
                         <t t-if="d.amount > 0">
                             <td class="text-right">
-                                <span t-esc="d.journal_id.name"/> S/
+                                <span t-esc="d.journal_id.name"/>
                             </td>
                             <td class="text-right">
-                                <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
                             </td>
                         </t>
                     </tr>
-                    <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
                         <t t-if="0 > d.amount">
                             <t t-set="vuelto" t-value="abs(d.amount)"/>
                             <td class="text-right">
@@ -116,7 +156,7 @@
                                 <span t-esc="'{0:,.2f}'.format(vuelto)"/>
                             </td>
                         </t>
-                    </tr>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -170,16 +210,27 @@
             <xpath expr="//table[@name='detail_table']" position="replace">
                 <table style="width:100%" name="detail_table">
                     <thead>
-                        <tr>
-                            <th style="width:6mm;text-align:left">Un.</th>
-                            <th style="width:44mm;text-align:left">Descripción</th>
-                            <th style="width:10mm;text-align:right">P.U.</th>
-                            <th style="width:10mm;text-align:right">Precio</th>
-                        </tr>
+                        <t t-if="o.invoice_id.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
                     </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
-                    <tbody>
+                    <!-- <tbody>
                         <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
                             <t t-foreach="line.invoice_line_tax_ids" t-as="t">
@@ -198,22 +249,50 @@
                                 <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
                             </td>
                         </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.invoice_id.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-            </xpath>
+            </xpath>            
             <xpath expr="//div[@name='qr_image']" position="replace">
                 <table style="width: 100%">
                     <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
                         <t t-if="d.amount > 0">
                             <td class="text-right">
-                                <span t-esc="d.journal_id.name"/> S/
+                                <span t-esc="d.journal_id.name"/>
                             </td>
                             <td class="text-right">
-                                <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
                             </td>
                         </t>
                     </tr>
-                    <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
                         <t t-if="0 > d.amount">
                             <t t-set="vuelto" t-value="abs(d.amount)"/>
                             <td class="text-right">
@@ -223,7 +302,7 @@
                                 <span t-esc="'{0:,.2f}'.format(vuelto)"/>
                             </td>
                         </t>
-                    </tr>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -279,16 +358,28 @@
             <xpath expr="//table[@name='detail_table']" position="replace">
                 <table style="width:100%" name="detail_table">
                     <thead>
-                        <tr>
-                            <th style="width:6mm;text-align:left">Un.</th>
-                            <th style="width:44mm;text-align:left">Descripción</th>
-                            <th style="width:10mm;text-align:right">P.U.</th>
-                            <th style="width:10mm;text-align:right">Precio</th>
-                        </tr>                    </thead>
+                        <t t-if="o.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
-                    <tbody>
-                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
                             <t t-foreach="line.invoice_line_tax_ids" t-as="t">
                                 <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
@@ -306,9 +397,70 @@
                                 <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
                             </td>
                         </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </xpath>            
+            <xpath expr="//div[@name='qr_image']" position="replace">
+                <table style="width: 100%">
+                    <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="d.amount > 0">
+                            <td class="text-right">
+                                <span t-esc="d.journal_id.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
+                </table>
+                <br/>
+                <div class="row" name="qr_image">
+                    <div>
+                        <div style="text-align:center">
+                            <img t-if="o.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' %to_text(o.x_qr_invoice)" style="max-height: 4.5cm;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
         </template>
 
         <template id="pos_electronic_ticket_ticketera_document_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_ticketera_document">
@@ -352,17 +504,28 @@
             <xpath expr="//table[@name='detail_table']" position="replace">
                 <table style="width:100%" name="detail_table">
                     <thead>
-                        <tr>
-                            <th style="width:6mm;text-align:left">Un.</th>
-                            <th style="width:44mm;text-align:left">Descripción</th>
-                            <th style="width:10mm;text-align:right">P.U.</th>
-                            <th style="width:10mm;text-align:right">Precio</th>
-                        </tr>
+                        <t t-if="o.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
                     </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
-                    <tbody>
-                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
                             <t t-foreach="line.invoice_line_tax_ids" t-as="t">
                                 <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
@@ -380,22 +543,50 @@
                                 <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
                             </td>
                         </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-            </xpath>
+            </xpath>            
             <xpath expr="//div[@name='qr_image']" position="replace">
                 <table style="width: 100%">
                     <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
                         <t t-if="d.amount > 0">
                             <td class="text-right">
-                                <span t-esc="d.journal_id.name"/> S/
+                                <span t-esc="d.journal_id.name"/>
                             </td>
                             <td class="text-right">
-                                <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
                             </td>
                         </t>
                     </tr>
-                    <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
                         <t t-if="0 > d.amount">
                             <t t-set="vuelto" t-value="abs(d.amount)"/>
                             <td class="text-right">
@@ -405,7 +596,7 @@
                                 <span t-esc="'{0:,.2f}'.format(vuelto)"/>
                             </td>
                         </t>
-                    </tr>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -450,7 +641,8 @@
                             </td>
                             <td class="text-right"></td>
                             <td class="text-right">
-                                <t t-if="l.discount"><span t-field="l.discount"/></t>
+                                <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                                <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
                             </td>
                             <td class="text-right"></td>
                             <td class="text-right">
@@ -546,7 +738,8 @@
                         </td>
                         <td class="text-right"></td>
                         <td class="text-right">
-                            <t t-if="l.discount"><span t-field="l.discount"/></t>
+                            <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                            <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
                         </td>
                         <td class="text-right"></td>
                         <td class="text-right">
