@@ -786,7 +786,7 @@
                     </tr>
                 </table>
                 <table>
-                    <tr style="height:2mm">
+                    <tr style="height:4mm">
                     </tr>
                 </table>
                 <table>
@@ -804,6 +804,7 @@
                     </tr>
                 </table>
                 <table>
+                    <tr><td colspan="5" style="height:4mm"></td></tr>
                     <tr>
                         <td style="width:25mm">
                         </td>
@@ -862,6 +863,7 @@
                     </tr>
                 </table>
                 <table>
+                    <tr><td colspan="2" style="height:4mm"></td></tr>
                     <tr>
                         <td style="width:5mm">
                         </td>
@@ -869,7 +871,7 @@
                             Referencia del Cliente: <span t-field="o.sale_id.client_order_ref"/>
                         </td>
                     </tr>
-                    <tr style="height:15mm">
+                    <tr style="height:10mm">
                     </tr>
                 </table>
 
@@ -933,8 +935,7 @@
                     <tr>
                         <td style="width:20mm"></td>                        
                         <td>
-                            <span t-field="o.x_invoice_type"/>
-                            -<span t-field="o.x_invoice_number"/>
+                            <span t-field="o.x_invoice_type"/> - <span t-field="o.x_invoice_number"/>
                         </td>
                     </tr>
                 </table>
