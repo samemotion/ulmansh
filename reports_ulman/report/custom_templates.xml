@@ -1,6 +1,614 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <record model="report.paperformat" id="l10n_pe_einvoicing_generic_reports.ticketera">
+                    <field name="page_height">1500</field>
+                    <field name="page_width">76</field>
+                    <field name="margin_top">5.00</field>
+                    <field name="margin_bottom">5.00</field>
+                    <field name="margin_left">8.00</field>
+                    <field name="margin_right">8.00</field>
+                    <!-- <field name="dpi">72</field> -->
+        </record>
+
+        <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_pos">
+                    <field name="page_height">1500</field>
+                    <field name="page_width">76</field>
+                    <field name="margin_top">5.00</field>
+                    <field name="margin_bottom">5.00</field>
+                    <field name="margin_left">8.00</field>
+                    <field name="margin_right">8.00</field>
+                    <!-- <field name="dpi">72</field> -->
+        </record>
+    <!-- Ticketera POS Reports -->
+
+        <template id="pos_electronic_invoice_tformat_pos_document_custom" inherit_id="l10n_pe_einvoicing_point_of_sale.pos_electronic_invoice_tformat_pos_document">
+            <xpath expr="//div[@name='invoice_ticketera_header']" position="replace">
+                <div name="invoice_ticketera_header">
+                    <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.name"/>
+                    </div>
+                    <div style="text-align: center">
+                        RUC: <span t-esc="o.company_id.vat"/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-field="o.company_id.street"/><br/>
+                        <span t-field="o.company_id.street2"/><br/>    
+                        <text>, </text>
+                    </div>
+                    <div style="text-align: center">
+                        Teléfono: <span t-esc="o.company_id.phone"/><br/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.website"/><br/>
+                    </div>
+                    <br/>
+                    <div>
+                        Factura Electrónica N°: <span t-field="o.invoice_id.x_document_serial"/><span>-</span><span t-field="o.invoice_id.x_document_correlative"/><br/>
+                        Fecha: <span t-field="o.create_date"/><br/>
+                        Cajero: <span t-field="o.user_id"/><br/>
+                        Vendedor: <span t-field="o.user_id"/><br/>
+                        <t t-if="o.partner_id.company_type=='person'">
+                            Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                        <t t-if="o.partner_id.company_type=='company'">
+                            Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
+                            RUC: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//table[@name='detail_table']" position="replace">
+                <table style="width:100%" name="detail_table">
+                    <thead>
+                        <t t-if="o.invoice_id.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
+                    <t t-set="subtotal" t-value="0"/>
+                    <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.invoice_id.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>            
+            <xpath expr="//div[@name='qr_image']" position="replace">
+                <table style="width: 100%">
+                    <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="d.amount > 0">
+                            <td class="text-right">
+                                <span t-esc="d.journal_id.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
+                </table>
+                <br/>
+                <div class="row" name="qr_image">
+                    <div>
+                        <div style="text-align:center">
+                            <img t-if="o.invoice_id.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' %to_text(o.invoice_id.x_qr_invoice)" style="max-height: 4.5cm;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="pos_electronic_ticket_tformat_pos_document_custom" inherit_id="l10n_pe_einvoicing_point_of_sale.pos_electronic_ticket_tformat_pos_document">
+            <xpath expr="//div[@name='ticket_ticketera_header']" position="replace">
+                <div name="ticket_ticketera_header">
+                    <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.name"/>
+                    </div>
+                    <div style="text-align: center">
+                        RUC: <span t-esc="o.company_id.vat"/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-field="o.company_id.street"/><br/>
+                        <span t-field="o.company_id.street2"/><br/>                    
+                        <text>, </text>
+                    </div>
+                    <div style="text-align: center">
+                        Teléfono: <span t-esc="o.company_id.phone"/><br/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.website"/><br/>
+                    </div>                    
+                    <br/>
+                    <div>
+                        Boleta Electrónica N°: <span t-field="o.invoice_id.x_document_serial"/><span>-</span><span t-field="o.invoice_id.x_document_correlative"/><br/>
+                        Fecha: <span t-field="o.create_date"/><br/>
+                        Cajero: <span t-field="o.user_id"/><br/>
+                        Vendedor: <span t-field="o.user_id"/><br/>
+                        <t t-if="o.partner_id.company_type=='person'">
+                            Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                        <t t-if="o.partner_id.company_type=='company'">
+                            Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
+                            RUC: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//table[@name='detail_table']" position="replace">
+                <table style="width:100%" name="detail_table">
+                    <thead>
+                        <t t-if="o.invoice_id.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
+                    <t t-set="subtotal" t-value="0"/>
+                    <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.invoice_id.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>            
+            <xpath expr="//div[@name='qr_image']" position="replace">
+                <table style="width: 100%">
+                    <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="d.amount > 0">
+                            <td class="text-right">
+                                <span t-esc="d.journal_id.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
+                </table>
+                <br/>
+                <div class="row" name="qr_image">
+                    <div>
+                        <div style="text-align:center">
+                            <img t-if="o.invoice_id.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' %to_text(o.invoice_id.x_qr_invoice)" style="max-height: 4.5cm;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    <!-- Ticketera Generic Reports -->
+
+        <template id="pos_electronic_invoice_ticketera_document_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_ticketera_document">
+            <xpath expr="//div[@name='invoice_ticketera_header']" position="replace">
+                <div name="invoice_ticketera_header">
+                    <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.name"/>
+                    </div>
+                    <div style="text-align: center">
+                        RUC: <span t-esc="o.company_id.vat"/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-field="o.company_id.street"/><br/>
+                        <span t-field="o.company_id.street2"/><br/>    
+                        <text>, </text>
+                    </div>
+                    <div style="text-align: center">
+                        Teléfono: <span t-esc="o.company_id.phone"/><br/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.website"/><br/>
+                    </div>
+                    <br/>
+                    <div>
+                        Factura Electrónica N°: <span t-field="o.x_document_serial"/><span>-</span><span t-field="o.x_document_correlative"/><br/>
+                        Fecha: <span t-field="o.create_date"/><br/>
+                        Cajero: <span t-field="o.user_id"/><br/>
+                        Vendedor: <span t-field="o.user_id"/><br/>
+                        <t t-if="o.partner_id.company_type=='person'">
+                            Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                        <t t-if="o.partner_id.company_type=='company'">
+                            Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
+                            RUC: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//table[@name='detail_table']" position="replace">
+                <table style="width:100%" name="detail_table">
+                    <thead>
+                        <t t-if="o.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
+                    <t t-set="subtotal" t-value="0"/>
+                    <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>            
+            <xpath expr="//div[@name='qr_image']" position="replace">
+                <table style="width: 100%">
+                    <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="d.amount > 0">
+                            <td class="text-right">
+                                <span t-esc="d.journal_id.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
+                </table>
+                <br/>
+                <div class="row" name="qr_image">
+                    <div>
+                        <div style="text-align:center">
+                            <img t-if="o.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' %to_text(o.x_qr_invoice)" style="max-height: 4.5cm;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="pos_electronic_ticket_ticketera_document_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_ticketera_document">
+            <xpath expr="//div[@name='ticket_ticketera_header']" position="replace">
+                <div name="ticket_ticketera_header">
+                    <h3 style="text-align: center" t-esc="o.company_id.partner_id.x_business_name"/>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.name"/>
+                    </div>
+                    <div style="text-align: center">
+                        RUC: <span t-esc="o.company_id.vat"/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-field="o.company_id.street"/><br/>
+                        <span t-field="o.company_id.street2"/><br/>                    
+                        <text>, </text>
+                    </div>
+                    <div style="text-align: center">
+                        Teléfono: <span t-esc="o.company_id.phone"/><br/>
+                    </div>
+                    <div style="text-align: center">
+                        <span t-esc="o.company_id.website"/><br/>
+                    </div>                    
+                    <br/>
+                    <div>
+                        Boleta Electrónica N°: <span t-field="o.x_document_serial"/><span>-</span><span t-field="o.x_document_correlative"/><br/>
+                        Fecha: <span t-field="o.create_date"/><br/>
+                        Cajero: <span t-field="o.user_id"/><br/>
+                        Vendedor: <span t-field="o.user_id"/><br/>
+                        <t t-if="o.partner_id.company_type=='person'">
+                            Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                        <t t-if="o.partner_id.company_type=='company'">
+                            Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
+                            RUC: <span t-field="o.partner_id.vat"/><br/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//table[@name='detail_table']" position="replace">
+                <table style="width:100%" name="detail_table">
+                    <thead>
+                        <t t-if="o.x_total_discount > 0">
+                            <tr>
+                                <th style="width:5mm;text-align:left">Un.</th>
+                                <th style="width:41mm;text-align:left">Desc.</th>
+                                <th style="width:8mm;text-align:right">P.U.</th>
+                                <th style="width:8mm;text-align:right">Dcto.</th>                                
+                                <th style="width:8mm;text-align:right">Precio</th>
+                            </tr> 
+                        </t>
+                        <t t-else="">
+                            <tr>
+                                <th style="width:6mm;text-align:left">Un.</th>
+                                <th style="width:44mm;text-align:left">Desc.</th>
+                                <th style="width:10mm;text-align:right">P.U.</th>
+                                <th style="width:10mm;text-align:right">Precio</th>
+                            </tr>  
+                        </t>
+                    </thead>
+                    <t t-set="subtotal" t-value="0"/>
+                    <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>                        
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
+                    <tbody>
+                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="descuento_item" t-value="line.price_unit*line.quantity*line.discount/100"/>                        
+                            <t t-set="precio_unit" t-value="line.price_unit*(100 - line.discount)/100"/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td> 
+                            <t t-if="o.x_total_discount > 0">
+                                <td style="text-align:right">
+                                    <span t-esc="'{0:,.2f}'.format(descuento_item)"/>
+                                </td>
+                            </t>                            
+                            <td style="text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(precio_subtotal)"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </xpath>            
+            <xpath expr="//div[@name='qr_image']" position="replace">
+                <table style="width: 100%">
+                    <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="d.amount > 0">
+                            <td class="text-right">
+                                <span t-esc="d.journal_id.name"/>
+                            </td>
+                            <td class="text-right">
+                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                            </td>
+                        </t>
+                    </tr>
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
+                </table>
+                <br/>
+                <div class="row" name="qr_image">
+                    <div>
+                        <div style="text-align:center">
+                            <img t-if="o.x_qr_invoice_name" t-att-src="'data:image/png;base64,%s' %to_text(o.x_qr_invoice)" style="max-height: 4.5cm;"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
         <template id="pos_electronic_invoice_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_document_generic">
             <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
                 <tbody class="invoice_tbody">
@@ -11,11 +619,21 @@
                                 <span t-esc="counter"/>
                             </td> 
                             <td class="text-right">
+                            <t t-if="o.x_is_closure and l.quantity &lt; 0">
+                                <span/>
+                            </t>
+                            <t t-else="">
                                 <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
+                            </t>
                             </td>
                             <td class="text-right"></td>
                             <td class="text-left">
+                            <t t-if="o.x_is_closure and l.quantity &lt; 0">
+                                <span/>
+                            </t>
+                            <t t-else="">
                                 <span t-esc="l.uom_id.name"/>
+                            </t>                            
                             </td>                                                    
                             <td class="text-left">                                            
                                 <span t-field="l.name"/>
@@ -33,7 +651,8 @@
                             </td>
                             <td class="text-right"></td>
                             <td class="text-right">
-                                <t t-if="l.discount"><span t-field="l.discount"/></t>
+                                <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                                <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
                             </td>
                             <td class="text-right"></td>
                             <td class="text-right">
@@ -129,7 +748,8 @@
                         </td>
                         <td class="text-right"></td>
                         <td class="text-right">
-                            <t t-if="l.discount"><span t-field="l.discount"/></t>
+                            <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                            <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
                         </td>
                         <td class="text-right"></td>
                         <td class="text-right">
