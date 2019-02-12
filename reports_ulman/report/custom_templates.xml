@@ -11,7 +11,7 @@
                     <field name="margin_right">8.00</field>
         </record>
 
-        <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_pos">
+        <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_l10n_pe_pos">
                     <field name="page_height">1500</field>
                     <field name="page_width">76</field>
                     <field name="margin_top">5.00</field>
