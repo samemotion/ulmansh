@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-<!-- 
+
         <record model="report.paperformat" id="l10n_pe_einvoicing_generic_reports.ticketera">
                     <field name="page_height">1500</field>
                     <field name="page_width">76</field>
@@ -18,7 +18,7 @@
                     <field name="margin_bottom">5.00</field>
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
-        </record> -->
+        </record>
     <!-- Ticketera POS Reports -->
 
         <template id="pos_electronic_invoice_tformat_pos_document_custom" inherit_id="l10n_pe_einvoicing_point_of_sale.pos_electronic_invoice_tformat_pos_document">
