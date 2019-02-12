@@ -17,12 +17,12 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Reports',
-    'version': '4.0',
+    'version': '4.1',
     'depends': ['account'],
     'data': [
         'report/layout_templates.xml',
         'report/report_templates.xml',
-        # 'report/custom_templates.xml',
+        'report/custom_templates.xml',
         ],
     'demo': [
     ],
