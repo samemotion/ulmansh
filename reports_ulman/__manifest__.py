@@ -17,7 +17,7 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Reports',
-    'version': '1.0',
+    'version': '2.0',
     'depends': ['account'],
     'data': [
         'report/layout_templates.xml',

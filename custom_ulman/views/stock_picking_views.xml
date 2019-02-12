@@ -15,6 +15,9 @@
       	<xpath expr="//field[@name='x_transporter_driver']" position="after">
           <button name="401" type="action" string="Actualizar Vehiculo"></button>
         </xpath>
+		    <xpath expr="//button[@name='action_print_picking_pe']" position="replace">
+          <button name="action_print_picking_pe" type="object" string="Imprimir Guia Remision" attrs="{'invisible':['|',('state', 'in', ('draft','waiting','confirmed','assigned','cancel'))]}" groups="base.group_user"/>
+		    </xpath>                
       </field>
     </record> 
   </data>
