@@ -608,63 +608,83 @@
         </template>
 
         <template id="pos_electronic_invoice_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_document_generic">
-            <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
-                <tbody class="invoice_tbody">
-                    <t t-set="counter" t-value="1"/>
-                    <t t-foreach="o.invoice_line_ids" t-as="l">
-                        <tr class="tr">
-                            <td class="text-right">
-                                <span t-esc="counter"/>
-                            </td> 
-                            <td class="text-right">
-                            <t t-if="o.x_is_closure and l.quantity &lt; 0">
-                                <span/>
-                            </t>
-                            <t t-else="">
-                                <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
-                            </t>
-                            </td>
-                            <td class="text-right"></td>
-                            <td class="text-left">
-                            <t t-if="o.x_is_closure and l.quantity &lt; 0">
-                                <span/>
-                            </t>
-                            <t t-else="">
-                                <span t-esc="l.uom_id.name"/>
-                            </t>                            
-                            </td>                                                    
-                            <td class="text-left">                                            
-                                <span t-field="l.name"/>
-                            </td>
-                            <td class="text-right">
-                                <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
-                            </td>
+            <xpath expr="//table[@name='table_invoice_detail']" position="replace">
+                <table name="table_invoice_detail">
+                    <thead>
+                        <tr>
+                            <th class="text-right" style="width:5mm;">#</th>
+                            <th class="text-right" style="width:15mm;">Cant.</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th style="width:25mm;">Unidades</th>
+                            <th style="width:75mm" class="text-left">Descripción</th>
+                            <th class="text-right" style="width:20mm">Valor Unitario</th>
                             <t t-if="o.x_total_amount_free > 0">
-                                <td class="text-right">
-                                <t t-if="l.x_tax_type == 'Z'"><span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/></t>
-                                </td>
+                                <th class="text-right" style="width:20mm">Valor Referencial</th>
                             </t>
-                            <td class="text-right">
-                                <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
-                            </td>
-                            <td class="text-right"></td>
-                            <td class="text-right">
-                                <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
-                                <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
-                            </td>
-                            <td class="text-right"></td>
-                            <td class="text-right">
-                                <t t-if="l.x_tax_type == 'Z'">
-                                    <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit * l.quantity)"/>
+                            <th class="text-right" style="width:20mm">Precio Unitario</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th class="text-right" style="width:10mm">Descuento</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th class="text-right" style="width:20mm">Valor de Venta Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="counter" t-value="1"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="l">
+                            <tr class="tr">
+                                <td class="text-right">
+                                    <span t-esc="counter"/>
+                                </td> 
+                                <td class="text-right">
+                                <t t-if="o.x_is_closure and l.quantity &lt; 0">
+                                    <span/>
                                 </t>
                                 <t t-else="">
-                                    <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
+                                    <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
                                 </t>
-                            </td>
-                            <t t-set="counter" t-value="counter + 1"/>
-                        </tr>
-                    </t>
-                </tbody>
+                                </td>
+                                <td class="text-right"></td>
+                                <td class="text-left">
+                                <t t-if="o.x_is_closure and l.quantity &lt; 0">
+                                    <span/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="l.uom_id.name"/>
+                                </t>                            
+                                </td>                                                    
+                                <td class="text-left">                                            
+                                    <span t-field="l.name"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                </td>
+                                <t t-if="o.x_total_amount_free > 0">
+                                    <td class="text-right">
+                                    <t t-if="l.x_tax_type == 'Z'"><span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/></t>
+                                    </td>
+                                </t>
+                                <td class="text-right">
+                                    <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                </td>
+                                <td class="text-right"></td>
+                                <td class="text-right">
+                                    <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                                    <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
+                                </td>
+                                <td class="text-right"></td>
+                                <td class="text-right">
+                                    <t t-if="l.x_tax_type == 'Z'">
+                                        <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit * l.quantity)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
+                                    </t>
+                                </td>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
             </xpath>
             <xpath expr="//div[@name='free_op']" position="replace">
                 <div class="col-xs-4 pull-left" name="free_op">
@@ -718,49 +738,69 @@
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
-            <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
-                <tbody class="invoice_tbody">
-                    <t t-set="counter" t-value="1"/>
-                    <tr t-foreach="o.invoice_line_ids" t-as="l">
-                        <td class="text-right">
-                            <span t-esc="counter"/>
-                        </td> 
-                        <td class="text-right">
-                            <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
-                        </td>
-                        <td class="text-right"></td>
-                        <td class="text-left">
-                            <span t-esc="l.uom_id.name"/>
-                        </td>                                                    
-                        <td class="text-left">                                            
-                            <span t-field="l.name"/>
-                        </td>
-                        <td class="text-right"></td>
-                        <t t-if="o.x_total_amount_free > 0">
-                            <td class="text-right">
-                                <t t-if="l.x_tax_type == 'Z'"><span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/></t>
-                            </td>
-                        </t>
-                        <td class="text-right">
-                            <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
-                        </td>
-                        <td class="text-right"></td>
-                        <td class="text-right">
-                            <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
-                            <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
-                        </td>
-                        <td class="text-right"></td>
-                        <td class="text-right">
-                            <t t-if="l.x_tax_type == 'Z'">
-                                <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit * l.quantity)"/>
+            <xpath expr="//table[@name='table_ticket_detail']" position="replace">
+                <table name="table_ticket_detail">
+                    <thead>
+                        <tr>
+                            <th class="text-right" style="width:5mm;">#</th>
+                            <th class="text-right" style="width:15mm;">Cant.</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th style="width:25mm;">Unidades</th>
+                            <th style="width:75mm" class="text-left">Descripción</th>
+                            <th class="text-right" style="width:20mm"></th>
+                            <t t-if="o.x_total_amount_free > 0">
+                                <th class="text-right" style="width:20mm">Valor Referencial</th>
                             </t>
-                            <t t-else="">
-                                <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
-                            </t>                                            
-                        </td>
-                        <t t-set="counter" t-value="counter + 1"/>
-                    </tr>
-                </tbody>
+                            <th class="text-right" style="width:20mm">Precio Unitario</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th class="text-right" style="width:10mm">Descuento</th>
+                            <th class="text-right" style="width:3mm"></th>
+                            <th class="text-right" style="width:20mm">Valor de Venta Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="invoice_tbody">
+                        <t t-set="counter" t-value="1"/>
+                        <tr t-foreach="o.invoice_line_ids" t-as="l">
+                            <td class="text-right">
+                                <span t-esc="counter"/>
+                            </td> 
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
+                            </td>
+                            <td class="text-right"></td>
+                            <td class="text-left">
+                                <span t-esc="l.uom_id.name"/>
+                            </td>                                                    
+                            <td class="text-left">                                            
+                                <span t-field="l.name"/>
+                            </td>
+                            <td class="text-right"></td>
+                            <t t-if="o.x_total_amount_free > 0">
+                                <td class="text-right">
+                                    <t t-if="l.x_tax_type == 'Z'"><span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/></t>
+                                </td>
+                            </t>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                            </td>
+                            <td class="text-right"></td>
+                            <td class="text-right">
+                                <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
+                                <t t-if="l.discount"><span t-esc="'{0:,.2f}'.format(l.discount*l.price_unit*l.quantity/100)"/></t>
+                            </td>
+                            <td class="text-right"></td>
+                            <td class="text-right">
+                                <t t-if="l.x_tax_type == 'Z'">
+                                    <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit * l.quantity)"/>
+                                </t>
+                                <t t-else="">
+                                    <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
+                                </t>                                            
+                            </td>
+                            <t t-set="counter" t-value="counter + 1"/>
+                        </tr>
+                    </tbody>
+                </table>
             </xpath>
 
             <xpath expr="//div[@name='free_op']" position="replace">
