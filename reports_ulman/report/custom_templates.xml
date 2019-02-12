@@ -611,7 +611,26 @@
         </template>
 
         <template id="pos_electronic_invoice_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_invoice_document_generic">
-            <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
+            <xpath expr="//table[@name='invoice_table_details']" position="replace">
+            <table name="invoice_table_details">
+                <thead>
+                    <tr>
+                        <th class="text-right" style="width:5mm;">#</th>
+                        <th class="text-right" style="width:15mm;">Cant.</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th style="width:25mm;">Unidades</th>
+                        <th style="width:75mm" class="text-left">Descripción</th>
+                        <th class="text-right" style="width:20mm">Valor Unitario</th>
+                        <t t-if="o.x_total_amount_free > 0">
+                            <th class="text-right" style="width:20mm">Valor Referencial</th>
+                        </t>
+                        <th class="text-right" style="width:20mm">Precio Unitario</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th class="text-right" style="width:10mm">Descuento</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th class="text-right" style="width:20mm">Valor de Venta Total</th>
+                    </tr>
+                </thead>            
                 <tbody class="invoice_tbody">
                     <t t-set="counter" t-value="1"/>
                     <t t-foreach="o.invoice_line_ids" t-as="l">
@@ -668,6 +687,7 @@
                         </tr>
                     </t>
                 </tbody>
+            </table> 
             </xpath>
             <xpath expr="//div[@name='free_op']" position="replace">
                 <div class="col-xs-4 pull-left" name="free_op">
@@ -721,7 +741,27 @@
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
-            <xpath expr="//tbody[@class='invoice_tbody']" position="replace">
+            <xpath expr="//table[@name='invoice_table_details']" position="replace">
+            <table name="invoice_table_details">
+                <thead>
+                    <tr>
+                        <th class="text-right" style="width:5mm;">#</th>
+                        <th class="text-right" style="width:15mm;">Cant.</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th style="width:25mm;">Unidades</th>
+                        <th style="width:75mm" class="text-left">Descripción</th>
+                        <th class="text-right" style="width:20mm"></th>
+                        <t t-if="o.x_total_amount_free > 0">
+                            <th class="text-right" style="width:20mm">Valor Referencial</th>
+                        </t>
+                        <th class="text-right" style="width:20mm">Precio Unitario</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th class="text-right" style="width:10mm">Descuento</th>
+                        <th class="text-right" style="width:3mm"></th>
+                        <th class="text-right" style="width:20mm">Valor de Venta Total</th>
+                    </tr>
+                </thead>
+
                 <tbody class="invoice_tbody">
                     <t t-set="counter" t-value="1"/>
                     <tr t-foreach="o.invoice_line_ids" t-as="l">
@@ -764,7 +804,7 @@
                         <t t-set="counter" t-value="counter + 1"/>
                     </tr>
                 </tbody>
-
+                </table>
             </xpath>
 
             <xpath expr="//div[@name='free_op']" position="replace">
