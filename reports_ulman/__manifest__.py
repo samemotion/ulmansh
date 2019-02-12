@@ -18,7 +18,7 @@
     # for the full list
     'category': 'Reports',
     'version': '4.1',
-    'depends': ['account'],
+    'depends': ['account','l10n_pe_einvoicing_generic_reports','l10n_pe_einvoicing_point_of_sale'],
     'data': [
         'report/layout_templates.xml',
         'report/report_templates.xml',
