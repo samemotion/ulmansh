@@ -17,12 +17,10 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Warehouse',
-    'version': '1.4',
+    'version': '1.5',
     'depends': ['stock','sale','sale_stock'],
     'data': [
         'views/stock_picking_views.xml',
-        # 'report/report_templates.xml',
-        # 'report/custom_templates.xml',
         ],
     'demo': [
     ],
