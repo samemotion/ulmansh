@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="PosTicket">
+        <t t-jquery='.pos-sale-ticket' t-operation='replace'>
+            <div class="pos-sale-ticket">
+                <div class="pos-sale-ticket-inner">
+                    <div class="business title text-center"></div>
+                    <div class="paragraph text-center"> <t t-esc="widget.pos.company.name"/> </div>
+                    <div class="paragraph text-center">RUC: <t t-esc="widget.pos.company.vat"/></div>
+                    <div class="street paragraph text-center"></div>
+                    <br/>
+                    <div class="paragraph text-center"> <t t-esc="widget.pos.company.phone"/> </div>
+                    <div class="paragraph text-center"> <t t-esc="widget.pos.company.website"/> </div>
+                    <br/>
+                    <div class="invoice-detail">
+                        <t t-if="widget.pos.get_order().is_to_invoice()">
+                        <div class="paragraph">Factura Electrónica N°: <t t-esc="widget.pos.get_order().info.number"/> </div>
+                        </t>
+                        <t t-else="">
+                        <div class="paragraph">Boleta Electrónica N°: <t t-esc="widget.pos.get_order().info.number"/> </div>
+                        </t>
+
+                        <div class="paragraph">Fecha: <t t-esc="widget.pos.get_order().info.create_date"/> </div>
+                        <div class="paragraph">Cajero: <t t-esc="widget.pos.get_cashier().name"/> </div>
+                        <div class="paragraph">Vendedor: <t t-esc="widget.pos.get_cashier().name"/> </div>
+                        <div class="paragraph">Cliente: <t t-esc="widget.pos.get_client().name"/></div>
+                        <div class="paragraph">DNI: <t t-esc="widget.pos.get_client().vat"/></div>
+                        <div class="paragraph">Moneda: <t t-esc="widget.pos.get_order().info.currency_description"/> </div>
+                    </div>
+                    <br/>
+                    <div class="invoice-line">
+                        <div class="paragraph bold small">Un.</div>
+                        <div class="paragraph bold large">Desc.</div>
+                        <div class="paragraph bold small">P.U.</div>
+                        <div class="paragraph bold small">Precio</div>
+                    </div>
+
+                    <!-- <br/>
+                    <div class="invoice-total">
+                        <div class="paragraph small"></div>
+                        <div class="paragraph large"></div>
+                        <div class="paragraph small">Total</div>
+                        <div class="paragraph small"> <t t-esc="order.get_total_with_tax()"/> </div>
+                    </div> -->
+
+                    <!-- <div class="invoice-total">
+                        <div class="paragraph small"></div>
+                        <div class="paragraph large"></div>
+                        <div class="paragraph small">Op. Gravada</div>
+                        <div class="paragraph small"> <t t-esc="order.get_total_without_tax()"/> </div>
+                    </div> -->
+
+                    <!-- <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                        <div class="invoice-total">
+                            <div class="paragraph small"></div>
+                            <div class="paragraph large"></div>
+                            <div class="paragraph small"> <t t-esc="taxdetail.name" /> </div>
+                            <div class="paragraph small"> <t t-esc="taxdetail.amount" /> </div>
+                        </div>
+                    </t> -->
+
+                    <br/>
+                    <div class="qr-code">
+                        <img t-if="widget.pos.get_order().info.qr_code" t-att-src="widget.pos.get_order().info.qr_code" style="max-height: 3cm;"/>
+                    </div>
+
+                    <!-- <br/>
+                    <div class="invoice-detail">
+                        <t t-if="widget.pos.get_order().is_to_invoice()">
+                        <div class="paragraph">Representación impresa de la Factura Electrónica</div>
+                        </t>
+                        <t t-else="">
+                        <div class="paragraph">Representación impresa de la Boleta Electrónica</div>
+                        </t>
+
+                        <div class="paragraph">Consulte su comprobante de pago en:</div>
+                        <div class="paragraph">Consulte en <t t-esc="o.env['ir.config_parameter'].get_param('web.base.url')"/>/einvoicing_get_document</div>
+                    </div> -->
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ReceiptScreenWidget">
+	    <t t-jquery=".centered-content" t-operation="replace">
+			<div class="centered-content touch-scrollable">
+                <div class="button print">
+                    <i class='fa fa-print'></i> Print Receipt
+                </div>
+                <div class="pos-receipt-container">
+                </div>
+            </div>
+		</t>
+	</t>
+</templates>

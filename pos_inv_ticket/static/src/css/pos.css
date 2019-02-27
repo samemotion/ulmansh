@@ -1,0 +1,90 @@
+.pos-sale-ticket-inner{
+    width: 100%;
+    min-height: 1rem;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-size: 1rem;
+    width: 50%;
+}
+
+.paragraph{
+    font-size: .7rem;
+    width: 50%;
+}
+
+.bold{
+    font-weight: bolder;
+}
+
+.invoice-detail{
+    width: 100%;
+}
+
+.invoice-detail .paragraph{
+    width: 100%;
+}
+
+.invoice-line{
+    width: 100%;
+    min-height: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.invoice-line .small{
+    flex: 1;
+}
+
+.invoice-line .large{
+    flex: 3;
+}
+
+.invoice-line .xlarge{
+    flex: 4;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.qr-code{
+    width: 100%;
+    min-height: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.invoice-total{
+    width: 100%;
+    min-height: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.invoice-total .small{
+    flex: 1;
+}
+
+.invoice-total .large{
+    flex: 3;
+}
+
+.text-right{
+    text-align: right;
+}
