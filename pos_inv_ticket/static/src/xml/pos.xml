@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
+    <t t-extend="ReceiptScreenWidget">
+	    <t t-jquery=".centered-content" t-operation="replace">
+			<div class="centered-content touch-scrollable">
+                <div class="button print">
+                    <i class='fa fa-print'></i> Print Receipt
+                </div>
+                
+                <div class="pos-receipt-container">
+                </div>
+            </div>
+		</t>
+	</t>
+    
     <t t-extend="PosTicket">
         <t t-jquery='.pos-sale-ticket' t-operation='replace'>
             <div class="pos-sale-ticket">
@@ -80,17 +93,4 @@
             </div>
         </t>
     </t>
-
-    <t t-extend="ReceiptScreenWidget">
-	    <t t-jquery=".centered-content" t-operation="replace">
-			<div class="centered-content touch-scrollable">
-                <div class="button print">
-                    <i class='fa fa-print'></i> Print Receipt
-                </div>
-                
-                <div class="pos-receipt-container">
-                </div>
-            </div>
-		</t>
-	</t>
 </templates>

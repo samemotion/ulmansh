@@ -51,22 +51,6 @@ odoo.define('pos_inv_ticket.models', function (require) {
             // alert(round_di(this.get_total_without_tax() + this.get_total_tax(),pos_price_digits));
             return round_di(this.get_total_without_tax() + this.get_total_tax(),pos_price_digits);
         },
-        // load_recipe_with_invoice: function(){
-        //     rpc.query({
-        //         model: 'pos.order',
-        //         method: 'get_name_2',
-        //         args: [[], []],
-        //     })
-        //     .then(function(res){
-        //         console.log('resolve ->');
-        //         console.log(res);
-        //         this.info = res;
-        //     });
-
-        //     console.log('xcvxcvxcv');
-
-        //     return;
-        // },
     });
 
     models.PosModel = models.PosModel.extend({
