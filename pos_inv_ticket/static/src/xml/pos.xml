@@ -87,6 +87,7 @@
                 <div class="button print">
                     <i class='fa fa-print'></i> Print Receipt
                 </div>
+                
                 <div class="pos-receipt-container">
                 </div>
             </div>
