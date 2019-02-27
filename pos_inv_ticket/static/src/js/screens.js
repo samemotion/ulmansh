@@ -153,8 +153,8 @@ odoo.define('pos_inv_ticket.screens', function (require) {
                 html += '<div class="invoice-line">';
                 html += '   <div class="paragraph small">'+ line.quantity +'</div>';
                 html += '   <div class="paragraph large">'+ line.description +'</div>';
-                html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + line.price_unit.toFixed(2) +'</div>';
-                html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + line.subtotal.toFixed(2) +'</div>';
+                html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + line.price_unit.toFixed(2) +'</div>';
+                html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + line.subtotal.toFixed(2) +'</div>';
                 html += '</div>';
             }
 
@@ -162,41 +162,41 @@ odoo.define('pos_inv_ticket.screens', function (require) {
             html += '<div class="invoice-total">';
             html += '   <div class="paragraph small"></div>';
             html += '   <div class="paragraph large"></div>';
-            html += '   <div class="paragraph small">Total</div>';
-            html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + order.get_total_with_tax().toFixed(2) +'</div>';
+            html += '   <div class="paragraph medium">Total</div>';
+            html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + order.get_total_with_tax().toFixed(2) +'</div>';
             html += '</div>';
 
             html += '<div class="invoice-total">';
             html += '   <div class="paragraph small"></div>';
             html += '   <div class="paragraph large"></div>';
-            html += '   <div class="paragraph small">Op. Gravada</div>';
-            html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + order.get_total_without_tax().toFixed(2) +'</div>';
+            html += '   <div class="paragraph medium">Op. Gravada</div>';
+            html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + order.get_total_without_tax().toFixed(2) +'</div>';
             html += '</div>';
 
             for (let taxdetail of order.get_tax_details()){
                 html += '<div class="invoice-total">';
                 html += '   <div class="paragraph small"></div>';
                 html += '   <div class="paragraph large"></div>';
-                html += '   <div class="paragraph small">'+ taxdetail.name +'</div>';
-                html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + taxdetail.amount.toFixed(2) +'</div>';
+                html += '   <div class="paragraph medium">'+ taxdetail.name +'</div>';
+                html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + taxdetail.amount.toFixed(2) +'</div>';
                 html += '</div>';
             }
 
             html += '<br/>'
             for (let line of order.paymentlines.models){
                 html += '<div class="invoice-total">';
-                html += '   <div class="paragraph small"></div>';
+                // html += '   <div class="paragraph small"></div>';
                 html += '   <div class="paragraph small"></div>';
                 html += '   <div class="paragraph large">'+ line.name +'</div>';
-                html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + line.amount.toFixed(2) +'</div>';
+                html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + line.amount.toFixed(2) +'</div>';
                 html += '</div>';
             }
 
             html += '<div class="invoice-total">';
-            html += '   <div class="paragraph small"></div>';
+            // html += '   <div class="paragraph small"></div>';
             html += '   <div class="paragraph small"></div>';
             html += '   <div class="paragraph large">Vuelto</div>';
-            html += '   <div class="paragraph small">'+ order.info.currency_symbol + ' ' + order.get_change().toFixed(2) +'</div>';
+            html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + order.get_change().toFixed(2) +'</div>';
             html += '</div>';
 
             this.$('.invoice-line').replaceWith(html);

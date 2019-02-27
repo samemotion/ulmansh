@@ -31,8 +31,8 @@
                     <div class="invoice-line">
                         <div class="paragraph bold small">Un.</div>
                         <div class="paragraph bold large">Desc.</div>
-                        <div class="paragraph bold small">P.U.</div>
-                        <div class="paragraph bold small">Precio</div>
+                        <div class="paragraph bold medium">P.U.</div>
+                        <div class="paragraph bold medium">Precio</div>
                     </div>
 
                     <!-- <br/>

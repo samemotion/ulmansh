@@ -45,6 +45,10 @@
     flex: 1;
 }
 
+.invoice-line .medium{
+    flex: 1;
+}
+
 .invoice-line .large{
     flex: 3;
 }
