@@ -185,17 +185,17 @@ odoo.define('pos_inv_ticket.screens', function (require) {
             html += '<br/>'
             for (let line of order.paymentlines.models){
                 html += '<div class="invoice-total">';
-                // html += '   <div class="paragraph small"></div>';
-                html += '   <div class="paragraph small"></div>';
-                html += '   <div class="paragraph large">'+ line.name +'</div>';
+                html += '   <div class="paragraph xxlarge"></div>';
+                html += '   <div class="paragraph large"></div>';
+                html += '   <div class="paragraph medium">'+ line.name +'</div>';
                 html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + line.amount.toFixed(2) +'</div>';
                 html += '</div>';
             }
 
             html += '<div class="invoice-total">';
-            // html += '   <div class="paragraph small"></div>';
-            html += '   <div class="paragraph small"></div>';
-            html += '   <div class="paragraph large">Vuelto</div>';
+            html += '   <div class="paragraph xxlarge"></div>';
+            html += '   <div class="paragraph large"></div>';
+            html += '   <div class="paragraph medium">Vuelto</div>';
             html += '   <div class="paragraph medium">'+ order.info.currency_symbol + ' ' + order.get_change().toFixed(2) +'</div>';
             html += '</div>';
 

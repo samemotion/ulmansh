@@ -93,6 +93,14 @@
     flex: 3;
 }
 
+.invoice-total .xlarge{
+    flex: 4;
+}
+
+.invoice-total .xxlarge{
+    flex: 5;
+}
+
 .text-right{
     text-align: right;
 }
