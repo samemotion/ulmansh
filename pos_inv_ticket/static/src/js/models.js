@@ -19,23 +19,7 @@ odoo.define('pos_inv_ticket.models', function (require) {
     var round_pr = utils.round_precision;
     
     var models = require('point_of_sale.models');
-    // var pos_models = models.PosModel.prototype.models;
-    // var _super_order = models.Order.prototype;
 
-    // console.log(pos_models);
-
-    // pos_models.push(
-    //     {
-    //         model: 'account.invoice',
-    //         fields: ['date'],
-    //         loaded: function(self,invoices){
-    //             console.log(invoices);
-    //             self.invoice_id  = invoices[0];
-    //         },
-    //     }
-    // );
-
-    console.log('asdasd');
     var _super_order = models.Order.prototype;
 
 
@@ -67,25 +51,21 @@ odoo.define('pos_inv_ticket.models', function (require) {
             // alert(round_di(this.get_total_without_tax() + this.get_total_tax(),pos_price_digits));
             return round_di(this.get_total_without_tax() + this.get_total_tax(),pos_price_digits);
         },
-        load_recipe_with_invoice: function(){
-            rpc.query({
-                model: 'pos.order',
-                method: 'get_name_2',
-                args: [[], []],
-            })
-            .then(function(res){
-                console.log('resolve ->');
-                console.log(res);
-                this.info = res;
-            });
+        // load_recipe_with_invoice: function(){
+        //     rpc.query({
+        //         model: 'pos.order',
+        //         method: 'get_name_2',
+        //         args: [[], []],
+        //     })
+        //     .then(function(res){
+        //         console.log('resolve ->');
+        //         console.log(res);
+        //         this.info = res;
+        //     });
 
-            console.log('xcvxcvxcv');
+        //     console.log('xcvxcvxcv');
 
-            return;
-        },
-        // setInfo: function(info){
-        //     console.log(info);
-        //     this.info = info;
+        //     return;
         // },
     });
 
