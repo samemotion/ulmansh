@@ -85,6 +85,10 @@
     flex: 1;
 }
 
+.invoice-total .medium{
+    flex: 2;
+}
+
 .invoice-total .large{
     flex: 3;
 }
