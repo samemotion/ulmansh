@@ -17,8 +17,8 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Reports',
-    'version': '1.0',
-    'depends': ['account'],
+    'version': '4.2',
+    'depends': ['account','l10n_pe_einvoicing_generic_reports','l10n_pe_einvoicing_point_of_sale'],
     'data': [
         'report/layout_templates.xml',
         'report/report_templates.xml',
