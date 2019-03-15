@@ -17,8 +17,8 @@
     # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
     # for the full list
     'category': 'Warehouse',
-    'version': '1.5',
-    'depends': ['stock','sale','sale_stock'],
+    'version': '1.6',
+    'depends': ['sale','sale_stock','l10n_pe_stock_base'],
     'data': [
         'views/stock_picking_views.xml',
         ],
