@@ -927,36 +927,44 @@
                             </tr>                    
                         </table>
                     </div>
-                    <div style="height:10mm"/>
+                    <div style="height:2mm"/>
                     <div style="margin:auto;width:100%;padding: 3mm 3mm 3mm 3mm;">
                         <table>
                             <tr>
                                 <td style="font-size:12px;font-weight: bold;font-family:sans-serif;">RECEPCION DE LA NOTA DE CREDITO</td>
                             </tr>
                             <tr>
-                                <td style="height:2mm"></td>
+                                <td style="height:2mm"/>
                             </tr>                    
                             <tr>
-                                <td style="width:100mm;font-size:12px;font-family:sans-serif;">Apellidos y nombres de quién recepciona la nota de crédito: </td>
+                                <td>
+                                    <table>
+                                    <tr style="font-size:12px;font-family:sans-serif;">
+                                        <td style="width:120mm;">Apellidos y nombres de quién recepciona la nota de crédito: </td><td style="width:40mm;"></td>
+                                        <td style="width:15mm;">DNI:</td>
+                                    </tr>
+                                    </table>
+                                </td>                                
                             </tr>
                             <tr>
-                                <td style="height:2mm"></td>
+                                <td style="height:10mm"/>
                             </tr>                    
                             <tr>
-                                <td style="height:2mm"></td>
-                            </tr>
-                            <tr style="font-size:12px;font-family:sans-serif;">
-                                <td>DNI:</td>
-                            </tr>
-                            <tr>
-                                <td style="height:2mm"></td>
-                            </tr>                    
-                            <tr style="font-size:12px;font-family:sans-serif;">
-                                <td>Fecha de recepción:</td>
-                            </tr>
+                                <td>
+                                    <table>
+                                    <tr style="font-size:12px;font-family:sans-serif;">
+                                      <td style="width:40mm;">Fecha de recepción:</td>
+                                      <td style="width:25mm;"></td>
+                                      <td style="width:40mm;">Firma de cliente</td>
+                                      <td style="width:40mm;"></td>
+                                      <td style="width:40mm;">Firma del vendedor</td>                                        
+                                    </tr>
+                                    </table>
+                                </td>
+                            </tr>                            
                         </table>
                     </div>
-                    <div style="height:10mm"/>
+                    <div style="height:2mm"/>
                 </div>
                 <div class="row" name="qr_box" style="page-break-inside: avoid;">   
                     <table>
