@@ -9,6 +9,7 @@
                     <field name="margin_bottom">5.00</field>
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
 
         <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_pos">
@@ -18,6 +19,7 @@
                     <field name="margin_bottom">5.00</field>
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
     <!-- Ticketera POS Reports -->
 
