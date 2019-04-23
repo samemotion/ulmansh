@@ -11,7 +11,7 @@ This module adds SUNAT Stock Reports
 =================================================================
     """,
     'website': 'https://www.samemotion.com',
-    'depends': ['stock','l10n_pe_stock_base'],
+    'depends': ['stock','l10n_pe_stock_base','product_type_pe'],
     'data': [
 #        'security/ir.model.access.csv',
 #        'views/stock_picking_batch_views.xml',
@@ -20,6 +20,7 @@ This module adds SUNAT Stock Reports
          'report/stock_sunat_report_view.xml',
          'report/stock_quantity_sunat_report.xml',
          'wizard/stock_report_loader.xml',
+         'views/product.xml',
     ],
     'demo': [
 #        'data/stock_picking_batch_demo.xml',
