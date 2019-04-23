@@ -11,6 +11,27 @@
             </field>
         </record>
         
+        <record model="ir.ui.view" id="inherit_product_uom_form_pe">
+            <field name="name">inherit.product.uom.form.pe</field>
+            <field name="model">product.uom</field>
+            <field name="inherit_id" ref="product.product_uom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="x_code_pe" attrs="{'required':True}"/>
+                </xpath>
+            </field>
+        </record>
 
+        <record model="ir.ui.view" id="inherit_product_uom_tree_pe">
+            <field name="name">inherit.product.uom.tree.pe</field>
+            <field name="model">product.uom</field>
+            <field name="inherit_id" ref="product.product_uom_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="x_code_pe" attrs="{'required':True}"/>
+                </xpath>
+            </field>
+        </record>
+        
     </data>
 </odoo>
