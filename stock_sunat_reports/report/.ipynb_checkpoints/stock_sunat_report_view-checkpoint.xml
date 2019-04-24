@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>        
-        <report id="report_12_1_registro_inventario_unidades" 
+        <report id="registro_inventario_unidades" 
             string="M12.1 Registro Inventario Unidades" 
             model="stock.move" 
             report_type="qweb-pdf" 
-            name="stock_sunat_reports.template_12_1_registro_inventario_unidades" 
+            name="stock_sunat_reports.registro_inventario_unidades" 
             print_report_name="'Registro Inventatio de Unidades"
             />
 <!--            paperformat="paperformat_euro_landscape"-->
+        <report id="inventario_unidades" 
+            string="M12.1 Registro Inventario Unidades" 
+            model="stock.move" 
+            report_type="qweb-pdf" 
+            name="stock_sunat_reports.te_inventario_unidades" 
+            print_report_name="Inventario de unidades"
+            />
 
     </data>
 </odoo>

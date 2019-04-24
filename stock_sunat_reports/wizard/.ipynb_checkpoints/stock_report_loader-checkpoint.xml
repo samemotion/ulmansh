@@ -18,6 +18,7 @@
             </form>
         </field>
     </record>
+    
         <record id="action_stock_report_loader" model="ir.actions.act_window">
             <field name="name">Stock Report Loader</field>
             <field name="res_model">stock.report.loader</field>
@@ -25,7 +26,7 @@
             <field name="view_mode">form</field>
             <field name="view_id" ref="stock_report_loader_view_form"/>
             <field name="target">new</field>
-            <field name="context">{'report_name': 'stock_sunat_reports.report_12_1_registro_inventario_unidades', 'report_model': 'stock.move'}</field>
+            <field name="context">{'report_name': 'stock_sunat_reports.inventario_unidades', 'report_model': 'stock.move'}</field>
         </record>
     
             <menuitem id="report_sunat_qty_report"

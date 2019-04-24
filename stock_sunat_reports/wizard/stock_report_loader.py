@@ -10,6 +10,7 @@ from odoo import api, models, fields, _
 import datetime
 import calendar
 from odoo.exceptions import ValidationError
+#from odoo.tools import report
 
 import logging
 import threading
@@ -33,6 +34,8 @@ class StockReportLoader(models.TransientModel):
 
         report_name =  self.env.context.get('report_name',False)
         report_model = self.env.context.get('report_model',False)
+        
+        
 #            report_model_obj = report_line_definition.x_model
 #        else:
 #            raise Warning ("No report definition for this report.")
@@ -96,16 +99,25 @@ class StockReportLoader(models.TransientModel):
 #                record_ids = record_ids.filtered(lambda r: r.x_company_id.id == company_id.id)
 
         #Print Report
-        context = {}
+        context = self._context.copy()
+        
         data =  self.env.context.get('active_id',False)
         datas = {
+            
             'ids': record_ids.ids,
             'model': report_model,
             'form': data,
+            'period_month': period_month,
+            'period_year': period_year,
+            'start_date': str(var_from_date),
+            'end_date': str(var_to_date),
+            'company_id': self.env['res.company']._company_default_get('stock.sunat.report').id,
             }
+        
+        
 #        raise ValidationError(str(self.env['res.company']._company_default_get('stock.sunat.report').id))
 #        if self.x_period_type in ('m','y'):
-        context.update({'period_month':period_month, 'period_year' : period_year,'start_date': str(var_from_date), 'end_date': str(var_to_date),'company_id':self.env['res.company']._company_default_get('stock.sunat.report').id})
+#         context.update({'period_month':period_month, 'period_year' : period_year,'start_date': str(var_from_date), 'end_date': str(var_to_date),'company_id':self.env['res.company']._company_default_get('stock.sunat.report').id })
 #        elif self.x_period_type == 'd':
 #            context.update({'x_to_date':self.x_to_date,'company_id':company_id.id,})
 #        report_obj = self.env['report']
@@ -116,16 +128,18 @@ class StockReportLoader(models.TransientModel):
         #action = {'type': 'ir.actions.report.xml', 'report_name': report_name, 'datas': datas, 'context': context}
 #        return report_obj.render('module.report_name', datas)
 
-    
+         
 #        xml_ids = models.Model._get_external_ids(self.journal_id.x_report)
 #        for model in self.journal_id.x_report:
 #            module_names = set(xml_id.split('.')[0] for xml_id in xml_ids[model.id])
                         #model.modules = ", ".join(sorted(installed_names & module_names))
                         #raise Warning(str(xml_ids[model.id][0]))
-        return self.env.ref(report_name).with_context(context).report_action(self,datas)
-    
-    
-    
+#         raise ValidationError(report_name)
+
+#         stock_report = self.env.ref(report_name)
+#         return stock_report.with_context(context).report_action(self,data=data)
+        return self.env.ref(report_name).with_context(context).report_action(self,data=datas)
+
 #        attachment_file  = base64.b64encode(data)
 
         # self.x_txt_file = ""
@@ -140,3 +154,45 @@ class StockReportLoader(models.TransientModel):
 #            'type': 'ir.actions.client',
 #            'tag': 'reload',
 #            }
+
+class RegistroInventarioUnidades(models.AbstractModel):
+    
+    _name ='report.stock_sunat_reports.te_inventario_unidades'
+        
+    @api.model
+    def get_report_values(self, docids, data=None):
+        
+        
+        docs = []
+
+        docs = self.env['stock.move'].search([
+          ('date','<=',data['end_date']),
+          ('state','=','done'),
+          ('product_id.type','=','product'),
+          ('product_id.location_id.usage','!=','transit')
+        ])
+
+        product_obj = docs.mapped('product_id')
+        warehouse_obj = docs.mapped('x_warehouse_id')
+
+        #           <t t-set="product_obj" t-value="docs_filtered.mapped('product_id')"/>
+        #                   <t t-set="warehouse_obj" t-value="docs_filtered.mapped('x_warehouse_id')"/>
+        #         docs = self.env[data['model']].search([])
+        #         raise ValidationError(docs)
+        
+        #raise ValidationError(var_from_date)
+        
+        
+        return {
+            'doc_ids': data['ids'],
+            'doc_model': data['model'],
+            'start_date': data['start_date'],
+            'end_date': data['end_date'],
+            'period_month': data['period_month'],
+            'period_year': data['period_year'],
+            'company_id': data['company_id'],
+            'docs' : docs,
+            'product_obj': product_obj,
+            'warehouse_obj': warehouse_obj,
+            'prueba': "Probando datos"
+         }
