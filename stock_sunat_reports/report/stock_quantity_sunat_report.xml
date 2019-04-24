@@ -59,7 +59,7 @@
 <!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',docs._context['start_date']),('date','&lt;',docs._context['end_date']),('product_id.id','=',product.id),('state','=','done')])"/> -->
                         
 <!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',start_date),('date','&lt;',end_date),('product_id.id','=',product.id),('state','=','done')])"/> -->
-                        <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: (r.date &gt; start_date) and (r.date &lt; end_date) and r.product_id.id == product.id and r.state == 'done')"/>
+                        <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id)"/>
                           
 <!--                         <div t-esc="docs_product_obj"></div> -->
 <!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->

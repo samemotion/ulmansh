@@ -185,7 +185,10 @@ class RegistroInventarioUnidades(models.AbstractModel):
         
         #raise ValidationError(var_from_date)
         
+        docs = docs.filtered( lambda r: (r.date > data['start_date']) and (r.date < data['end_date'] ) and r.state == 'done')
+        docs = docs.sorted(lambda r: r.date)
         
+#         raise ValidationError("Testing")
         return {
             'doc_ids': data['ids'],
             'doc_model': data['model'],
