@@ -47,17 +47,23 @@
                     </t>
                   <t t-foreach="warehouse_obj" t-as="warehouse">
 
-                      <t t-if="product_obj">
+<!--                       <t t-if="product_obj"> -->
 
-                        <t t-set="product_obj_ordered" t-value="product_obj.sorted(key=lambda r: r.name)"/>
+<!--                         <t t-set="product_obj_ordered" t-value="product_obj.sorted(key=lambda r: r.name)"/> -->
 
-                      </t>
+<!--                       </t> -->
 
-                      <t t-foreach="product_obj_ordered" t-as="product">
+<!--                       <t t-foreach="product_obj_ordered" t-as="product"> -->
+                      <t t-foreach="product_obj" t-as="product">
 
 <!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',docs._context['start_date']),('date','&lt;',docs._context['end_date']),('product_id.id','=',product.id),('state','=','done')])"/> -->
-                        <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',start_date),('date','&lt;',end_date),('product_id.id','=',product.id),('state','=','done')])"/>
-                        <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/>
+                        
+<!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',start_date),('date','&lt;',end_date),('product_id.id','=',product.id),('state','=','done')])"/> -->
+                        <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: (r.date &gt; start_date) and (r.date &lt; end_date) and r.product_id.id == product.id and r.state == 'done')"/>
+                          
+<!--                         <div t-esc="docs_product_obj"></div> -->
+<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
+<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
 
                         <h5>FORMATO 12.1: REGISTRO DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS - DETALLE DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS</h5>
 <!--                         <div> Probando que renderice correctamente</div>
@@ -158,7 +164,8 @@
                               <t t-set="total_salidas_cantidad" t-value="sum(line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code == 'outgoing'))"/>
                               
                               <t t-set="fecha_inicio_tiempo" t-value="( fecha_inicio + datetime.timedelta(hours=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
-                              <t t-set="movimientos_previos" t-value="env['stock.move'].search([('product_id.id','=',product.id),('x_warehouse_id.id', '=', warehouse.id),('date', '&lt;=', fecha_inicio_tiempo),('state','=','done')])"/>
+<!--                               <t t-set="movimientos_previos" t-value="env['stock.move'].search([('product_id.id','=',product.id),('x_warehouse_id.id', '=', warehouse.id),('date', '&lt;=', fecha_inicio_tiempo),('state','=','done')])"/> -->
+                                <t t-set="movimientos_previos" t-value="docs.filtered(lambda r: (r.product_id.id == product.id) and (r.x_warehouse_id.id == warehouse.id ) and ( r.state == 'done') and ( r.date &lt; fecha_inicio_tiempo))" /> 
                                 
                                 
 <!--                    Esto no es importante ya no se utilizaba               -->

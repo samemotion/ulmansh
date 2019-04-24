@@ -173,6 +173,9 @@ class RegistroInventarioUnidades(models.AbstractModel):
         ])
 
         product_obj = docs.mapped('product_id')
+        
+        product_obj = product_obj.sorted(key=lambda r: r.name)
+        
         warehouse_obj = docs.mapped('x_warehouse_id')
 
         #           <t t-set="product_obj" t-value="docs_filtered.mapped('product_id')"/>
