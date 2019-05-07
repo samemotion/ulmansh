@@ -733,10 +733,14 @@
             </xpath>
             <xpath expr="//p[@name='text_invoice']" position="replace">
                 <p name="text_invoice">
+                  <t t-if="o.currency_id.x_description == 'SOL'">
                     <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                  </t>
+                  <t t-else="">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/></span>
+                  </t>
                 </p>
-            </xpath>            
-            
+            </xpath>
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
@@ -836,7 +840,12 @@
             </xpath>
             <xpath expr="//p[@name='text_ticket']" position="replace">
                 <p name="text_ticket">
+                  <t t-if="o.currency_id.x_description == 'SOL'">
                     <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                  </t>
+                  <t t-else="">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/></span>
+                  </t>
                 </p>
             </xpath>            
         </template>
