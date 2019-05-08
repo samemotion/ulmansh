@@ -658,7 +658,12 @@
                                     <span t-field="l.name"/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                    <t t-if="o.x_is_export">
+                                        <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                    </t>
                                 </td>
                                 <t t-if="o.x_total_amount_free > 0">
                                     <td class="text-right">
