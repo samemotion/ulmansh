@@ -9,6 +9,7 @@
                     <group>
                         <field name="x_month"  />
                         <field name="x_year"  />
+                        <field name="x_attachments_ids" widget="many2many_binary"/>
                     </group>
                 </group>
                 <footer>
