@@ -9,6 +9,7 @@
                     <field name="margin_bottom">5.00</field>
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
 
         <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_pos">
@@ -18,6 +19,7 @@
                     <field name="margin_bottom">5.00</field>
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
     <!-- Ticketera POS Reports -->
 
@@ -434,7 +436,7 @@
                                 <span t-esc="d.journal_id.name"/>
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                                <span t-field="o.invoice_id.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
                             </td>
                         </t>
                     </tr>
@@ -580,7 +582,7 @@
                                 <span t-esc="d.journal_id.name"/>
                             </td>
                             <td class="text-right">
-                                <span t-field="o.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
+                                <span t-field="o.invoice_id.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(d.amount)"/>
                             </td>
                         </t>
                     </tr>
@@ -656,7 +658,12 @@
                                     <span t-field="l.name"/>
                                 </td>
                                 <td class="text-right">
-                                    <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                    <t t-if="o.x_is_export">
+                                        <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                    </t>
                                 </td>
                                 <t t-if="o.x_total_amount_free > 0">
                                     <td class="text-right">
@@ -731,10 +738,14 @@
             </xpath>
             <xpath expr="//p[@name='text_invoice']" position="replace">
                 <p name="text_invoice">
+                  <t t-if="o.currency_id.x_description == 'SOL'">
                     <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                  </t>
+                  <t t-else="">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/></span>
+                  </t>
                 </p>
-            </xpath>            
-            
+            </xpath>
         </template>
 
         <template id="pos_electronic_ticket_document_generic_custom" inherit_id="l10n_pe_einvoicing_generic_reports.pos_electronic_ticket_document_generic">
@@ -834,7 +845,12 @@
             </xpath>
             <xpath expr="//p[@name='text_ticket']" position="replace">
                 <p name="text_ticket">
+                  <t t-if="o.currency_id.x_description == 'SOL'">
                     <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/>ES</span>
+                  </t>
+                  <t t-else="">
+                    <span>SON: <span t-esc="o.amount_to_text(o.amount_total,o.currency_id.x_description)"/></span>
+                  </t>
                 </p>
             </xpath>            
         </template>
