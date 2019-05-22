@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_report_loader_view_form" model="ir.ui.view">
+        <field name="name">stock.report.loader.view.form</field>
+        <field name="model">stock.report.loader</field>
+        <field name="arch" type="xml">
+            <form >
+                <group>
+                    <group>
+                        <field name="x_month"  />
+                        <field name="x_year"  />
+                        <field name="x_attachments_ids" widget="many2many_binary"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Create Report" name="create_report" type="object" class="btn-primary "/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    
+        <record id="action_stock_report_loader" model="ir.actions.act_window">
+            <field name="name">Stock Report Loader</field>
+            <field name="res_model">stock.report.loader</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="stock_report_loader_view_form"/>
+            <field name="target">new</field>
+            <field name="context">{'report_name': 'stock_sunat_reports.inventario_unidades', 'report_model': 'stock.move'}</field>
+        </record>
+    
+            <menuitem id="report_sunat_qty_report"
+            name="SUNAT - Stock Quantity Report"
+            parent="stock.menu_warehouse_report"
+            action="action_stock_report_loader"
+            sequence="99"/>
+    
+</odoo>

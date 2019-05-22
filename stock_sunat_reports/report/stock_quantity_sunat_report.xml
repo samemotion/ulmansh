@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="te_inventario_unidades">
+
+<!--       <t t-call="web.basic_layout"> -->
+          <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+              <t t-set="docs_filtered" t-value="docs"/>
+<!--       <t t-set="docs_filtered" t-value="env['stock.move'].search([('date','&lt;=',docs._context['end_date']),('state','=','done'),('product_id.type','=','product'),('product_id.location_id.usage','!=','transit')])"/> -->
+          <t t-if="not docs_filtered">
+                  <span>No hay movimientos validos para las fechas seleccionadas.</span>
+          </t>
+              <t t-if="docs_filtered ">
+                  <t t-if="not o and doc">
+                      <t t-set="o" t-value="doc"/></t>
+                  <t t-if="o and 'company_id' in o">
+                      <t t-set="company" t-value="o.company_id"/>
+                  </t>
+                  <t t-if="not o or not 'company_id' in o">
+                      <t t-set="company" t-value="res_company"/>
+                  </t>
+
+                  <div class="page">
+
+                       <style>
+
+                          p {
+                              font-size: 8px !important;
+                              margin: 0px !important;
+                              padding: 0px !important;
+                          }
+
+                          span {
+                              font-size: 8px !important;
+                          }
+
+                           tr td {
+
+                               padding: 0px !important;
+                               margin: 0px !important;
+                           }
+
+                           thead {
+
+                               padding: 0px !important;
+                               marging: 0px !important;
+                           }
+
+
+                       </style>
+
+                <div class="oe_structure"/>
+
+                  <t t-set="fecha_inicio"/>
+                  <t t-set="fecha_fin"/>
+<!--            <t t-if="docs._context['start_date'] and docs._context['end_date']"> -->
+                  <t t-if="start_date and end_date">
+
+<!--                     <t t-set="fecha_inicio" t-value="datetime.datetime.strptime(docs._context['start_date'],'%Y-%m-%d %H:%M:%S')"/>
+                    <t t-set="fecha_fin" t-value="datetime.datetime.strptime(docs._context['end_date'],'%Y-%m-%d %H:%M:%S')"/> -->
+                    <t t-set="fecha_inicio" t-value="datetime.datetime.strptime(start_date,'%Y-%m-%d %H:%M:%S')"/>
+                    <t t-set="fecha_fin" t-value="datetime.datetime.strptime(end_date,'%Y-%m-%d %H:%M:%S')"/>
+                  </t>
+
+                  <!--Get all products until last selected month  -->
+<!--                   <t t-set="product_obj" t-value="docs_filtered.mapped('product_id')"/>
+                  <t t-set="warehouse_obj" t-value="docs_filtered.mapped('x_warehouse_id')"/> -->
+                    <t t-if="not warehouse_obj">
+                          <span>No hay movimientos validos para las fechas seleccionadas.</span>
+                    </t>
+                  <t t-foreach="warehouse_obj" t-as="warehouse">
+
+<!--                       <t t-if="product_obj"> -->
+
+<!--                         <t t-set="product_obj_ordered" t-value="product_obj.sorted(key=lambda r: r.name)"/> -->
+
+<!--                       </t> -->
+
+<!--                       <t t-foreach="product_obj_ordered" t-as="product"> -->
+                      <t t-foreach="product_obj" t-as="product">
+
+<!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',docs._context['start_date']),('date','&lt;',docs._context['end_date']),('product_id.id','=',product.id),('state','=','done')])"/> -->
+
+<!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',start_date),('date','&lt;',end_date),('product_id.id','=',product.id),('state','=','done')])"/> -->
+                        <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id)"/>
+
+<!--                         <div t-esc="docs_product_obj"></div> -->
+<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
+<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
+
+                        <p style="font-size: 8px;">FORMATO 12.1: REGISTRO DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS - DETALLE DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS</p>
+<!--                         <div> Probando que renderice correctamente</div>
+                        <div t-esc="prueba"></div>
+                        <div t-esc="product_obj"></div>
+                        <div t-esc="docs_filtered"></div>
+                        <div t-esc="start_date"></div>
+                        <div t-esc="end_date"></div>
+                        <div>ENTRE EN LA FECHA DE INICIO EN KA QUE DEBERIA EVALUAR</div>
+                        <div t-esc="fecha_inicio"></div>
+                        <div t-esc="fecha_fin"></div> -->
+
+
+
+                        <p style="font-size: 8px;">
+<!--                           <t t-if="docs._context['period_year'] and docs._context['period_month']"> -->
+                          <t t-if="period_year and period_month">
+                              PERIODO:
+<!--                               <span t-esc="docs._context['period_year']"/>
+                              <span t-esc="docs._context['period_month']"/> -->
+                              <span t-esc="period_year"/>
+                              <span t-esc="period_month"/>
+                          </t>
+                        </p>
+                        <p style="font-size: 8px;">RUC:
+                          <t t-if="company">
+                            <span t-esc="company.vat"/>
+                          </t>
+                        </p>
+                        <p style="font-size: 8px;">APELLIDOS Y NOMBRES, DENOMINACIÓN O RAZÓN SOCIAL:
+                          <t t-if="company">
+                            <span t-esc="company.name"/>
+                          </t>
+                        </p>
+                        <p style="font-size: 8px;">ESTABLECIMIENTO:
+                          <t t-if="warehouse">
+                            <span t-field="warehouse.partner_id.street"/>,
+                            <span t-field="warehouse.partner_id.street2"/>,
+                            <span t-field="warehouse.partner_id.city"/>,
+                            <span t-field="warehouse.partner_id.state_id.name"/>
+                          </t>
+
+                        </p>
+                        <p style="font-size: 8px;">CÓDIGO DE LA EXISTENCIA:
+                          <t t-if="product">
+                            <span t-field="product.default_code"/>
+                          </t>
+                        </p>
+                        <p style="font-size: 8px;">TIPO (TABLA 5):
+                          <t t-if="product.x_product_type_pe">
+                            <span t-field="product.x_product_type_pe.x_code"/>
+                          </t>
+                        </p>
+                        <p style="font-size: 8px;">DESCRIPCIÓN:
+                            <t t-if="product">
+                              <span t-field="product.display_name"/>
+                            </t>
+                        </p>
+
+                        <p style="font-size: 8px;">CÓDIGO DE LA UNIDAD DE MEDIDA (TABLA 6):
+                            <!-- <t t-if="account_move_ids"> -->
+                            <span t-field="product.uom_id.x_code_pe.x_name"/>
+                            <!-- </t> -->
+                        </p>
+
+                        <div style="padding: 0px !important; margin: 0px !important;">
+
+                            <table class="table table-striped">
+
+                              <thead style="font-size:8px">
+                                  
+                                <tr style="margin: 0px !important; padding: 0px !important;font-size: 8px;">
+                                    <th colspan="4" class="text-center cell-bordered">DOCUMENTO DE TRASLADO, COMPROBANTE DE PAGO, DOCUMENTO INTERNO O SIMILAR</th>
+                                    <th class="text-center cell-no-bottom">TIPO DE OPERACIÓN</th>
+<!--                                     <th class="text-center cell-no-bottom">ENTRADAS</th> -->
+                                    <th style="padding-right: 0px !important; marging-right: 0px !important;" class="text-right cell-no-bottom">ENTRADAS</th>
+                                    <th style="padding-right: 0px !important; marging-right: 0px !important;" class="text-right cell-no-bottom">SALIDAS</th>
+                                    <th style="padding-right: 0px !important; marging-right: 0px !important;" class="text-right cell-no-bottom">SALDO FINAL</th>
+                                </tr>
+                                <tr style="margin: 0px !important; padding: 0px !important; font-size: 8px;">
+                                    <th class="text-center cell-bordered">FECHA</th>
+                                    <th class="text-center cell-bordered">TIPO TABLA(10)</th>
+                                    <th class="text-center cell-bordered">SERIE</th>
+                                    <th class="text-center cell-bordered">NÚMERO</th>
+                                    <th class="text-center cell-bottom-left">TABLA (12)</th>
+                                    <th class="text-center cell-bottom-left"/>
+                                    <th class="text-center cell-bottom-left"/>
+                                    <th class="text-center cell-bottom-left"/>
+                                </tr>
+                              </thead>
+
+                              <t t-set="total_entradas_cantidad" t-value="0"/>
+                              <t t-set="total_salidas_cantidad" t-value="0"/>
+                              <t t-set="total_saldo_cantidad" t-value="0"/>
+
+
+
+                              <t t-set="total_entradas_cantidad" t-value="sum(line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code != 'incoming'))"/>
+
+                              <t t-set="total_salidas_cantidad" t-value="sum(line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code == 'outgoing'))"/>
+
+                              <t t-set="fecha_inicio_tiempo" t-value="( fecha_inicio + datetime.timedelta(hours=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
+<!--                               <t t-set="movimientos_previos" t-value="env['stock.move'].search([('product_id.id','=',product.id),('x_warehouse_id.id', '=', warehouse.id),('date', '&lt;=', fecha_inicio_tiempo),('state','=','done')])"/> -->
+<!--                                 <t t-set="movimientos_previos" t-value="docs.filtered(lambda r: (r.product_id.id == product.id) and (r.x_warehouse_id.id == warehouse.id ) and ( r.state == 'done') and ( r.date &lt; fecha_inicio_tiempo))" />  -->
+
+
+<!--                    Esto no es importante ya no se utilizaba               -->
+                              <!-- <t t-set="total_saldo_cantidad" t-value="sum(line.quantity for line in movimientos_previos)"/> -->
+                              <!-- <t t-set="total_saldo_cantidad" t-value="product_qty_up_to_date[product.id]['qty_available']"/> -->
+<!--                               <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=docs._context['start_date']).qty_at_date"/>
+                              <t t-set="total_initial_stock" t-value="product.with_context(to_date=docs._context['start_date']).qty_at_date"/> -->
+
+                              <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date).qty_at_date"/>
+                              <t t-set="total_initial_stock" t-value="product.with_context(to_date=start_date).qty_at_date"/>
+
+                              <t t-set="positive_accumulator" t-value="total_initial_stock"/>
+                              <t t-set="negative_accumulator" t-value="0"/>
+
+                              <tbody class="invoice_tbody" style="font-size:10px">
+
+                                      <tr>
+                                          <td colspan="2" class="text-center"/>
+                                          <td colspan="2" class="text-center">
+                                          SALDO INICIAL
+                                          </td>
+
+                                          <td class="text-center">
+                                          16
+                                          </td>
+
+                                          <td class="text-right">
+                                              <t t-if="total_initial_stock">
+                                                <span t-esc="'{0:,.2f}'.format(total_initial_stock)"/>
+                                              </t>
+                                              <t t-else=""> 0 </t>
+
+                                          </td>
+                                          <td class="text-right"/>
+
+                                          <td class="text-right">
+                                            <t t-if="total_initial_stock">
+                                                <span t-esc="'{0:,.2f}'.format(total_initial_stock)"/>
+                                            </t>
+                                            <t t-else=""> 0 </t>
+                                          </td>
+                                      </tr>
+
+                                    <tr t-foreach="docs_product_obj_ordered" t-as="i">
+
+                                         <t t-if="i.quantity_done!=0 and i.picking_code != 'internal' ">
+
+                                           <t t-set="total_saldo_cantidad" t-value="total_initial_stock + sum(line.x_qty_done_sign for line in i.move_line_ids )"/>
+
+                                            <td class="text-center cell-bordered">
+<!--                                                 <span t-field="i.x_move_date" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/> -->
+                                                <span t-field="i.date" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                                            </td>
+                                             
+                                            <t t-if="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name != 'Pedidos de PdV'">
+                                              
+                                                <td class="text-center cell-bordered">
+                                                      <span>09</span>
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+                                                      <t t-if="i.picking_id.x_document_serial">
+                                                        <span t-esc="i.picking_id.x_document_serial"/>
+                                                      </t>
+                                                      <t t-elif="i.picking_id.x_invoice_type">
+                                                        <span t-esc="i.picking_id.x_invoice_type"/>
+                                                      </t>
+                                                      <t t-else="">
+                                                        <span>0</span>
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+                                                      <t t-if="i.picking_id.x_document_correlative">
+                                                        <span t-esc="i.picking_id.x_document_correlative"/>
+                                                      </t>
+                                                      <t t-elif="i.picking_id.x_invoice_number">
+                                                        <span t-esc="i.picking_id.x_invoice_number"/>
+                                                      </t>
+                                                      <t t-else="">
+                                                        <span>0</span>
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-left cell-bordered">
+                                                         <span> 01</span>
+                                                </td>
+                                                  
+                                            </t>
+                                            <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name == 'Pedidos de PdV'">
+
+<!--                                                 <td class="text-left cell-bordered">
+                                                      <span t-esc="origin_data.get(i.picking_id.origin)['type']"></span>
+                                                </td> -->
+                                                <t t-set="key" t-value="i.picking_id.origin"/>
+                                                <t t-set="data" t-value="origin_data.get(key,False)"/>
+                                                
+                                                <td class="text-center">
+                                                    <t t-if="data">
+                                                        <span t-esc="data['type']"></span>   
+                                                    </t>
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+                                                      <t t-if="data">
+                                                          <span t-esc="data['serial']"></span>   
+                                                      </t>
+                                                      <t t-else="">
+                                                        <span>0</span>
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+<!--                                                       <t t-if="origin_data.get(i.picking_id.origin)">
+                                                        <span t-esc="origin_data.get(i.picking_id.origin)['number']"/>
+                                                      </t> -->
+                                                      <t t-if="data">
+                                                        <span t-esc="data['number']"/>
+                                                      </t>
+                                                      <t t-else="">
+                                                        <span>0</span>
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+                                                         <span> 01</span>
+                                                </td>
+                                                
+                                              </t>
+                                             
+                                            <t t-elif="i.picking_id.picking_type_id.code == 'incoming' ">
+                                                
+                                                <td class="text-center cell-bordered">
+                                                    
+                                                      <t t-if="i.picking_id.x_document_serial">
+                                                          
+                                                          <t t-if="i.picking_id.x_document_serial == '005' " >
+                                                             <span>09</span> 
+                                                          </t> 
+                                                          
+                                                          <t t-if="i.picking_id.x_document_serial == 'F002' " >
+                                                             <span>01</span> 
+                                                          </t> 
+                                                          
+                                                      </t>
+                                                    
+                                                      <t t-elif="i.picking_id.x_invoice_type">
+                                                          
+                                                          <t t-if="i.picking_id.x_invoice_type == '005' " >
+                                                             <span>09</span> 
+                                                          </t>
+                                                          
+                                                          <t t-if="i.picking_id.x_invoice_type == 'F002' " >
+                                                             <span>01</span> 
+                                                          </t> 
+                                                          
+                                                      </t>
+                                                    
+                                                      <t t-else=""></t>
+                                                    
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+                                                      <t t-if="i.picking_id.x_document_serial">
+                                                        <span t-esc="i.picking_id.x_document_serial"/>
+                                                      </t>
+                                                      <t t-elif="i.picking_id.x_invoice_type">
+                                                         <span t-esc="i.picking_id.x_invoice_type"/>
+                                                      </t>
+                                                      <t t-else="">
+<!--                                                         <span>0</span> -->
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+
+                                                      <t t-if="i.picking_id.x_document_correlative">
+                                                        <span t-esc="i.picking_id.x_document_correlative"/>
+                                                      </t>
+                                                      <t t-elif="i.picking_id.x_invoice_number">
+                                                        <span t-esc="i.picking_id.x_invoice_number"/>
+                                                      </t>
+                                                      <t t-else="">
+<!--                                                         <span>0</span> -->
+                                                      </t>
+
+                                                </td>
+                                                
+                                                <td class="text-center cell-bordered">
+                                                         <span> 02</span>
+                                                </td>
+                                                 
+                                            </t>
+                                            <t t-else=""></t>
+<!--                                             <td class="text-left cell-bordered">
+                                                
+                                                
+                                                
+                                                <t t-if="i.picking_type_id.code == 'outgoing' and i.picking_type_id.name != 'Pedidos de PdV' ">
+                                                      <span>09</span>
+                                                </t>
+                                                
+                                                <t t-elif="i.picking_type_id.code == 'outgoing' and i.picking_type_id.name == 'Pedidos de PdV ">
+                                                     <span t-esc="origin_data.get(i.origin,False)['type']"/>    
+                                                </t>
+                                                
+                                                <t t-if="i.picking_id.x_document_type.x_code">
+                                                  <span t-esc="i.picking_id.x_document_type.x_code"/>
+                                                </t>
+                                                <t t-else="">
+                                                  <span>00</span>
+                                                </t>
+
+                                            </td>
+                                            <td class="text-center cell-bordered">
+
+                                              <t t-if="i.picking_id.x_document_serial">
+                                                <span t-esc="i.picking_id.x_document_serial"/>
+                                              </t>
+                                              <t t-else="">
+                                                <span>0</span>
+                                              </t>
+
+                                            </td>
+
+                                            <td class="text-center cell-bordered">
+
+                                              <t t-if="i.picking_id.x_document_correlative">
+                                                <span t-esc="i.picking_id.x_document_correlative"/>
+                                              </t>
+                                              <t t-else="">
+                                                <span>0</span>
+                                              </t>
+
+                                            </td>
+
+                                            <td class="text-left cell-bordered">
+
+                                                <t t-if="not i.picking_id">
+                                                  <span t-esc="i.x_operation_type.x_code"/>
+                                                </t>
+
+                                                <t t-else="">
+                                                  <span t-esc="i.picking_id.x_operation_type.x_code"/>
+                                                </t>
+
+                                            </td> -->
+
+<!--                                             <t t-set="move_lines" t-value="env['stock.move.line'].search([('move_id.id','=',i.id),('product_id.id','=',product.id),('x_warehouse_id.id','=',warehouse.id)])"/> -->
+                                             <t t-set="move_lines" t-value="all_move_lines.filtered(lambda r: r.move_id.id == i.id and r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)"/>
+
+                                            <td class="text-right cell-bordered">
+
+                                                    <t t-set="lines_positive" t-value="move_lines.filtered(lambda r : r.x_qty_done_sign &gt; 0)"/>
+                                                    <t t-set="positive_values" t-value="sum( line.qty_done for line in lines_positive )"/>
+                                                    <t t-set="positive_accumulator" t-value="positive_accumulator + positive_values"/>
+
+                                                    <span t-if="lines_positive" t-esc="'{0:,.2f}'.format(positive_values)"/>
+
+                                            </td>
+                                            <td class="text-right cell-bordered">
+
+                                                <t t-set="lines_negative" t-value="move_lines.filtered(lambda r : r.x_qty_done_sign &lt; 0)"/>
+                                                <t t-set="negative_values" t-value="sum( line.qty_done for line in lines_negative)"/>
+                                                <t t-set="negative_accumulator" t-value="negative_accumulator + negative_values"/>
+
+                                                <span t-if="lines_negative" t-esc="'{0:,.2f}'.format(negative_values)"/>
+
+                                            </td>
+
+                                            <td class="text-right cell-bordered">
+
+                                                <span t-esc="'{0:,.2f}'.format(positive_accumulator-negative_accumulator)"/>
+                                            </td>
+
+                                        </t>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td colspan="4" class="text-left"/>
+                                        <td class="text-center cell-bordered bg-light-gray">
+                                            <strong>TOTALES</strong>
+                                        </td>
+                                        <td class="text-right cell-bordered bg-light-gray">
+                                            <strong>
+                                              <span t-set="total_incoming" t-value="total_initial_stock + positive_accumulator"/>
+                                                <span t-esc="'{0:,.2f}'.format(positive_accumulator)"/>
+
+                                            </strong>
+                                        </td>
+                                        <td class="text-right cell-bordered bg-light-gray">
+                                            <strong>
+                                                <span t-esc="'{0:,.2f}'.format(negative_accumulator)"/>
+                                            </strong>
+                                        </td>
+                                        <td class="text-right cell-bordered bg-light-gray"/>
+                                    </tr>
+
+                                  </tbody>
+
+                            </table>
+
+                        </div>
+
+<!--                         <p style="page-break-after: always;">
+                            &amp;nbsp;
+                        </p> -->
+                        <!--</div>   -->
+                  </t> <!-- Product -->
+                    
+              </t> <!-- warehouse-->
+          </div>
+        </t>  <!-- id docs.filtered .... -->
+          </t>
+      </t>
+
+    </template>
+
+
+</odoo>
