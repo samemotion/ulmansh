@@ -9,12 +9,27 @@
             print_report_name="'Registro Inventatio de Unidades"
             />
 <!--            paperformat="paperformat_euro_landscape"-->
+        <record id="paperformat_A4_stock" model="report.paperformat">
+            <field name="name">A4 custom</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">20</field>
+            <field name="margin_bottom">10</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">15</field>
+            <field name="dpi">90</field>
+        </record>
+        
         <report id="inventario_unidades" 
             string="M12.1 Registro Inventario Unidades" 
             model="stock.move" 
             report_type="qweb-pdf" 
             name="stock_sunat_reports.te_inventario_unidades" 
             print_report_name="Inventario de unidades"
+            paperformat="stock_sunat_reports.paperformat_A4_stock"
             />
 
     </data>

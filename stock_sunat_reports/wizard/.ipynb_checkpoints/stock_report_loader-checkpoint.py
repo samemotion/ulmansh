@@ -99,6 +99,7 @@ class StockReportLoader(models.TransientModel):
           ('product_id.location_id.usage', '!=', 'transit')
         ])
 
+        ## Check this logic when filtering records 
         product_obj = record_ids.mapped('product_id')
         product_obj_filtered = product_obj.filtered(
             lambda r: r.with_context(
@@ -111,6 +112,8 @@ class StockReportLoader(models.TransientModel):
             (r.state == 'done') and
             (r.product_id.type == 'product') and
             (r.product_id.location_id.usage != 'transit'))
+        
+        ##################
 
         record_ids = record_ids.sorted(lambda r: r.date)
         
@@ -377,9 +380,7 @@ class RegistroInventarioUnidades(models.AbstractModel):
                 ),
 
             }
-            
-
-        
+                    
 #         _logger.info("Datos de origin data")
 #         _logger.info(data['origin_data'])
         return {

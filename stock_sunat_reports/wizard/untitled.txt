@@ -1,0 +1,83 @@
+<tr t-foreach="docs_product_obj_ordered" t-as="i">
+
+                                         <t t-if="i.quantity_done!=0 and i.picking_code != 'internal' ">
+
+                                           <t t-set="total_saldo_cantidad" t-value="total_initial_stock + sum(line.x_qty_done_sign for line in i.move_line_ids )"/>
+
+                                            <td class="text-center cell-bordered">
+                                                <span t-field="i.x_move_date" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
+                                            </td>
+
+                                            <td class="text-left cell-bordered">
+
+                                                <t t-if="i.picking_id.x_document_type.x_code">
+                                                  <span t-esc="i.picking_id.x_document_type.x_code"/>
+                                                </t>
+                                                <t t-else="">
+                                                  <span>00</span>
+                                                </t>
+
+                                            </td>
+                                            <td class="text-center cell-bordered">
+
+                                              <t t-if="i.picking_id.x_document_serial">
+                                                <span t-esc="i.picking_id.x_document_serial"/>
+                                              </t>
+                                              <t t-else="">
+                                                <span>0</span>
+                                              </t>
+
+                                            </td>
+
+                                            <td class="text-center cell-bordered">
+
+                                              <t t-if="i.picking_id.x_document_correlative">
+                                                <span t-esc="i.picking_id.x_document_correlative"/>
+                                              </t>
+                                              <t t-else="">
+                                                <span>0</span>
+                                              </t>
+
+                                            </td>
+
+                                            <td class="text-left cell-bordered">
+
+                                                <t t-if="not i.picking_id">
+                                                  <span t-esc="i.x_operation_type.x_code"/>
+                                                </t>
+
+                                                <t t-else="">
+                                                  <span t-esc="i.picking_id.x_operation_type.x_code"/>
+                                                </t>
+
+                                            </td>
+
+                                            <t t-set="move_lines" t-value="env['stock.move.line'].search([('move_id.id','=',i.id),('product_id.id','=',product.id),('x_warehouse_id.id','=',warehouse.id)])"/>
+
+
+                                            <td class="text-right cell-bordered">
+
+                                                    <t t-set="lines_positive" t-value="move_lines.filtered(lambda r : r.x_qty_done_sign &gt; 0)"/>
+                                                    <t t-set="positive_values" t-value="sum( line.qty_done for line in lines_positive )"/>
+                                                    <t t-set="positive_accumulator" t-value="positive_accumulator + positive_values"/>
+
+                                                    <span t-if="lines_positive" t-esc="'{0:,.2f}'.format(positive_values)"/>
+
+                                            </td>
+                                            <td class="text-right cell-bordered">
+
+                                                <t t-set="lines_negative" t-value="move_lines.filtered(lambda r : r.x_qty_done_sign &lt; 0)"/>
+                                                <t t-set="negative_values" t-value="sum( line.qty_done for line in lines_negative)"/>
+                                                <t t-set="negative_accumulator" t-value="negative_accumulator + negative_values"/>
+
+                                                <span t-if="lines_negative" t-esc="'{0:,.2f}'.format(negative_values)"/>
+
+                                            </td>
+
+                                            <td class="text-right cell-bordered">
+
+                                                <span t-esc="'{0:,.2f}'.format(positive_accumulator-negative_accumulator)"/>
+                                            </td>
+
+                                        </t>
+                                    </tr>

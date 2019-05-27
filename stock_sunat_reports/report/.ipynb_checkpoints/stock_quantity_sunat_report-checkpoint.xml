@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
+    
     <template id="te_inventario_unidades">
 
 <!--       <t t-call="web.basic_layout"> -->
