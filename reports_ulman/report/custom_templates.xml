@@ -52,7 +52,21 @@
                         Vendedor: <span t-field="o.user_id"/><br/>
                         <t t-if="o.partner_id.company_type=='person'">
                             Cliente: <span t-field="o.partner_id.name"/><br/>
-                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                            <t t-if="o.partner_id.x_document_type.x_code == '1'">
+                            DNI: 
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '4'">
+                            CE:
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '7'">
+                            PAS:
+                            </t>
+                            <t t-else="">
+                            OTRO:
+                            </t>
+                            <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -198,7 +212,21 @@
                         Vendedor: <span t-field="o.user_id"/><br/>
                         <t t-if="o.partner_id.company_type=='person'">
                             Cliente: <span t-field="o.partner_id.name"/><br/>
-                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                            <t t-if="o.partner_id.x_document_type.x_code == '1'">
+                            DNI: 
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '4'">
+                            CE:
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '7'">
+                            PAS:
+                            </t>
+                            <t t-else="">
+                            OTRO:
+                            </t>
+                            <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -346,7 +374,21 @@
                         Vendedor: <span t-field="o.user_id"/><br/>
                         <t t-if="o.partner_id.company_type=='person'">
                             Cliente: <span t-field="o.partner_id.name"/><br/>
-                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                            <t t-if="o.partner_id.x_document_type.x_code == '1'">
+                            DNI: 
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '4'">
+                            CE:
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '7'">
+                            PAS:
+                            </t>
+                            <t t-else="">
+                            OTRO:
+                            </t>
+                            <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -492,7 +534,21 @@
                         Vendedor: <span t-field="o.user_id"/><br/>
                         <t t-if="o.partner_id.company_type=='person'">
                             Cliente: <span t-field="o.partner_id.name"/><br/>
-                            DNI: <span t-field="o.partner_id.vat"/><br/>
+                            <t t-if="o.partner_id.x_document_type.x_code == '1'">
+                            DNI: 
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '4'">
+                            CE:
+                            </t>
+                            <t t-elif="o.partner_id.x_document_type.x_code == '7'">
+                            PAS:
+                            </t>
+                            <t t-else="">
+                            OTRO:
+                            </t>
+                            <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
