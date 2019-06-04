@@ -5,20 +5,49 @@ from odoo import models, fields, api
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
-    
     x_warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse',help="Warehouse related to stock move line",store=True,compute='_compute_warehouse') 
+    x_document_type = fields.Many2one('invoice.type.book',string='Tipo de comprobante de pago' , related='picking_id.x_document_type', help='Document Number of the document related to the stock move. Invoice, External Move Document or internal move Document, in that order.')
+    x_operation_type = fields.Many2one('stock.operation.type.book',string='Operation Type',compute='_get_operation_type',store=False)
     x_move_date = fields.Datetime(string='Move Date', help='When the move took place',compute='_get_move_date')
-    x_operation_type = fields.Many2one('stock.operation.type',string='Operation Type',compute='_get_operation_type',store=False)
     
-    @api.one
     @api.depends('location_dest_id','location_id')
     def _compute_warehouse(self):
-        result = []
-        if self.location_id.usage == "internal":
-            result =  self.location_id.x_warehouse_id
-        if self.location_dest_id.usage == "internal":
-            result =  self.location_dest_id.x_warehouse_id
-        self.x_warehouse_id = result
+        
+        for record in self:
+            result = []
+            if record.location_id.usage == "internal":
+                result =  record.location_id.x_warehouse_id
+            if record.location_dest_id.usage == "internal":
+                result =  record.location_dest_id.x_warehouse_id
+            record.x_warehouse_id = result
+        
+    @api.depends('picking_id','inventory_id','location_dest_id','location_id')
+    def _get_operation_type(self):
+        operation_type = ''
+        for record in self:
+            #To Production
+            if record.location_id.usage == 'internal' and record.location_dest_id.usage == 'production':
+                operation_type = self.env['stock.operation.type'].search([('x_code','=','10')])
+            #From Production
+            elif record.location_id.usage == 'production' and record.location_dest_id.usage == 'internal':
+                operation_type = self.env['stock.operation.type'].search([('x_code','=','19')])
+            elif (record.location_dest_id.usage == 'internal' and record.location_id.usage == 'inventory') or (record.location_dest_id.usage == 'inventory' and record.location_id.usage == 'internal'):
+                # Inventory Adjustments - > Scrap
+                if record.location_dest_id.scrap_location:
+                    operation_type = self.env['stock.operation.type'].search([('x_code','=','13')])
+                # Inventory Adjustments.
+                else:
+                    operation_type = self.env['stock.operation.type'].search([('x_code','=','28')])
+            #Output -> Between Company Warehouses
+            elif record.location_dest_id.usage == 'transit' and record.location_id.usage == 'internal':
+                operation_type = self.env['stock.operation.type'].search([('x_code','=','11')])
+            #Input -> Between Company Warehouses
+            elif record.location_dest_id.usage == 'internal' and record.location_id.usage == 'transit':
+                operation_type = self.env['stock.operation.type'].search([('x_code','=','19')])
+            else:
+                if record.picking_id:
+                    operation_type = record.picking_id.x_operation_type
+            record.x_operation_type = operation_type
         
     @api.depends('picking_id','inventory_id')
     def _get_move_date(self):
@@ -62,30 +91,4 @@ class StockMove(models.Model):
             })
             new_account_move.post()
 
-    @api.depends('picking_id','inventory_id','location_dest_id','location_id')
-    def _get_operation_type(self):
-        operation_type = ''
-        for record in self:
-            #To Production
-            if record.location_id.usage == 'internal' and record.location_dest_id.usage == 'production':
-                operation_type = self.env['stock.operation.type'].search([('x_code','=','10')])
-            #From Production
-            elif record.location_id.usage == 'production' and record.location_dest_id.usage == 'internal':
-                operation_type = self.env['stock.operation.type'].search([('x_code','=','19')])
-            elif (record.location_dest_id.usage == 'internal' and record.location_id.usage == 'inventory') or (record.location_dest_id.usage == 'inventory' and record.location_id.usage == 'internal'):
-                # Inventory Adjustments - > Scrap
-                if record.location_dest_id.scrap_location:
-                    operation_type = self.env['stock.operation.type'].search([('x_code','=','13')])
-                # Inventory Adjustments.
-                else:
-                    operation_type = self.env['stock.operation.type'].search([('x_code','=','28')])
-            #Output -> Between Company Warehouses
-            elif record.location_dest_id.usage == 'transit' and record.location_id.usage == 'internal':
-                operation_type = self.env['stock.operation.type'].search([('x_code','=','11')])
-            #Input -> Between Company Warehouses
-            elif record.location_dest_id.usage == 'internal' and record.location_id.usage == 'transit':
-                operation_type = self.env['stock.operation.type'].search([('x_code','=','19')])
-            else:
-                if record.picking_id:
-                    operation_type = record.picking_id.x_operation_type
-            record.x_operation_type = operation_type
+    

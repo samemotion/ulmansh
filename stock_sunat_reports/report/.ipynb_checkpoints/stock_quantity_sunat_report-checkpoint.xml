@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     
-    <template id="te_inventario_unidades">
+      <template id="te_inventario_unidades">
 
 <!--       <t t-call="web.basic_layout"> -->
           <t t-call="web.html_container">
@@ -71,36 +71,11 @@
                     </t>
                   <t t-foreach="warehouse_obj" t-as="warehouse">
 
-<!--                       <t t-if="product_obj"> -->
-
-<!--                         <t t-set="product_obj_ordered" t-value="product_obj.sorted(key=lambda r: r.name)"/> -->
-
-<!--                       </t> -->
-
-<!--                       <t t-foreach="product_obj_ordered" t-as="product"> -->
                       <t t-foreach="product_obj" t-as="product">
 
-<!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',docs._context['start_date']),('date','&lt;',docs._context['end_date']),('product_id.id','=',product.id),('state','=','done')])"/> -->
-
-<!--                         <t t-set="docs_product_obj" t-value="env['stock.move'].search([('date','&gt;',start_date),('date','&lt;',end_date),('product_id.id','=',product.id),('state','=','done')])"/> -->
-                        <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id)"/>
-
-<!--                         <div t-esc="docs_product_obj"></div> -->
-<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
-<!--                         <t t-set="docs_product_obj_ordered" t-value="docs_product_obj.sorted(key=lambda r: (r.date))"/> -->
+                    <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id)"/>
 
                         <p style="font-size: 8px;">FORMATO 12.1: REGISTRO DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS - DETALLE DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS</p>
-<!--                         <div> Probando que renderice correctamente</div>
-                        <div t-esc="prueba"></div>
-                        <div t-esc="product_obj"></div>
-                        <div t-esc="docs_filtered"></div>
-                        <div t-esc="start_date"></div>
-                        <div t-esc="end_date"></div>
-                        <div>ENTRE EN LA FECHA DE INICIO EN KA QUE DEBERIA EVALUAR</div>
-                        <div t-esc="fecha_inicio"></div>
-                        <div t-esc="fecha_fin"></div> -->
-
-
 
                         <p style="font-size: 8px;">
 <!--                           <t t-if="docs._context['period_year'] and docs._context['period_month']"> -->
@@ -158,7 +133,7 @@
                             <table class="table table-striped">
 
                               <thead style="font-size:8px">
-                                  
+
                                 <tr style="margin: 0px !important; padding: 0px !important;font-size: 8px;">
                                     <th colspan="4" class="text-center cell-bordered">DOCUMENTO DE TRASLADO, COMPROBANTE DE PAGO, DOCUMENTO INTERNO O SIMILAR</th>
                                     <th class="text-center cell-no-bottom">TIPO DE OPERACIÓN</th>
@@ -190,15 +165,6 @@
                               <t t-set="total_salidas_cantidad" t-value="sum(line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code == 'outgoing'))"/>
 
                               <t t-set="fecha_inicio_tiempo" t-value="( fecha_inicio + datetime.timedelta(hours=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
-<!--                               <t t-set="movimientos_previos" t-value="env['stock.move'].search([('product_id.id','=',product.id),('x_warehouse_id.id', '=', warehouse.id),('date', '&lt;=', fecha_inicio_tiempo),('state','=','done')])"/> -->
-<!--                                 <t t-set="movimientos_previos" t-value="docs.filtered(lambda r: (r.product_id.id == product.id) and (r.x_warehouse_id.id == warehouse.id ) and ( r.state == 'done') and ( r.date &lt; fecha_inicio_tiempo))" />  -->
-
-
-<!--                    Esto no es importante ya no se utilizaba               -->
-                              <!-- <t t-set="total_saldo_cantidad" t-value="sum(line.quantity for line in movimientos_previos)"/> -->
-                              <!-- <t t-set="total_saldo_cantidad" t-value="product_qty_up_to_date[product.id]['qty_available']"/> -->
-<!--                               <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=docs._context['start_date']).qty_at_date"/>
-                              <t t-set="total_initial_stock" t-value="product.with_context(to_date=docs._context['start_date']).qty_at_date"/> -->
 
                               <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date).qty_at_date"/>
                               <t t-set="total_initial_stock" t-value="product.with_context(to_date=start_date).qty_at_date"/>
@@ -237,6 +203,10 @@
 
                                     <tr t-foreach="docs_product_obj_ordered" t-as="i">
 
+                                         <t t-set="document_type" t-value="0"/>
+                                         <t t-set="operation_type" t-value="0"/>
+
+
                                          <t t-if="i.quantity_done!=0 and i.picking_code != 'internal' ">
 
                                            <t t-set="total_saldo_cantidad" t-value="total_initial_stock + sum(line.x_qty_done_sign for line in i.move_line_ids )"/>
@@ -245,212 +215,132 @@
 <!--                                                 <span t-field="i.x_move_date" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/> -->
                                                 <span t-field="i.date" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
                                             </td>
-                                             
-                                            <t t-if="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name != 'Pedidos de PdV'">
-                                              
-                                                <td class="text-center cell-bordered">
-                                                      <span>09</span>
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
 
-                                                      <t t-if="i.picking_id.x_document_serial">
-                                                        <span t-esc="i.picking_id.x_document_serial"/>
-                                                      </t>
-                                                      <t t-elif="i.picking_id.x_invoice_type">
-                                                        <span t-esc="i.picking_id.x_invoice_type"/>
-                                                      </t>
-                                                      <t t-else="">
-                                                        <span>0</span>
-                                                      </t>
+                                            <!-- MAYBE NEED TO OVERRIDE REWRITE LOGIC -->
+                                            <t t-if="i.picking_id.x_document_type or i.picking_id.x_operation_type">
 
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
+                                              <t t-set="document_type" t-value="i.picking_id.x_document_type.x_code"/>
+                                              <t t-set="operation_type" t-value="i.picking_id.x_operation_type.x_code"/>
 
-                                                      <t t-if="i.picking_id.x_document_correlative">
-                                                        <span t-esc="i.picking_id.x_document_correlative"/>
-                                                      </t>
-                                                      <t t-elif="i.picking_id.x_invoice_number">
-                                                        <span t-esc="i.picking_id.x_invoice_number"/>
-                                                      </t>
-                                                      <t t-else="">
-                                                        <span>0</span>
-                                                      </t>
 
-                                                </td>
-                                                
-                                                <td class="text-left cell-bordered">
-                                                         <span> 01</span>
-                                                </td>
-                                                  
                                             </t>
+
+                                            <t t-elif="i.x_document_type">
+
+                                                <t t-set="document_type" t-value="i.x_document_type.x_code"/>
+                                                <t t-set="operation_type" t-value="i.x_operation_type.x_code"/>
+
+                                            </t>
+
+                                            <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name != 'Pedidos de PdV'">
+
+                                                <t t-set="document_type" t-value="'09'"/>
+                                                <t t-set="operation_type" t-value="'01'"/>
+
+                                            </t>
+
                                             <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name == 'Pedidos de PdV'">
 
-<!--                                                 <td class="text-left cell-bordered">
-                                                      <span t-esc="origin_data.get(i.picking_id.origin)['type']"></span>
-                                                </td> -->
                                                 <t t-set="key" t-value="i.picking_id.origin"/>
                                                 <t t-set="data" t-value="origin_data.get(key,False)"/>
-                                                
-                                                <td class="text-center">
-                                                    <t t-if="data">
-                                                        <span t-esc="data['type']"></span>   
-                                                    </t>
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
 
-                                                      <t t-if="data">
-                                                          <span t-esc="data['serial']"></span>   
-                                                      </t>
-                                                      <t t-else="">
-                                                        <span>0</span>
-                                                      </t>
+                                                <t t-if="data">
+                                                  <t t-set="document_type" t-value="data['type']"/>
+                                                </t>
 
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
+                                                <t t-set="operation_type" t-value="'01'"/>
 
-<!--                                                       <t t-if="origin_data.get(i.picking_id.origin)">
-                                                        <span t-esc="origin_data.get(i.picking_id.origin)['number']"/>
-                                                      </t> -->
-                                                      <t t-if="data">
-                                                        <span t-esc="data['number']"/>
-                                                      </t>
-                                                      <t t-else="">
-                                                        <span>0</span>
-                                                      </t>
-
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
-                                                         <span> 01</span>
-                                                </td>
-                                                
-                                              </t>
-                                             
-                                            <t t-elif="i.picking_id.picking_type_id.code == 'incoming' ">
-                                                
-                                                <td class="text-center cell-bordered">
-                                                    
-                                                      <t t-if="i.picking_id.x_document_serial">
-                                                          
-                                                          <t t-if="i.picking_id.x_document_serial == '005' " >
-                                                             <span>09</span> 
-                                                          </t> 
-                                                          
-                                                          <t t-if="i.picking_id.x_document_serial == 'F002' " >
-                                                             <span>01</span> 
-                                                          </t> 
-                                                          
-                                                      </t>
-                                                    
-                                                      <t t-elif="i.picking_id.x_invoice_type">
-                                                          
-                                                          <t t-if="i.picking_id.x_invoice_type == '005' " >
-                                                             <span>09</span> 
-                                                          </t>
-                                                          
-                                                          <t t-if="i.picking_id.x_invoice_type == 'F002' " >
-                                                             <span>01</span> 
-                                                          </t> 
-                                                          
-                                                      </t>
-                                                    
-                                                      <t t-else=""></t>
-                                                    
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
-
-                                                      <t t-if="i.picking_id.x_document_serial">
-                                                        <span t-esc="i.picking_id.x_document_serial"/>
-                                                      </t>
-                                                      <t t-elif="i.picking_id.x_invoice_type">
-                                                         <span t-esc="i.picking_id.x_invoice_type"/>
-                                                      </t>
-                                                      <t t-else="">
-<!--                                                         <span>0</span> -->
-                                                      </t>
-
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
-
-                                                      <t t-if="i.picking_id.x_document_correlative">
-                                                        <span t-esc="i.picking_id.x_document_correlative"/>
-                                                      </t>
-                                                      <t t-elif="i.picking_id.x_invoice_number">
-                                                        <span t-esc="i.picking_id.x_invoice_number"/>
-                                                      </t>
-                                                      <t t-else="">
-<!--                                                         <span>0</span> -->
-                                                      </t>
-
-                                                </td>
-                                                
-                                                <td class="text-center cell-bordered">
-                                                         <span> 02</span>
-                                                </td>
-                                                 
                                             </t>
+
+                                            <t t-elif="i.picking_id.picking_type_id.code == 'incoming'">
+
+                                                <t t-if="i.picking_id.x_document_serial">
+
+                                                    <t t-if="i.picking_id.x_document_serial == '005' " >
+
+                                                       <t t-set="document_type" t-value="'09'"/>
+                                                    </t>
+
+                                                    <t t-if="i.picking_id.x_document_serial == 'F002' " >
+                                                       <t t-set="document_type" t-value="'01'"/>
+                                                    </t>
+
+                                                </t>
+
+                                                <t t-elif="i.picking_id.x_invoice_type">
+
+                                                    <t t-if="i.picking_id.x_invoice_type == '005' " >
+                                                       <t t-set="document_type" t-value="'09'"/>
+                                                    </t>
+
+                                                    <t t-if="i.picking_id.x_invoice_type == 'F002' " >
+                                                       <t t-set="document_type" t-value="'01'"/>
+                                                    </t>
+
+                                                </t>
+
+                                                <t t-else="">
+                                                  <!--  All documents need a reference document type. Ulman does not have order from suppliers so we suppose if we dont have any parameter and is a incoming request we are talking a about a guia de remision                                                   -->
+                                                  <t t-set="document_type" t-value="'09'"/>
+
+                                                </t>
+
+                                                <t t-if="i.location_id.usage == 'customer' ">
+                                                    <t t-set="operation_type" t-value="'05'"/>
+                                                </t>
+                                                <t t-else="">
+                                                    <t t-set="operation_type" t-value="'02'"/>
+
+                                                </t>
+
+                                            </t>
+
                                             <t t-else=""></t>
-<!--                                             <td class="text-left cell-bordered">
-                                                
-                                                
-                                                
-                                                <t t-if="i.picking_type_id.code == 'outgoing' and i.picking_type_id.name != 'Pedidos de PdV' ">
-                                                      <span>09</span>
-                                                </t>
-                                                
-                                                <t t-elif="i.picking_type_id.code == 'outgoing' and i.picking_type_id.name == 'Pedidos de PdV ">
-                                                     <span t-esc="origin_data.get(i.origin,False)['type']"/>    
-                                                </t>
-                                                
-                                                <t t-if="i.picking_id.x_document_type.x_code">
-                                                  <span t-esc="i.picking_id.x_document_type.x_code"/>
-                                                </t>
-                                                <t t-else="">
-                                                  <span>00</span>
-                                                </t>
 
-                                            </td>
                                             <td class="text-center cell-bordered">
 
-                                              <t t-if="i.picking_id.x_document_serial">
-                                                <span t-esc="i.picking_id.x_document_serial"/>
-                                              </t>
-                                              <t t-else="">
-                                                <span>0</span>
-                                              </t>
+                                                <span t-esc="document_type"/>
 
                                             </td>
 
                                             <td class="text-center cell-bordered">
 
-                                              <t t-if="i.picking_id.x_document_correlative">
-                                                <span t-esc="i.picking_id.x_document_correlative"/>
-                                              </t>
-                                              <t t-else="">
-                                                <span>0</span>
-                                              </t>
+                                                  <t t-if="i.picking_id.x_document_serial">
+                                                    <span t-esc="i.picking_id.x_document_serial"/>
+                                                  </t>
+                                                  <t t-elif="i.picking_id.x_invoice_type">
+                                                    <span t-esc="i.picking_id.x_invoice_type"/>
+                                                  </t>
+                                                  <t t-elif="data">
+                                                      <span t-esc="data['serial']"></span>
+                                                  </t>
+                                                  <t t-else="">
+                                                    <span>0</span>
+                                                  </t>
 
                                             </td>
 
-                                            <td class="text-left cell-bordered">
+                                            <td class="text-center cell-bordered">
 
-                                                <t t-if="not i.picking_id">
-                                                  <span t-esc="i.x_operation_type.x_code"/>
-                                                </t>
+                                                  <t t-if="i.picking_id.x_document_correlative">
+                                                    <span t-esc="i.picking_id.x_document_correlative"/>
+                                                  </t>
+                                                  <t t-elif="i.picking_id.x_invoice_number">
+                                                    <span t-esc="i.picking_id.x_invoice_number"/>
+                                                  </t>
+                                                  <t t-elif="data">
+                                                    <span t-esc="data['number']"/>
+                                                  </t>
+                                                  <t t-else="">
+                                                    <span>0</span>
+                                                  </t>
 
-                                                <t t-else="">
-                                                  <span t-esc="i.picking_id.x_operation_type.x_code"/>
-                                                </t>
+                                            </td>
 
-                                            </td> -->
+                                            <td class="text-center cell-bordered">
+                                                <span t-esc="operation_type"/>
+                                            </td>
 
-<!--                                             <t t-set="move_lines" t-value="env['stock.move.line'].search([('move_id.id','=',i.id),('product_id.id','=',product.id),('x_warehouse_id.id','=',warehouse.id)])"/> -->
                                              <t t-set="move_lines" t-value="all_move_lines.filtered(lambda r: r.move_id.id == i.id and r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)"/>
 
                                             <td class="text-right cell-bordered">
@@ -512,7 +402,7 @@
                         </p> -->
                         <!--</div>   -->
                   </t> <!-- Product -->
-                    
+
               </t> <!-- warehouse-->
           </div>
         </t>  <!-- id docs.filtered .... -->
@@ -520,6 +410,5 @@
       </t>
 
     </template>
-
 
 </odoo>

@@ -8,6 +8,7 @@
 
                 <xpath expr="//field[@name='origin']" position="before">
                     <field name="x_document_type"/>
+                    <field name="x_operation_type"/>
 
                 </xpath>
                 <xpath expr="//field[@name='group_id']" position="before">
@@ -24,6 +25,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='date']" position="after">
                     <field name="x_move_date"/>
+                    <field name="x_operation_type"/>
+                    <field name="x_document_type"/>
                 </xpath>
             </field>
         </record>

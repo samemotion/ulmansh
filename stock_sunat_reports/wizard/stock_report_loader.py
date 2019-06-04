@@ -89,18 +89,20 @@ class StockReportLoader(models.TransientModel):
             ("%04d" % int(period_year)) + '-' +  ( "%02d" % int(period_month)) + '-' + ( "%02d" % month_end_day),'%Y-%m-%d')
         var_from_datetime = (var_from_date + datetime.timedelta(hours=5))
         var_to_datetime = (var_to_date + datetime.timedelta(hours=28, minutes=59, seconds=59))
-
-        # record_ids = self.env[report_model].search([])
-
+        
+        
+        # var_to_date is the original implementation
         record_ids = self.env[report_model].search([
           ('date', '<=', str(var_to_date)),
           ('state', '=', 'done'),
           ('product_id.type', '=', 'product'),
           ('product_id.location_id.usage', '!=', 'transit')
         ])
-
+        
         ## Check this logic when filtering records 
         product_obj = record_ids.mapped('product_id')
+        
+        
         product_obj_filtered = product_obj.filtered(
             lambda r: r.with_context(
                 to_date=str(var_from_date)
@@ -140,6 +142,7 @@ class StockReportLoader(models.TransientModel):
         
 
         product_obj_filtered2 = record_ids.mapped('product_id')
+        
 
         product_obj = product_obj_filtered | product_obj_filtered2
 

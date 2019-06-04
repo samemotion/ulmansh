@@ -21,7 +21,10 @@ This module adds SUNAT Stock Reports
          'report/stock_quantity_sunat_report.xml',
          'wizard/stock_report_loader.xml',
          'views/product.xml',
+         'views/stock.xml',
          'data/product.uom.pe.csv',
+         'data/data_invoice_type.xml',
+         'data/data_stock_type_book.xml',
     ],
     'demo': [
 #        'data/stock_picking_batch_demo.xml',

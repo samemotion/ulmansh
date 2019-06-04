@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="1" model="stock.operation.type">
+            <field name="x_name">VENTA</field>
+            <field name="x_code">01</field>
+        </record>
+        <record id="2" model="stock.operation.type">
+            <field name="x_name">COMPRA</field>
+            <field name="x_code">02</field>
+        </record>
+        <record id="3" model="stock.operation.type">
+            <field name="x_name">CONSIGNACIÓN RECIBIDA</field>
+            <field name="x_code">03</field>
+        </record>
+        <record id="4" model="stock.operation.type">
+            <field name="x_name">CONSIGNACIÓN ENTREGADA</field>
+            <field name="x_code">04</field>
+        </record>
+        <record id="5" model="stock.operation.type">
+            <field name="x_name">DEVOLUCIÓN RECIBIDA</field>
+            <field name="x_code">05</field>
+        </record>
+        <record id="6" model="stock.operation.type">
+            <field name="x_name">DEVOLUCIÓN ENTREGADA</field>
+            <field name="x_code">06</field>
+        </record>
+        <record id="7" model="stock.operation.type">
+            <field name="x_name">PROMOCIÓN</field>
+            <field name="x_code">07</field>
+        </record>
+        <record id="8" model="stock.operation.type">
+            <field name="x_name">PREMIO</field>
+            <field name="x_code">08</field>
+        </record>
+        <record id="9" model="stock.operation.type">
+            <field name="x_name">DONACIÓN</field>
+            <field name="x_code">09</field>
+        </record>
+        <record id="10" model="stock.operation.type">
+            <field name="x_name">SALIDA A PRODUCCIÓN</field>
+            <field name="x_code">10</field>
+        </record>
+        <record id="11" model="stock.operation.type">
+            <field name="x_name">TRANSFERENCIA ENTRE ALMACENES </field>
+            <field name="x_code">11</field>
+        </record>
+        <record id="12" model="stock.operation.type">
+            <field name="x_name">RETIRO</field>
+            <field name="x_code">12</field>
+        </record>
+        <record id="13" model="stock.operation.type">
+            <field name="x_name">MERMAS</field>
+            <field name="x_code">13</field>
+        </record>
+        <record id="14" model="stock.operation.type">
+            <field name="x_name">DESMEDROS</field>
+            <field name="x_code">14</field>
+        </record>
+        <record id="15" model="stock.operation.type">
+            <field name="x_name">DESTRUCCIÓN</field>
+            <field name="x_code">15</field>
+        </record>
+        <record id="16" model="stock.operation.type">
+            <field name="x_name">SALDO INICIAL</field>
+            <field name="x_code">16</field>
+        </record>
+       
+        <record id="99" model="stock.operation.type">
+            <field name="x_name">OTROS </field>
+            <field name="x_code">99</field>
+        </record>
+    </data>
+</odoo>
