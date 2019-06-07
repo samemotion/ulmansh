@@ -1,0 +1,685 @@
+<odoo>
+    <data noupdate="1">
+       <record id='0' model='invoice.type.book'>
+            <field name='x_name'>Otros</field>
+            <field name='x_code'>00</field>
+            <field name='x_visible_in_module'>all</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='1' model='invoice.type.book'>
+            <field name='x_name'>Factura</field>
+            <field name='x_code'>01</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='2' model='invoice.type.book'>
+            <field name='x_name'>Recibo por Honorarios</field>
+            <field name='x_code'>02</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>7</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='3' model='invoice.type.book'>
+            <field name='x_name'>Boleta de Venta</field>
+            <field name='x_code'>03</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='4' model='invoice.type.book'>
+            <field name='x_name'>Liquidación de compra</field>
+            <field name='x_code'>04</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='5' model='invoice.type.book'>
+            <field name='x_name'>Boletos de Transporte Aéreo</field>
+            <field name='x_code'>05</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>1</field>
+            <field name='x_document_serial_data_validation'>value in ('1','2','3','4','5')</field>
+            <field name='x_document_serial_validation_message'>must be 1=Boleto Manual, 2=Boleto Automatic, 3=Boleto Electronico, 5=Anulado</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>11</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+
+       <record id='6' model='invoice.type.book'>
+            <field name='x_name'>Carta de porte aéreo por el servicio de transporte de carga aérea</field>
+            <field name='x_code'>06</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='7' model='invoice.type.book'>
+            <field name='x_name'>Nota de crédito</field>
+            <field name='x_code'>07</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='8' model='invoice.type.book'>
+            <field name='x_name'>Nota de débito</field>
+            <field name='x_code'>08</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='9' model='invoice.type.book'>
+            <field name='x_name'>Guía de remisión - Remitente</field>
+            <field name='x_code'>09</field>
+            <field name='x_visible_in_module'>general</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+
+        <record id='10' model='invoice.type.book'>
+            <field name='x_name'>Recibo por Arrendamiento</field>
+            <field name='x_code'>10</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value == '1683'</field>
+            <field name='x_document_serial_validation_message'>must be equal to 1683.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='11' model='invoice.type.book'>
+            <field name='x_name'>Póliza emitida por las Bolsas de Valores, Bolsas de Productos o Agentes de Intermediación autorizadas por SMV</field>
+            <field name='x_code'>11</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>15</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='12' model='invoice.type.book'>
+            <field name='x_name'>Ticket o cinta emitido por máquina registradora</field>
+            <field name='x_code'>12</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='13' model='invoice.type.book'>
+            <field name='x_name'>Documentos emitidos por las empresas del sistema financiero y de seguros, y por las cooperativas de ahorro y crédito no autorizadas a captar recursos del público, bajo el control de la SBS y AFP.</field>
+            <field name='x_code'>13</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='14' model='invoice.type.book'>
+            <field name='x_name'>Recibo por servicios públicos de suministro de energía eléctrica, agua, teléfono, telex y telegráficos y otros servicios.</field>
+            <field name='x_code'>14</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='15' model='invoice.type.book'>
+            <field name='x_name'>Boletos emitidos por el servicio de transporte terrestre regular urbano de pasajeros y el ferroviario público de pasajeros prestado en vía férrea local.</field>
+            <field name='x_code'>15</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='16' model='invoice.type.book'>
+            <field name='x_name'>Boletos de viaje emitidos por las empresas de transporte nacional de pasajeros. Vía terrestre o ferroviario público no emitido por medios electrónicos (BVME)</field>
+            <field name='x_code'>16</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='17' model='invoice.type.book'>
+            <field name='x_name'>Documento emitido por la Iglesia Católica por el arrendamiento de bienes inmuebles</field>
+            <field name='x_code'>17</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='18' model='invoice.type.book'>
+            <field name='x_name'>Documento emitido por las AFPs que se encuentran bajo la supervisión de la SBS</field>
+            <field name='x_code'>18</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='19' model='invoice.type.book'>
+            <field name='x_name'>Boleto o entrada por atracciones y espectáculos públicos</field>
+            <field name='x_code'>19</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='20' model='invoice.type.book'>
+            <field name='x_name'>Comprobante de Retención</field>
+            <field name='x_code'>20</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='21' model='invoice.type.book'>
+            <field name='x_name'>Conocimiento de embarque por el servicio de transporte de carga marítima</field>
+            <field name='x_code'>21</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='22' model='invoice.type.book'>
+            <field name='x_name'>Comprobante por Operaciones No Habituales</field>
+            <field name='x_code'>22</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value == '0820'</field>
+            <field name='x_document_serial_validation_message'>must be equal to 0820.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='23' model='invoice.type.book'>
+            <field name='x_name'>Pólizas de Adjudicación emitidas con ocasión del remate o adjudicación de bienes por venta forzada, por los martilleros o las entidades que rematen o subasten bienes por cuenta de terceros</field>
+            <field name='x_code'>23</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>7</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='24' model='invoice.type.book'>
+            <field name='x_name'>Certificado de pago de regalías emitidas por PERUPETRO S.A</field>
+            <field name='x_code'>24</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='25' model='invoice.type.book'>
+            <field name='x_name'>Documento de Atribución (Ley del IGV e ISC, Art. 19º, último párrafo, R.S. N° 022-98-SUNAT).</field>
+            <field name='x_code'>25</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>7</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='26' model='invoice.type.book'>
+            <field name='x_name'>Recibo por el Pago por el Uso del Agua Superficial con fines agrarios y de la Cuota para la ejecución de una obra o actividad.(Decreto Supremo N° 003-90-AG, Arts. 28 y 48)</field>
+            <field name='x_code'>26</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='27' model='invoice.type.book'>
+            <field name='x_name'>Seguro Complementario de Trabajo de Riesgo</field>
+            <field name='x_code'>27</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='28' model='invoice.type.book'>
+            <field name='x_name'>Documentos emitidos por servicios aeroportuarios, mediante mecanismo de etiquetas autoadhesivas.  </field>
+            <field name='x_code'>28</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='29' model='invoice.type.book'>
+            <field name='x_name'>Documentos emitidos por la COFOPRI en calidad de oferta de venta de terrenos, los correspondientes a las subastas públicas y a la retribución de los servicios que presta</field>
+            <field name='x_code'>29</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='30' model='invoice.type.book'>
+            <field name='x_name'>Documentos emitidos por las empresas que desempeñan el rol adquirente en los sistemas de pago mediante tarjetas de crédito y débito, emitidas por bancos e instituciones financieras o crediticias, domiciliados o no en el país.</field>
+            <field name='x_code'>30</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+
+       <record id='31' model='invoice.type.book'>
+            <field name='x_name'>Guía de Remisión - Transportista</field>
+            <field name='x_code'>31</field>
+            <field name='x_visible_in_module'>general</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='32' model='invoice.type.book'>
+            <field name='x_name'>Documentos emitidos por las empresas recaudadoras. – Ley de Promoción del Desarrollo de la Industria del Gas Natural</field>
+            <field name='x_code'>32</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+
+
+       <record id='34' model='invoice.type.book'>
+            <field name='x_name'>Documento del Operador</field>
+            <field name='x_code'>34</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>7</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='35' model='invoice.type.book'>
+            <field name='x_name'>Documento del Partícipe</field>
+            <field name='x_code'>35</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>7</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='36' model='invoice.type.book'>
+            <field name='x_name'>Recibo de Distribución de Gas Natural</field>
+            <field name='x_code'>36</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='37' model='invoice.type.book'>
+            <field name='x_name'>Documentos que emitan los concesionarios del servicio de revisiones técnicas vehiculares, por la prestación de dicho servicio</field>
+            <field name='x_code'>37</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='50' model='invoice.type.book'>
+            <field name='x_name'>Declaración Única de Aduanas - Importación definitiva                 </field>
+            <field name='x_code'>50</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>3</field>
+            <field name='x_document_serial_max_characters'>3</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers according to table 11.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>6</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='52' model='invoice.type.book'>
+            <field name='x_name'>Despacho Simplificado - Importación Simplificada                        </field>
+            <field name='x_code'>52</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>3</field>
+            <field name='x_document_serial_max_characters'>3</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers according to table 11.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>6</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='53' model='invoice.type.book'>
+            <field name='x_name'>Declaración de Mensajería o Courier                                         </field>
+            <field name='x_code'>53</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>3</field>
+            <field name='x_document_serial_max_characters'>3</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers according to table 11.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>6</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='54' model='invoice.type.book'>
+            <field name='x_name'>Liquidación de Cobranza                                                     </field>
+            <field name='x_code'>54</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>3</field>
+            <field name='x_document_serial_max_characters'>3</field>
+            <field name='x_document_serial_data_validation'>value.isdigit()</field>
+            <field name='x_document_serial_validation_message'>must have only numbers according to table 11.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='87' model='invoice.type.book'>
+            <field name='x_name'>Nota de Crédito Especial</field>
+            <field name='x_code'>87</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='88' model='invoice.type.book'>
+            <field name='x_name'>Nota de Débito Especial</field>
+            <field name='x_code'>88</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='91' model='invoice.type.book'>
+            <field name='x_name'>Comprobante de No Domiciliado                                                 </field>
+            <field name='x_code'>91</field>
+            <field name='x_visible_in_module'>purchase</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+       <record id='96' model='invoice.type.book'>
+            <field name='x_name'>Exceso de crédito fiscal por retiro de bienes                           </field>
+            <field name='x_code'>96</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='97' model='invoice.type.book'>
+            <field name='x_name'>Nota de Crédito - No Domiciliado</field>
+            <field name='x_code'>97</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+       <record id='98' model='invoice.type.book'>
+            <field name='x_name'>Nota de Débito - No Domiciliado</field>
+            <field name='x_code'>98</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>1</field>
+            <field name='x_document_serial_max_characters'>20</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>20</field>
+            <field name='x_document_correlative_data_validation'>value.isalnum()</field>
+            <field name='x_document_correlative_validation_message'>must be alphanumeric.</field>
+       </record>
+
+
+        <record id='99' model='invoice.type.book'>
+            <field name='x_name'>Otros -Consolidado de Boletas de Venta</field>
+            <field name='x_code'>99</field>
+            <field name='x_visible_in_module'>invoice</field>
+            <field name='x_document_serial_min_characters'>4</field>
+            <field name='x_document_serial_max_characters'>4</field>
+            <field name='x_document_serial_data_validation'>value.isalnum()</field>
+            <field name='x_document_serial_validation_message'>must be alfanumeric.</field>
+            <field name='x_document_correlative_min_characters'>1</field>
+            <field name='x_document_correlative_max_characters'>8</field>
+            <field name='x_document_correlative_data_validation'>value.isdigit()</field>
+            <field name='x_document_correlative_validation_message'>must have only numbers</field>
+       </record>
+
+
+
+
+    </data>
+</odoo>

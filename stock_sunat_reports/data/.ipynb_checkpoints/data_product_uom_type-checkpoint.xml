@@ -1,0 +1,70 @@
+<odoo>
+    <data noupdate="1">
+        <record id="1" model="product.uom.type.book">
+            <field name="x_name">KILOGRAMOS</field>
+            <field name="x_code">01</field>
+        </record>
+        <record id="2" model="product.uom.type.book">
+            <field name="x_name">LIBRAS</field>
+            <field name="x_code">02</field>
+        </record>
+        <record id="3" model="product.uom.type.book">
+            <field name="x_name">TONELADAS LARGAS</field>
+            <field name="x_code">03</field>
+        </record>
+        <record id="4" model="product.uom.type.book">
+            <field name="x_name">TONELADAS MÉTRICAS</field>
+            <field name="x_code">04</field>
+        </record>
+        <record id="5" model="product.uom.type.book">
+            <field name="x_name">TONELADAS CORTAS</field>
+            <field name="x_code">05</field>
+        </record>
+        <record id="6" model="product.uom.type.book">
+            <field name="x_name">GRAMOS</field>
+            <field name="x_code">06</field>
+        </record>
+        <record id="7" model="product.uom.type.book">
+            <field name="x_name">UNIDADES</field>
+            <field name="x_code">07</field>
+        </record>
+        <record id="8" model="product.uom.type.book">
+            <field name="x_name">LITROS</field>
+            <field name="x_code">08</field>
+        </record>
+        <record id="9" model="product.uom.type.book">
+            <field name="x_name">GALONES </field>
+            <field name="x_code">09</field>
+        </record>
+        <record id="10" model="product.uom.type.book">
+            <field name="x_name">BARRILES</field>
+            <field name="x_code">10</field>
+        </record>
+        <record id="11" model="product.uom.type.book">
+            <field name="x_name">LATAS</field>
+            <field name="x_code">11</field>
+        </record>
+        <record id="12" model="product.uom.type.book">
+            <field name="x_name">CAJAS</field>
+            <field name="x_code">12</field>
+        </record>
+        <record id="13" model="product.uom.type.book">
+            <field name="x_name">MILLARES</field>
+            <field name="x_code">13</field>
+        </record>
+        <record id="14" model="product.uom.type.book">
+            <field name="x_name">METROS CÚBICOS</field>
+            <field name="x_code">14</field>
+        </record>
+        <record id="15" model="product.uom.type.book">
+            <field name="x_name">METROS</field>
+            <field name="x_code">15</field>
+        </record>
+        <record id="99" model="product.uom.type.book">
+            <field name="x_name">OTROS</field>
+            <field name="x_code">99</field>
+        </record>
+        
+       
+    </data>
+</odoo>

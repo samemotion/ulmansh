@@ -1,0 +1,63 @@
+id,x_code,x_name
+product_uom_pe_4A,4A,4A: BOBINAS                                               
+product_uom_pe_BJ,BJ,BJ: BALDE                                                 
+product_uom_pe_BLL,BLL,BLL: BARRILES                                              
+product_uom_pe_BG,BG,BG: BOLSA                                                 
+product_uom_pe_BO,BO,BO: BOTELLAS                                              
+product_uom_pe_BX,BX,BX: CAJA                                                  
+product_uom_pe_CT,CT,CT: CARTONES                                              
+product_uom_pe_CMK,CMK,CMK: CENTIMETRO CUADRADO                                   
+product_uom_pe_CMQ,CMQ,CMQ: CENTIMETRO CUBICO                                     
+product_uom_pe_CMT,CMT,CMT: CENTIMETRO LINEAL                                     
+product_uom_pe_CEN,CEN,CEN: CIENTO DE UNIDADES                                    
+product_uom_pe_CY,CY,CY: CILINDRO                                              
+product_uom_pe_CJ,CJ,CJ: CONOS                                                 
+product_uom_pe_DZN,DZN,DZN: DOCENA                                                
+product_uom_pe_DZP,DZP,DZP: DOCENA POR 10**6                                      
+product_uom_pe_BE,BE,BE: FARDO                                                 
+product_uom_pe_GLI,GLI,"GLI: GALON INGLES (4,545956L)"
+product_uom_pe_GRM,GRM,GRM: GRAMO                                                 
+product_uom_pe_GRO,GRO,GRO: GRUESA                                                
+product_uom_pe_HLT,HLT,HLT: HECTOLITRO                                            
+product_uom_pe_LEF,LEF,LEF: HOJA                                                  
+product_uom_pe_SET,SET,SET: JUEGO                                                 
+product_uom_pe_KGM,KGM,KGM: KILOGRAMO                                             
+product_uom_pe_KTM,KTM,KTM: KILOMETRO                                             
+product_uom_pe_KWH,KWH,KWH: KILOVATIO HORA                                        
+product_uom_pe_KT,KT,KT: KIT                                                   
+product_uom_pe_CA,CA,CA: LATAS                                                 
+product_uom_pe_LBR,LBR,LBR: LIBRAS                                                
+product_uom_pe_LTR,LTR,LTR: LITRO                                                 
+product_uom_pe_MWH,MWH,MWH: MEGAWATT HORA                                         
+product_uom_pe_MTR,MTR,MTR: METRO                                                 
+product_uom_pe_MTK,MTK,MTK: METRO CUADRADO                                        
+product_uom_pe_MTQ,MTQ,MTQ: METRO CUBICO                                          
+product_uom_pe_MGM,MGM,MGM: MILIGRAMOS                                            
+product_uom_pe_MLT,MLT,MLT: MILILITRO                                             
+product_uom_pe_MMT,MMT,MMT: MILIMETRO                                             
+product_uom_pe_MMK,MMK,MMK: MILIMETRO CUADRADO                                    
+product_uom_pe_MMQ,MMQ,MMQ: MILIMETRO CUBICO                                      
+product_uom_pe_MLL,MLL,MLL: MILLARES                                              
+product_uom_pe_UM,UM,UM: MILLON DE UNIDADES                                    
+product_uom_pe_ONZ,ONZ,ONZ: ONZAS                                                 
+product_uom_pe_PF,PF,PF: PALETAS                                               
+product_uom_pe_PK,PK,PK: PAQUETE                                               
+product_uom_pe_PR,PR,PR: PAR                                                   
+product_uom_pe_FOT,FOT,FOT: PIES                                                  
+product_uom_pe_FTK,FTK,FTK: PIES CUADRADOS                                        
+product_uom_pe_FTQ,FTQ,FTQ: PIES CUBICOS                                          
+product_uom_pe_C62,C62,C62: PIEZAS                                                
+product_uom_pe_PG,PG,PG: PLACAS                                                
+product_uom_pe_ST,ST,ST: PLIEGO                                                
+product_uom_pe_INH,INH,INH: PULGADAS                                              
+product_uom_pe_RM,RM,RM: RESMA                                                 
+product_uom_pe_DR,DR,DR: TAMBOR                                                
+product_uom_pe_STN,STN,STN: TONELADA CORTA                                        
+product_uom_pe_LTN,LTN,LTN: TONELADA LARGA                                        
+product_uom_pe_TNE,TNE,TNE: TONELADAS                                             
+product_uom_pe_TU,TU,TU: TUBOS                                                 
+product_uom_pe_NIU,NIU,NIU: UNIDAD (BIENES)                                      
+product_uom_pe_ZZ,ZZ,ZZ: UNIDAD (SERVICIOS) 
+product_uom_pe_GLL,GLL,"GLL: US GALON (3,7843 L)"
+product_uom_pe_YRD,YRD,YRD: YARDA                                                 
+product_uom_pe_YDK,YDK,YDK: YARDA CUADRADA                                        
