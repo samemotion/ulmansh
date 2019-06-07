@@ -5,7 +5,7 @@ import calendar
 from odoo.exceptions import ValidationError
 from odoo.http import request
 
-import logging
+
 import threading
 import base64
 from itertools import zip_longest
@@ -14,6 +14,7 @@ from PyPDF2 import PdfFileMerger
 import gc
 import io
 
+import logging
 _logger = logging.getLogger(__name__)
 
 

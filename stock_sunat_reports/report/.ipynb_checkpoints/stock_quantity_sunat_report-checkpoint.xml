@@ -124,7 +124,12 @@
 
                         <p style="font-size: 8px;">CÓDIGO DE LA UNIDAD DE MEDIDA (TABLA 6):
                             <!-- <t t-if="account_move_ids"> -->
+                           
+                            <span t-field="product.uom_id.x_code_pe.x_code"/>
+                             <span>-</span>
                             <span t-field="product.uom_id.x_code_pe.x_name"/>
+                            
+                            
                             <!-- </t> -->
                         </p>
 
@@ -342,6 +347,7 @@
                                             </td>
 
                                              <t t-set="move_lines" t-value="all_move_lines.filtered(lambda r: r.move_id.id == i.id and r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)"/>
+                                             
 
                                             <td class="text-right cell-bordered">
 
