@@ -3,6 +3,43 @@ from odoo.addons import decimal_precision as dp
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+
+class StockMoveLine(models.Model):
+    
+    _inherit = "stock.move.line"
+    
+    x_warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse',help="Warehouse related to stock move line",store=True,compute='_compute_warehouse') 
+    x_qty_done_sign = fields.Float('Done Sign', default=0.0, digits=dp.get_precision('Product Unit of Measure'), store=True,compute='_compute_qty_done_sign')
+
+    @api.one
+    @api.depends('location_dest_id','location_id')
+    def _compute_warehouse(self):
+        
+        result = []
+        if self.location_id.usage == "internal":
+            result =  self.location_id.x_warehouse_id
+        if self.location_dest_id.usage == "internal":
+            result =  self.location_dest_id.x_warehouse_id
+            
+        #raise ValidationError(result)
+#         raise ValidationError("Entre")
+        self.x_warehouse_id = result
+        
+        
+
+    @api.one
+    @api.depends('qty_done')
+    def _compute_qty_done_sign(self):
+        sign = 1
+        if self.location_id.usage == 'internal' and self.location_dest_id.usage != 'internal':
+            sign = -1
+        elif self.location_id.usage != 'internal' and self.location_dest_id.usage == 'internal':
+            sign = 1
+        elif self.location_id.usage == 'internal' and self.location_dest_id.usage == 'internal':
+            sign = 0
+        result = sign* self.qty_done
+        self.x_qty_done_sign = result  
+        
 class StockMove(models.Model):
     _inherit = 'stock.move'
 
@@ -15,9 +52,11 @@ class StockMove(models.Model):
     def _compute_warehouse(self):
         
         for record in self:
+            
             result = []
             if record.location_id.usage == "internal":
                 result =  record.location_id.x_warehouse_id
+                
             if record.location_dest_id.usage == "internal":
                 result =  record.location_dest_id.x_warehouse_id
             record.x_warehouse_id = result
@@ -38,7 +77,7 @@ class StockMove(models.Model):
                     operation_type = self.env['stock.operation.type.book'].search([('x_code','=','13')])
                 # Inventory Adjustments.
                 else:
-                    operation_type = self.env['stock.operation.type.book'].search([('x_code','=','28')])
+                    operation_type = self.env['stock.operation.type.book'].search([('x_code','=','99')])
             #Output -> Between Company Warehouses
             elif record.location_dest_id.usage == 'transit' and record.location_id.usage == 'internal':
                 operation_type = self.env['stock.operation.type.book'].search([('x_code','=','11')])

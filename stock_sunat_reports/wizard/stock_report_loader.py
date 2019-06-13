@@ -100,6 +100,8 @@ class StockReportLoader(models.TransientModel):
           ('product_id.location_id.usage', '!=', 'transit')
         ])
         
+        
+        
         ## Check this logic when filtering records 
         product_obj = record_ids.mapped('product_id')
         
@@ -364,26 +366,40 @@ class RegistroInventarioUnidades(models.AbstractModel):
                 products |= p
     
         data['product_obj'] = products
+        
+        moves_by_product_and_warehouse = {}
+        
+        for warehouse in warehouse_obj:
+            
+            for product in data['product_obj']:
+                
+                if product is None:
+                    
+                    continue
+                       
+                #docs_product_obj_ordered = data['docs'].filtered( lambda r: r.product_id.id == product.id)
+                
+                moves_by_product_and_warehouse[str(product.id)+str(warehouse.id)] = data['move_lines'].filtered(lambda r: r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)
             
         
-        for product in data['product_obj']:
+#         for product in data['product_obj']:
             
-            if product is None:
-                continue
+#             if product is None:
+#                 continue
             
-            docs_product_obj_ordered = data['docs'].filtered( lambda r: r.product_id.id == product.id)
+#             docs_product_obj_ordered = data['docs'].filtered( lambda r: r.product_id.id == product.id)
             
-            complete_dict[product.id] = {
+#             complete_dict[product.id] = {
 
-                'records': docs_product_obj_ordered,
-                'total_incoming': sum(
-                    line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code != 'incoming')
-                ),
-                'total_outgoing': sum(
-                    line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code == 'outgoing')
-                ),
+#                 'records': docs_product_obj_ordered,
+#                 'total_incoming': sum(
+#                     line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code != 'incoming')
+#                 ),
+#                 'total_outgoing': sum(
+#                     line.quantity_done for line in docs_product_obj_ordered.filtered(lambda r: r.picking_code == 'outgoing')
+#                 ),
 
-            }
+#             }
                     
 #         _logger.info("Datos de origin data")
 #         _logger.info(data['origin_data'])
@@ -399,7 +415,7 @@ class RegistroInventarioUnidades(models.AbstractModel):
             'product_obj': data['product_obj'],
             'warehouse_obj': warehouse_obj,
             'all_move_lines': data['move_lines'],
-            'complete_dict': complete_dict,
+            'moves_by_product_and_warehouse': moves_by_product_and_warehouse,
             'origin_data': data['origin_data'],
 
          }
