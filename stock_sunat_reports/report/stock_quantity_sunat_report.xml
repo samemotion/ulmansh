@@ -77,7 +77,12 @@
 
                     <t t-foreach="product_obj" t-as="product">
 
-                    <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id)"/>
+                    <t t-set="docs_product_obj_ordered" t-value="docs.filtered( lambda r: r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)"/>
+                        
+<!--                     <t t-set="with_products_in_warehouse" t-value="len(docs_product_obj_ordered) == 0">    -->
+                    <t t-if=" not (len(docs_product_obj_ordered) == 0 and product.with_context(to_date=start_date, warehouse=warehouse.id).qty_available == 0)">
+                        
+                      
 
 
                         <p style="font-size: 8px;">FORMATO 12.1: REGISTRO DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS - DETALLE DEL INVENTARIO PERMANENTE EN UNIDADES FÍSICAS</p>
@@ -177,8 +182,12 @@
 
                               <t t-set="fecha_inicio_tiempo" t-value="( fecha_inicio + datetime.timedelta(hours=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
 
-                              <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date).qty_at_date"/>
-                              <t t-set="total_initial_stock" t-value="product.with_context(to_date=start_date).qty_at_date"/>
+<!--                               <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date, warehouse=warehouse.id).qty_at_date"/> -->
+                                
+                              <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date, warehouse=warehouse.id).qty_available"/>
+<!--                               <t t-set="total_saldo_cantidad" t-value="product.with_context(to_date=start_date, warehouse=warehouse.id).qty_at_date"/> -->
+<!--                               <t t-set="total_initial_stock" t-value="product.with_context(to_date=start_date, warehouse=warehouse.id).qty_at_date"/> -->
+                               <t t-set="total_initial_stock" t-value="product.with_context(to_date=start_date, warehouse=warehouse.id).qty_available"/>
 
                               <t t-set="positive_accumulator" t-value="total_initial_stock"/>
                               <t t-set="negative_accumulator" t-value="0"/>
@@ -216,7 +225,11 @@
 
 <!--                                     <tr t-foreach="docs_product_obj_ordered" t-as="i"> -->
                                     <tr t-foreach="product_ordered_with_warehouse" t-as="i">
+                                        
+                                         <t t-set="same_warehouse_transfer" t-value="i.location_id.usage == 'internal' and i.location_id.x_warehouse_id.id == warehouse.id  and i.location_dest_id.usage == 'internal' and i.location_dest_id.x_warehouse_id.id == warehouse.id"/> 
 
+                                     <t t-if="same_warehouse_transfer == False">
+                                         
                                          <t t-set="document_type" t-value="0"/>
                                          <t t-set="operation_type" t-value="0"/>
 
@@ -397,6 +410,8 @@
                                             </td>
 
                                         </t>
+                                     
+                                      </t>
                                     </tr>
 
 
@@ -430,6 +445,8 @@
                             &amp;nbsp;
                         </p> -->
                         <!--</div>   -->
+                        
+                    </t> <!-- If products to draw -->
                   </t> <!-- Product -->
 
               </t> <!-- warehouse-->

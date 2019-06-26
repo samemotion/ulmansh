@@ -122,9 +122,7 @@ class StockReportLoader(models.TransientModel):
 
         record_ids = record_ids.sorted(lambda r: r.date)
         
-        
-        
-        # Here setup dict datato use on report
+        # Here setup dict data to use in report
         origins = [str(p.picking_id.origin) for p in record_ids if (p.picking_id.origin is not False and p.picking_id.origin is not '')]
 #         raise ValidationError(origins)
 #         raise ValidationError(len(origins))
@@ -381,7 +379,29 @@ class RegistroInventarioUnidades(models.AbstractModel):
                        
                 #docs_product_obj_ordered = data['docs'].filtered( lambda r: r.product_id.id == product.id)
                 
-                moves_by_product_and_warehouse[str(product.id)+str(warehouse.id)] = data['move_lines'].filtered(lambda r: r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id)
+                # testing condition
+                
+                moves = self.env['stock.move.line']
+                
+                moves_by_product = data['move_lines'].filtered(lambda r: r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id )
+                
+                # Removing move lines from warehouse A to warehouse A (internal transfers of warehouse)
+                for m_line in moves_by_product:
+                    
+                    if m_line.location_id.usage == 'internal' and m_line.location_id.x_warehouse_id.id == warehouse.id and m_line.location_dest_id.usage == 'internal' and m_line.location_dest_id.x_warehouse_id.id == warehouse.id :
+                           
+                        continue
+                            
+                    moves |= m_line 
+                    
+                moves_by_product_and_warehouse[str(product.id)+str(warehouse.id)] = moves 
+                
+                
+                ####################
+                
+                ### Original
+                
+#                 moves_by_product_and_warehouse[str(product.id)+str(warehouse.id)] = data['move_lines'].filtered(lambda r: r.product_id.id == product.id and r.x_warehouse_id.id == warehouse.id )
             
         
 #         for product in data['product_obj']:

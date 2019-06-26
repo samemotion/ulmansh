@@ -67,10 +67,10 @@ class StockMove(models.Model):
         for record in self:
             #To Production
             if record.location_id.usage == 'internal' and record.location_dest_id.usage == 'production':
-                operation_type = self.env['stock.operation.type.book'].search([('x_code','=','99')])
+                operation_type = self.env['stock.operation.type.book'].search([('x_code','=','10')])
             #From Production
             elif record.location_id.usage == 'production' and record.location_dest_id.usage == 'internal':
-                operation_type = self.env['stock.operation.type.book'].search([('x_code','=','10')])
+                operation_type = self.env['stock.operation.type.book'].search([('x_code','=','99')])
             elif (record.location_dest_id.usage == 'internal' and record.location_id.usage == 'inventory') or (record.location_dest_id.usage == 'inventory' and record.location_id.usage == 'internal'):
                 # Inventory Adjustments - > Scrap
                 if record.location_dest_id.scrap_location:
