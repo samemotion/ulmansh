@@ -224,6 +224,7 @@
                                     <t t-set= "product_ordered_with_warehouse" t-value="docs_product_obj_ordered.filtered(lambda r: r.x_warehouse_id.id == warehouse.id)"/>
 
 <!--                                     <tr t-foreach="docs_product_obj_ordered" t-as="i"> -->
+<!--                                    <t t-set="test" t-value="product_ordered_with_warehouse[0].test_qweb(product_ordered_with_warehouse,warehouse)"/> -->
                                     <tr t-foreach="product_ordered_with_warehouse" t-as="i">
                                         
                                          <t t-set="same_warehouse_transfer" t-value="i.location_id.usage == 'internal' and i.location_id.x_warehouse_id.id == warehouse.id  and i.location_dest_id.usage == 'internal' and i.location_dest_id.x_warehouse_id.id == warehouse.id"/> 
@@ -235,6 +236,8 @@
 
                                         <!-- Here we have an error production and between warehouse are internal cannot filter by that  -->
 <!--                                          <t t-if="i.quantity_done!=0 and i.picking_code != 'internal' "> -->
+                                         
+                                         
                                          <t t-if="i.quantity_done!=0 ">
 
                                            <t t-set="total_saldo_cantidad" t-value="total_initial_stock + sum(line.x_qty_done_sign for line in i.move_line_ids )"/>
@@ -245,35 +248,44 @@
                                             </td>
 
                                             <!-- MAYBE NEED TO OVERRIDE REWRITE LOGIC -->
-                                            <t t-if="i.x_document_type != False  or i.x_operation_type != False ">
+                                            <t t-if="i.x_document_type  or i.x_operation_type">
 
+                                              
                                               <t t-set="document_type" t-value="i.x_document_type.x_code"/>
                                               <t t-set="operation_type" t-value="i.x_operation_type.x_code"/>
+                                                
+<!--                                               <t t-if="i.id == 96216">
+                                                 <t t-set="value" t-value="i.test_qweb(product_ordered_with_warehouse,warehouse,'Primer if')"/>
+                                               </t> -->
 
 
                                             </t>
                                              
                                              
-                                            <t t-elif="i.picking_id.x_document_type != False  or i.picking_id.x_operation_type != False ">
-
+                                            <t t-elif="i.picking_id.x_document_type or i.picking_id.x_operation_type ">
+                                              
                                               <t t-set="document_type" t-value="i.picking_id.x_document_type.x_code"/>
                                               <t t-set="operation_type" t-value="i.picking_id.x_operation_type.x_code"/>
-
+                                                
 
                                             </t>
 
 
-                                            <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name != 'Pedidos de PdV'">
-
+                                            <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name != 'Pedidos de PdV'">                           
                                                 <t t-set="document_type" t-value="'09'"/>
                                                 <t t-set="operation_type" t-value="'01'"/>
-
-                                               
+                                                
+<!--                                                 <t t-if="i.id == 96216">
+                                                 <t t-set="value" t-value="i.test_qweb(product_ordered_with_warehouse,warehouse,'Tercer if')"/>
+                                               </t> -->
 
                                             </t>
 
                                             <t t-elif="i.picking_id.picking_type_id.code == 'outgoing' and i.picking_id.picking_type_id.name == 'Pedidos de PdV'">
-
+                                                
+<!--                                                 <t t-if="i.id == 96216">
+                                                 <t t-set="value" t-value="i.test_qweb(product_ordered_with_warehouse,warehouse,'cuarto if')"/>
+                                               </t> -->
                                                 <t t-set="key" t-value="i.picking_id.origin"/>
                                                 <t t-set="data" t-value="origin_data.get(key,False)"/>
 

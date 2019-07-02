@@ -54,8 +54,8 @@ class StockReportLoader(models.TransientModel):
             
 #         raise ValidationError(data['product_obj'])
 
-        _logger.info("Esta es la data que se renderiza en el reporte")
-        _logger.info(data)
+#         _logger.info("Esta es la data que se renderiza en el reporte")
+#         _logger.info(data)
         
         html = report.render_template('stock_sunat_reports.te_inventario_unidades', values=data)
         
@@ -124,16 +124,21 @@ class StockReportLoader(models.TransientModel):
         
         # Here setup dict data to use in report
         origins = [str(p.picking_id.origin) for p in record_ids if (p.picking_id.origin is not False and p.picking_id.origin is not '')]
+        
+        
 #         raise ValidationError(origins)
 #         raise ValidationError(len(origins))
 #         raise ValidationError("test")
         
         invoices = self.env['account.invoice'].search([('origin','in',origins)])
 #         raise ValidationError(invoices)
+
+       
         
         origin_data = {}
         for inv in invoices:
             
+                
             origin_data[str(inv.origin)] = {
                 
                 'serial': inv.x_document_serial,
@@ -210,7 +215,7 @@ class StockReportLoader(models.TransientModel):
             
             pdf_streams.append(pdf)
             
-            _logger.info(pdf_streams)
+            #_logger.info(pdf_streams)
             
 #         raise ValidationError("test")
         del product_obj

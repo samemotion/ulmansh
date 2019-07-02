@@ -3,6 +3,8 @@ from odoo.addons import decimal_precision as dp
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+import logging
+_logger = logging.getLogger(__name__)
 
 class StockMoveLine(models.Model):
     
@@ -10,6 +12,9 @@ class StockMoveLine(models.Model):
     
     x_warehouse_id = fields.Many2one('stock.warehouse', 'Warehouse',help="Warehouse related to stock move line",store=True,compute='_compute_warehouse') 
     x_qty_done_sign = fields.Float('Done Sign', default=0.0, digits=dp.get_precision('Product Unit of Measure'), store=True,compute='_compute_qty_done_sign')
+    
+    
+    
 
     @api.one
     @api.depends('location_dest_id','location_id')
@@ -48,6 +53,32 @@ class StockMove(models.Model):
     x_operation_type = fields.Many2one('stock.operation.type.book',string='Operation Type',compute='_get_operation_type_book',store=False)
     x_move_date = fields.Datetime(string='Move Date', help='When the move took place',compute='_get_move_date')
     
+    
+#     @api.multi
+#     def test_qweb(self, filtered_records, warehouse, message):
+        
+#         _logger.info("Some problem with some stock moves 10nd round")
+#         _logger.info("*"*1000)
+#         _logger.info(self.x_document_type)
+#         _logger.info(self.x_operation_type)
+#         _logger.info(self.picking_id.x_document_type)
+#         _logger.info(self.picking_id.x_operation_type)
+#         _logger.info(self.quantity_done)
+#         _logger.info(self.location_id.usage)
+#         _logger.info(self.location_id.x_warehouse_id.id)
+#         _logger.info(self.location_dest_id.usage)
+#         _logger.info(self.location_dest_id.x_warehouse_id.id)
+#         _logger.info("Warehouse ----------------------")
+#         _logger.info(warehouse.id)
+#         _logger.info(message)
+        
+        
+#         if self.picking_id.picking_type_id.code == 'outgoing' and self.picking_id.picking_type_id.name == 'Pedidos de PdV':
+                    
+#                     raise ValidationError("Entre en el codigo correcto el qweb tiene algo raro")
+                    
+#         raise ValidationError("Data received on logs")
+          
     @api.depends('location_dest_id','location_id')
     def _compute_warehouse(self):
         
