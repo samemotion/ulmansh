@@ -692,6 +692,19 @@
                                 <td class="text-left">
                                     <span t-field="l.name"/>
                                 </td>
+
+                                   <td class="text-right">
+                                        <t t-if="o.x_is_export">
+                                            <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                        </t>
+                                        <t t-elif="l.x_tax_types.x_code == 'Z'">
+                                            <span t-esc="'{0:,.2f}'.format(l.x_price_unit_untaxed)"/>
+                                        </t>
+                                        <t t-else="">
+                                            <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/>
+                                        </t>
+                                    </td>
+
                                 <td class="text-right">
                                     <t t-if="o.x_is_export">
                                         <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
@@ -707,9 +720,21 @@
                                     </t>
                                     </td>
                                 </t>
-                                <td class="text-right">
-                                    <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
-                                </td>
+                                    <t t-if="l.x_sub_tax_type.x_code not in ['10','20','30','21']">
+
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/>
+                                        </td>
+
+                                    </t>
+                                    <t t-else="">
+
+                                        <td class="text-right">
+                                            <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
+                                        </td>
+
+                                    </t>
+
                                 <td class="text-right"></td>
                                 <td class="text-right">
                                     <!-- <t t-if="l.discount"><span t-field="l.discount"/></t> -->
