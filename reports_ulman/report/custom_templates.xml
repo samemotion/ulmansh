@@ -3,23 +3,23 @@
     <data>
 
         <record model="report.paperformat" id="l10n_pe_einvoicing_generic_reports.ticketera_generic">
-            <field name="page_height">1500</field>
-            <field name="page_width">76</field>
-            <field name="margin_top">5.00</field>
-            <field name="margin_bottom">5.00</field>
-            <field name="margin_left">8.00</field>
-            <field name="margin_right">8.00</field>
-            <field name="dpi">96</field>
+                    <field name="page_height">1500</field>
+                    <field name="page_width">76</field>
+                    <field name="margin_top">5.00</field>
+                    <field name="margin_bottom">5.00</field>
+                    <field name="margin_left">8.00</field>
+                    <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
 
         <record model="report.paperformat" id="l10n_pe_einvoicing_point_of_sale.ticketera_pos">
-            <field name="page_height">1500</field>
-            <field name="page_width">76</field>
-            <field name="margin_top">5.00</field>
-            <field name="margin_bottom">5.00</field>
-            <field name="margin_left">8.00</field>
-            <field name="margin_right">8.00</field>
-            <field name="dpi">96</field>
+                    <field name="page_height">1500</field>
+                    <field name="page_width">76</field>
+                    <field name="margin_top">5.00</field>
+                    <field name="margin_bottom">5.00</field>
+                    <field name="margin_left">8.00</field>
+                    <field name="margin_right">8.00</field>
+                    <field name="dpi">96</field>
         </record>
     <!-- Ticketera POS Reports -->
 
@@ -98,6 +98,27 @@
                     </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
                     <tbody>
                         <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
@@ -139,6 +160,17 @@
                             </td>
                         </t>
                     </tr>
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -193,6 +225,8 @@
                             OTRO:
                             </t>
                             <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -224,6 +258,27 @@
                     </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
                     <tbody>
                         <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
@@ -265,6 +320,17 @@
                             </td>
                         </t>
                     </tr>
+                    <!-- <tr t-foreach="o.invoice_id.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -321,6 +387,8 @@
                             OTRO:
                             </t>
                             <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -393,6 +461,17 @@
                             </td>
                         </t>
                     </tr>
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -447,6 +526,8 @@
                             OTRO:
                             </t>
                             <span t-field="o.partner_id.vat"/><br/>
+                            <!-- Cliente: <span t-field="o.partner_id.name"/><br/>
+                            DNI: <span t-field="o.partner_id.vat"/><br/> -->
                         </t>
                         <t t-if="o.partner_id.company_type=='company'">
                             Razon Social/Nombre: <span t-field="o.partner_id.name"/><br/>
@@ -478,6 +559,27 @@
                     </thead>
                     <t t-set="subtotal" t-value="0"/>
                     <t t-set="descuento" t-value="0"/>
+                    <!-- <tbody>
+                        <tr t-foreach="o.invoice_id.invoice_line_ids" t-as="line">
+                            <t t-set="taxes" t-value="1"/>
+                            <t t-foreach="line.invoice_line_tax_ids" t-as="t">
+                                <t t-set="taxes" t-value="taxes * (1 + t.amount/100)"/></t>
+                            <t t-set="precio_unit" t-value="line.price_unit * taxes "/>
+                            <t t-set="precio_subtotal" t-value="(precio_unit*line.quantity)"/>
+                            <t t-set="subtotal" t-value="subtotal+precio_subtotal"/>
+                            <td style="width:6mm;text-align:left">
+                                <span t-esc="'{0:,.0f}'.format(int(line.quantity))"/>
+                            </td>
+                            <td style="width:44mm;text-align:left"><span t-field="line.product_id"/></td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.price_unit)"/>
+                            </td>
+                            <td style="width:10mm;text-align:right">
+                                <span t-esc="'{0:,.2f}'.format(line.quantity*line.price_unit)"/>
+                            </td>
+                        </tr>
+                    </tbody> -->
+
                     <tbody>
                         <tr t-foreach="o.invoice_line_ids" t-as="line">
                             <t t-set="taxes" t-value="1"/>
@@ -519,6 +621,17 @@
                             </td>
                         </t>
                     </tr>
+                    <!-- <tr t-foreach="o.x_pos_order.statement_ids" t-as="d">
+                        <t t-if="0 > d.amount">
+                            <t t-set="vuelto" t-value="abs(d.amount)"/>
+                            <td class="text-right">
+                                Vuelto S/
+                            </td>
+                            <td class="text-right">
+                                <span t-esc="'{0:,.2f}'.format(vuelto)"/>
+                            </td>
+                        </t>
+                    </tr> -->
                 </table>
                 <br/>
                 <div class="row" name="qr_image">
@@ -626,7 +739,7 @@
                                         </t>
                                         <t t-else="">
                                         <td class="text-right">
-                                            <span t-esc="'{0:,.2f}'.format(l.x_price_unit_taxed)"/>
+                                            <span t-esc="'{0:,.2f}'.format(l.x_price_unit_igv_taxed)"/>
                                         </td>
                                         </t>
                                     </t>
@@ -831,18 +944,18 @@
                     <div class="col-xs-5 pull-left" name="free_op">
                         <table  class="table table-condensed">
                             <t t-if="o.x_total_amount_free > 0">
-                            <tr class="border-black">
-                                <td style="width:50mm;"><strong>OP. GRATUITA</strong></td>
-                                <td style="text-right">
-                                    <span style="display: inline;" t-esc="o.currency_id.symbol"/>
-                                    <span t-esc="'{0:,.2f}'.format(o.x_sell_value )"/>
-                                </td>
-                            </tr>
-                            <t t-if="o.amount_total == 0">
-                            <tr>
-                                <td colspan="3" style="border-top:0px; padding-top: 10mm; width: 50mm;"><strong><span>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</span></strong></td>
-                            </tr>
-                            </t>
+                                <tr class="border-black">
+                                    <td style="width:50mm;"><strong>OP. GRATUITA</strong></td>
+                                    <td style="text-right">
+                                        <span style="display: inline;" t-esc="o.currency_id.symbol"/>
+                                        <span t-esc="'{0:,.2f}'.format(o.x_sell_value )"/>
+                                    </td>
+                                </tr>
+                                <t t-if="o.amount_total == 0">
+                                <tr>
+                                    <td colspan="3" style="border-top:0px; padding-top: 10mm; width: 50mm;"><strong><span>TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE</span></strong></td>
+                                </tr>
+                                </t>
                             </t>
                             <tr class="border-black">
                                 <td><strong>DESCUENTOS</strong></td>
@@ -1049,12 +1162,14 @@
                                 <t t-if="o.name"><th style="width:45mm;"><strong>Referencia del cliente</strong></th></t>
                                 <t t-if="o.date_due"><th style="width:40mm;"><strong>Fecha de vecimiento</strong></th></t>
                                 <t t-if="o.payment_term_id"><th style="width:45mm;"><strong>Condiciones de pago</strong></th></t>
+                                <!-- <t t-if="o.x_sale_order"><th style="width:40mm;"><strong>Medio de pago</strong></th></t>                                                                         -->
                             </tr>
                             <tr>
                                 <t t-if="o.x_sale_order"><td><span t-field="o.x_sale_order"/></td></t>
                                 <t t-if="o.name"><td><span t-field="o.name"/></td></t>
                                 <t t-if="o.date_due"><td><span t-field="o.date_due"  t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/></td></t>
                                 <t t-if="o.payment_term_id"><td><span t-field="o.payment_term_id"/></td></t>
+                                <!-- <t t-if="o.x_sale_order"><td><span t-field="o.payment_term_id"/></td></t> -->
                             </tr>
                             <tr>
                                 <td style="height:10mm"></td>
