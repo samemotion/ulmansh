@@ -83,13 +83,13 @@
                                         <t t-set="igv" t-value="1+l.invoice_line_tax_ids.amount"/>
                                         <t t-set="precio_unit" t-value="round(l.price_unit*(100-l.discount)/100,4)"/>
                                         <t t-set="precio_subtotal" t-value="(precio_unit*l.quantity)"/>
-                                        <t t-set="precio_total" t-value="round(igv*l.price_subtotal,2)"/> 
+                                        <t t-set="precio_total" t-value="round(igv*l.price_subtotal,2)"/>
                                         <td style="width:5mm">
                                         </td>
                                         <td style="width:75px;height:12">
                                             <span t-field="l.quantity"/>
                                         </td>
-                                        <td style="width:600px">                                            
+                                        <td style="width:600px">
                                             <t t-if="l.product_id.type == 'product' or l.product_id.type == 'consu'">
                                                 <span t-field="l.product_id"/>
                                             </t>
@@ -112,7 +112,7 @@
             </table>
             <table>
                 <tr >
-                    <td style="width:5mm"></td> 
+                    <td style="width:5mm"></td>
                     <td style="width:220mm">
                         SON: <span t-field="o.x_amount_in_words"/>
                     </td>
@@ -122,7 +122,7 @@
             </table>
             <table>
                 <tr >
-                    <td style="width:195mm"></td> 
+                    <td style="width:195mm"></td>
                     <td class="text-right" style="width:40mm">
                         <span t-esc="'{0:,.2f}'.format(o.amount_total)"/>
                     </td>
@@ -276,7 +276,7 @@
             </table>
             <table>
                 <tr style="height:20">
-                    <td style="width:550px"></td>         
+                    <td style="width:550px"></td>
                     <td class="text-right" style="width:110px">
                         S/ <span t-esc="'{0:,.2f}'.format(o.amount_untaxed)"/>
                     </td>
@@ -350,7 +350,7 @@
                                                 Serie: <span t-field="o.refund_invoice_id.journal_id.x_printer_sn"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.journal_id.x_printer_sn">
-                                                Serie: 
+                                                Serie:
                                             </t>
                                         </t>
                                         <t t-if="o.refund_invoice_id.journal_id.x_invoice_type!='TK'">
@@ -358,15 +358,15 @@
                                                 Serie: <span t-esc="o.refund_invoice_id.number[:3]"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.number">
-                                                Serie: 
+                                                Serie:
                                             </t>
                                         </t> -->
                                             <t t-if="o.refund_invoice_id.x_document_serial">
                                                 Serie: <span t-field="o.refund_invoice_id.x_document_serial"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.x_document_serial">
-                                                Serie: 
-                                            </t>                                        
+                                                Serie:
+                                            </t>
                                     </td>
                                 </table>
                             </tr>
@@ -388,7 +388,7 @@
                                                 Numero: <span t-field="o.refund_invoice_id.number"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.number">
-                                                Numero: 
+                                                Numero:
                                             </t>
                                         </t>
                                         <t t-if="o.refund_invoice_id.journal_id.x_invoice_type!='TK'">
@@ -396,15 +396,15 @@
                                                 Numero: <span t-esc="o.refund_invoice_id.number[4:]"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.number">
-                                                Numero: 
+                                                Numero:
                                             </t>
                                         </t> -->
                                             <t t-if="o.refund_invoice_id.x_document_correlative">
                                                 Numero: <span t-field="o.refund_invoice_id.x_document_correlative"/>
                                             </t>
                                             <t t-if="not o.refund_invoice_id.x_document_correlative">
-                                                Numero: 
-                                            </t>                                          
+                                                Numero:
+                                            </t>
                                     </td>
                                 </table>
                             </tr>
@@ -441,7 +441,7 @@
                                         <t t-set="igv" t-value="1+l.invoice_line_tax_ids.amount"/>
                                         <t t-set="precio_unit" t-value="round(l.price_unit*(100-l.discount)/100,4)"/>
                                         <t t-set="precio_subtotal" t-value="(precio_unit*l.quantity)"/>
-                                        <t t-set="precio_total" t-value="round(igv*l.price_subtotal,2)"/> 
+                                        <t t-set="precio_total" t-value="round(igv*l.price_subtotal,2)"/>
                                         <td style="width:5mm">
                                         </td>
                                         <td style="width:75px;height:12">
@@ -463,7 +463,7 @@
             </table>
             <table>
                 <tr >
-                    <td style="width:5mm"></td> 
+                    <td style="width:5mm"></td>
                     <td style="width:220mm">
                         SON: <span t-field="o.x_amount_in_words"/>
                     </td>
@@ -598,7 +598,7 @@
                             <td class="text-right">
                                 <span t-esc="'{0:,.2f}'.format(precio_unit)"/>
                                 <t t-if="line.discount != 0.0">
-                                    Dto. 
+                                    Dto.
                                 </t>
                             </td>
                             <td class="text-right">
@@ -700,7 +700,7 @@
                     <br/>
 
                     <div class="text-left" style="width: 96%" t-esc="o.user_id.company_id.x_ticket_note"/>
-                 
+
                 </div>
             </div>
      </div>
@@ -911,13 +911,13 @@
 
                 <table>
                     <tr>
-                        <td style="width:20mm"></td>                        
+                        <td style="width:20mm"></td>
                         <td>
                             <span t-field="o.x_transporter_name"/>
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:20mm"></td>                        
+                        <td style="width:20mm"></td>
                         <td>
                             <span t-field="o.x_transporter_vat"/>
                         </td>
@@ -933,7 +933,7 @@
                 </table>
                 <table>
                     <tr>
-                        <td style="width:20mm"></td>                        
+                        <td style="width:20mm"></td>
                         <td>
                             <span t-field="o.x_invoice_type"/> - <span t-field="o.x_invoice_number"/>
                         </td>
@@ -1127,7 +1127,8 @@
                         <tr class="border-black">
                             <td><strong>Total</strong></td>
                             <td class="text-right">
-                                <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
+                                <strong> <span t-esc="o.pricelist_id.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
+                                <!-- <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong> -->
                             </td>
                         </tr>
                     </table>
@@ -1361,7 +1362,8 @@
                         <tr class="border-black">
                             <td><strong>Total</strong></td>
                             <td class="text-right">
-                                <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
+                                <strong> <span t-esc="o.pricelist_id.currency_id.symbol"/> <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong>
+                                <!-- <strong>S/. <span t-esc="'{0:,.2f}'.format(o.amount_total)"/></strong> -->
                             </td>
                         </tr>
                     </table>
@@ -1421,4 +1423,3 @@
 
 </data>
 </odoo>
-
