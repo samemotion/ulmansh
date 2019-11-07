@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+
+        <record id='tax_code_Z' model='tax.type.code'>
+            <field name='x_name'>Tax Free</field>
+            <field name="x_code">Z</field>
+        </record>
+
+        <record id='tax_code_O' model='tax.type.code'>
+            <field name='x_name'>Unaffected</field>
+            <field name="x_code">O</field>
+        </record>
+
+        <record id='tax_code_E' model='tax.type.code'>
+            <field name='x_name'>Exonerated</field>
+            <field name="x_code">E</field>
+        </record>
+
+        <record id='tax_code_igv' model='tax.type.code'>
+            <field name='x_name'>IGV</field>
+            <field name="x_code">S</field>
+        </record>
+
+    </data>
+</odoo>
