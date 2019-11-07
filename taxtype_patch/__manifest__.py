@@ -21,6 +21,7 @@
     #'depends': ['sale','sale_stock','l10n_pe_stock_base'],
     'data': [
         'data/tax_type_code.xml',
+        'data/exemption_code.xml',
         ],
     'demo': [
     ],
