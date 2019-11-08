@@ -697,7 +697,7 @@
                                     <td class="text-right">
                                         <t t-if="o.x_is_export">
                                             <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
-                                        </t>
+                                        </t>                                        
                                         <t t-elif="l.x_sub_tax_type.x_code not in ['10','20','30','21']">
                                             <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/>
                                         </t>
@@ -725,7 +725,7 @@
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
                                         </td>
-                                    </t>
+                                    </t>                                    
                                     <t t-elif="l.x_sub_tax_type.x_code not in ['10','20','30','21']">
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/>
@@ -740,7 +740,7 @@
                                         <t t-else="">
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.x_price_unit_igv_taxed)"/>
-                                        </td>
+                                        </td>                                            
                                         </t>
                                     </t>
 
@@ -757,7 +757,7 @@
                                             </t>
                                             <t t-else="">
                                                 <span t-esc="'{0:,.2f}'.format(l.quantity*l.x_reference_price_unit)"/>
-                                            </t>
+                                            </t>                                            
                                         </t>
                                         <t t-else="">
                                             <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
@@ -775,7 +775,7 @@
                             <t t-if="o.x_total_amount_free > 0">
                             <tr class="border-black">
                                 <td style="width:50mm;"><strong>OP. GRATUITA</strong></td>
-                                <td style="text-right">
+                                <td class="text-right">
                                     <span style="display: inline;" t-esc="o.currency_id.symbol"/>
                                     <span t-esc="'{0:,.2f}'.format(o.x_sell_value )"/>
                                 </td>
@@ -787,14 +787,15 @@
                             </t>
                             </t>
                             <tr class="border-black">
-                                <td><strong>DESCUENTOS</strong></td>
+                                <td style="width:50mm;"><strong>DESCUENTOS</strong></td>
                                 <td class="text-right">
-                                    <span t-field="o.currency_id.symbol"/><span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
+                                    <span t-field="o.currency_id.symbol"/>
+                                    <span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
                                 </td>
-                            </tr>
+                            </tr>                            
                         </table>
-
-                     </div>
+                        
+                     </div>                
             </xpath>
 
             <xpath expr="//div[@name='sale_box']" position="replace">
@@ -895,7 +896,7 @@
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.price_unit)"/>
                                         </td>
-                                    </t>
+                                    </t>                                    
                                     <t t-elif="l.x_sub_tax_type.x_code not in ['10','20','30','21']">
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.x_reference_price_unit)"/>
@@ -910,7 +911,7 @@
                                         <t t-else="">
                                         <td class="text-right">
                                             <span t-esc="'{0:,.2f}'.format(l.x_price_unit_taxed)"/>
-                                        </td>
+                                        </td>                                            
                                         </t>
                                     </t>
 
@@ -927,7 +928,7 @@
                                             </t>
                                             <t t-else="">
                                                 <span t-esc="'{0:,.2f}'.format(l.quantity*l.x_reference_price_unit)"/>
-                                            </t>
+                                            </t>                                            
                                         </t>
                                         <t t-else="">
                                             <span t-esc="'{0:,.2f}'.format(l.price_subtotal)"/>
@@ -946,7 +947,7 @@
                             <t t-if="o.x_total_amount_free > 0">
                                 <tr class="border-black">
                                     <td style="width:50mm;"><strong>OP. GRATUITA</strong></td>
-                                    <td style="text-right">
+                                    <td class="text-right">
                                         <span style="display: inline;" t-esc="o.currency_id.symbol"/>
                                         <span t-esc="'{0:,.2f}'.format(o.x_sell_value )"/>
                                     </td>
@@ -960,11 +961,12 @@
                             <tr class="border-black">
                                 <td><strong>DESCUENTOS</strong></td>
                                 <td class="text-right">
-                                    <span t-field="o.currency_id.symbol"/><span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
+                                    <span t-field="o.currency_id.symbol"/>
+                                    <span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
                                 </td>
-                            </tr>
+                            </tr>                            
                         </table>
-                     </div>
+                     </div>                
             </xpath>
 
             <xpath expr="//p[@name='text_ticket']" position="replace">
@@ -1028,7 +1030,7 @@
                             <t t-if="o.x_total_amount_free > 0">
                                 <tr class="border-black">
                                     <td style="width:50mm;"><strong>OP. GRATUITA</strong></td>
-                                    <td style="text-right">
+                                    <td class="text-right">
                                         <span style="display: inline;" t-esc="o.currency_id.symbol"/>
                                         <span t-esc="'{0:,.2f}'.format(o.x_sell_value )"/>
                                     </td>
@@ -1044,9 +1046,9 @@
                                 <td class="text-right">
                                     <span t-field="o.currency_id.symbol"/><span t-esc="'{0:,.2f}'.format(o.x_total_discount)"/>
                                 </td>
-                            </tr>
+                            </tr>                            
                         </table>
-                     </div>
+                     </div>                
             </xpath>
             <xpath expr="//div[@name='qr_box']" position="replace">
                 <div class="row" name="comment_box" style="page-break-inside: avoid;">
