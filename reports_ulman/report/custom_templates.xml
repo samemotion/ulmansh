@@ -22,7 +22,7 @@
                     <field name="dpi">96</field>
         </record>
 <!--        Test  -->
-        <record model="report.paperformat" id="ticketera_generic">
+<!--         <record model="report.paperformat" id="ticketera_generic">
                     <field name="name">Ticketera Generic</field>
                     <field name="page_height">1500</field>
                     <field name="page_width">76</field>
@@ -31,7 +31,7 @@
                     <field name="margin_left">8.00</field>
                     <field name="margin_right">8.00</field>
                     <field name="dpi">96</field>
-        </record>
+        </record> -->
         
         <record id="a4_einvoice_generic" model="report.paperformat">
             <field name="name">A4 E Invoicing Generic</field>
@@ -1215,7 +1215,7 @@
         <!--      test    -->
         <!--      test    -->
         
-        <report id="pos_invoice_format_test" string="Factura Electronica Ticket POS Test" paperformat="ticketera_generic"  model="pos.order" report_type="qweb-pdf" name="reports_ulman.pos_electronic_invoice_tformat_pos_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
+        <report id="pos_invoice_format_test" string="Factura Electronica Ticket POS Test" paperformat="l10n_pe_einvoicing_point_of_sale.ticketera_pos"  model="pos.order" report_type="qweb-pdf" name="reports_ulman.pos_electronic_invoice_tformat_pos_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
         <template id="pos_electronic_invoice_tformat_pos_document_test">
             <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
             <div class="article">
@@ -1483,7 +1483,7 @@
             </t>
         </template>
         
-        <report id="pos_ticket_format_test" string="Boleta Electronica Ticket POS Test" paperformat="ticketera_generic" model="pos.order" report_type="qweb-pdf" name="reports_ulman.pos_electronic_ticket_tformat_pos_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
+        <report id="pos_ticket_format_test" string="Boleta Electronica Ticket POS Test" paperformat="l10n_pe_einvoicing_point_of_sale.ticketera_pos" model="pos.order" report_type="qweb-pdf" name="reports_ulman.pos_electronic_ticket_tformat_pos_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
         <template id="pos_electronic_ticket_tformat_pos_document_test">
             <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
             <div class="article">
@@ -1787,7 +1787,7 @@
                 </t>
             </t>
         </template>
-        <report id="pos_electronic_invoice_ticketera_report_test" string="Factura Electronica Generica Ticketera Test" paperformat="ticketera_generic"  model="account.invoice" report_type="qweb-pdf" name="reports_ulman.pos_electronic_invoice_ticketera_test"
+        <report id="pos_electronic_invoice_ticketera_report_test" string="Factura Electronica Generica Ticketera Test" paperformat="l10n_pe_einvoicing_point_of_sale.ticketera_pos"  model="account.invoice" report_type="qweb-pdf" name="reports_ulman.pos_electronic_invoice_ticketera_test"
              attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
         <template id="pos_electronic_invoice_ticketera_document_test">
             <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
@@ -2035,7 +2035,7 @@
             </t>
         </template>
         
-        <report id="pos_electronic_ticket_ticketera_report_test" string="Boleta Electronica Generica Ticketera Test" paperformat="ticketera_generic" model="account.invoice" report_type="qweb-pdf" name="reports_ulman.pos_electronic_ticket_ticketera_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
+        <report id="pos_electronic_ticket_ticketera_report_test" string="Boleta Electronica Generica Ticketera Test" paperformat="l10n_pe_einvoicing_point_of_sale.ticketera_pos" model="account.invoice" report_type="qweb-pdf" name="reports_ulman.pos_electronic_ticket_ticketera_test" attachment="(object.state in ('open','paid')) and ('FAC'+(object.number or '').replace('/','')+'.pdf')" />
         <template id="pos_electronic_ticket_ticketera_document_test">
             <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
             <div class="article">
