@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="inherit_product_category_form_view">
+            <field name="name">inherit_product_category_form_view</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <data>
+                       <xpath expr="//group[@name='first']" position="after">
+                            <group string="Barcode">
+                                <field name="x_prefix"/>
+                            </group>
+                       </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>
