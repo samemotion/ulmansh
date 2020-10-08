@@ -44,3 +44,9 @@ msgstr "Producto"
 #: model:ir.model,name:automatic_barcode.model_product_category
 msgid "Product Category"
 msgstr "Categoría de Producto"
+
+#. module: automatic_barcode
+#: code:addons/automatic_barcode/models/product.py:32
+#, python-format
+msgid "No defined product category prefix"
+msgstr "No tiene prefijo definido de las categorías del producto"

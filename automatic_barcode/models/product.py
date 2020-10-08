@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
     
     @api.multi
-    def action_generate_barcode(self):
+    def action_generate_barcode(self, action_server=False):
         result = False
         for record in self:
             category_id = record.categ_id
@@ -27,7 +27,11 @@ class ProductProduct(models.Model):
                         category_id = category_id.parent_id
                 else:
                     result = False
-                    return
+                    break
+            if not result and action_server:
+                raise ValidationError(_('No defined product category prefix'))
+            elif not result and not action_server:
+                return
             if not record.barcode:
                 sequence = self.env['ir.sequence'].next_by_code('product.barcode.sequence')
                 barcode = result + sequence
