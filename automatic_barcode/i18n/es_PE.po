@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* automatic_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-08 00:52+0000\n"
+"PO-Revision-Date: 2020-10-08 00:52+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: automatic_barcode
+#: model:ir.ui.view,arch_db:automatic_barcode.inherit_product_category_form_view
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: automatic_barcode
+#: model:ir.actions.server,name:automatic_barcode.create_products_barcode
+msgid "Create Products Barcode"
+msgstr "Crear Código de Barras"
+
+#. module: automatic_barcode
+#: model:ir.ui.view,arch_db:automatic_barcode.inherit_product_normal_form_view
+msgid "Generate Barcode"
+msgstr "Generar Codigo de Barra"
+
+#. module: automatic_barcode
+#: model:ir.model.fields,field_description:automatic_barcode.field_product_category_x_prefix
+msgid "Prefix"
+msgstr "Prefijo"
+
+#. module: automatic_barcode
+#: model:ir.model,name:automatic_barcode.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: automatic_barcode
+#: model:ir.model,name:automatic_barcode.model_product_category
+msgid "Product Category"
+msgstr "Categoría de Producto"
+
+#. module: automatic_barcode
+#: code:addons/automatic_barcode/models/product.py:32
+#, python-format
+msgid "No defined product category prefix"
+msgstr "No tiene prefijo definido de las categorías del producto"
