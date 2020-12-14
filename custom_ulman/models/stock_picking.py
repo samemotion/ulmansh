@@ -20,9 +20,20 @@ class Picking(models.Model):
     x_client_order_ref = fields.Char(string='Referencia del Cliente',
                                related='sale_id.client_order_ref')
 
+    def _compute_get_module(self):
+        module = self.env['ir.module.module'].sudo().search([('name', '=', 'l10n_pe_stock_epicking_outgoing')])
+        if module.state == 'installed':
+            if self.x_picking_is_electronic:
+                self.module_x_picking_is_electronic = True    
+                
+                
+    module_x_picking_is_electronic = fields.Boolean(compute="_compute_get_module", string="x_picking_is_electronic", default=False)                               
+
     @api.multi
     def action_print_picking_pe(self):
         """ Print the Guia de Remision, 
         """
         self.ensure_one()
-        return self.env.ref('reports_ulman.printguiaremision_report').report_action(self)     
+        return self.env.ref('reports_ulman.printguiaremision_report').report_action(self)
+
+        
