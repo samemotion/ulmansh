@@ -704,7 +704,7 @@
                                 </td>
                                 <td class="text-right">
                                 <t t-if="o.x_is_closure and l.quantity &lt; 0">
-                                    <span/>
+                                    <span t-esc="'{0:,.2f}'.format(l.quantity * (-1))"/>
                                 </t>
                                 <t t-else="">
                                     <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
@@ -890,7 +890,7 @@
                                 </td>
                                 <td class="text-right">
                                 <t t-if="o.x_is_closure and l.quantity &lt; 0">
-                                    <span/>
+                                    <span t-esc="'{0:,.2f}'.format(l.quantity * (-1))"/>
                                 </t>
                                 <t t-else="">
                                     <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
@@ -2467,7 +2467,7 @@
                                         </td>
                                         <td class="text-right">
                                         <t t-if="o.x_is_closure and l.quantity &lt; 0">
-                                            <span/>
+                                            <span t-esc="'{0:,.2f}'.format(l.quantity * (-1))"/>
                                         </t>
                                         <t t-else="">
                                             <span t-esc="'{0:,.2f}'.format(l.quantity)"/>
